@@ -111,6 +111,17 @@ class main_menu(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.tostart.clicked.connect(self.tostartfunc)
+        self.exit.clicked.connect(self.exitfunc)
+
+    def exitfunc(self):
+        print('exiting...')
+        sys.exit()
+
+    def tostartfunc(self):
+        self.cams = start()
+        self.cams.show()
+        self.close() 
 
     def setupUi(self, MainWindow):
 
