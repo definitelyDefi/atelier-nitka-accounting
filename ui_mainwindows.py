@@ -12,8 +12,8 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import sys
-import resource_rc              # импорт ресурсов 
-                                # создается с помощью      pyrcc5 -o resources.qrc resource_rc.py
+import resource_rc              # импорт ресурсов --- создается с помощью  ----  pyrcc5 -o resources.qrc resource_rc.py
+import sqlite3                  
 
 
 def exitfunc():
@@ -279,14 +279,51 @@ class clients(QMainWindow):
         self.exit.setText("")
     # retranslateUi
 
-#TODO: Сделать отправку запроса в базу, отладку ошибок
+
 class add_client(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.back.clicked.connect(self.to_clients)
         self.exit.clicked.connect(exitfunc)
-    
+        self.submit_addittion.clicked.connect(self.addclient)
+
+    def addclient(self):
+        conn = sqlite3.connect("atelie.db") 
+        name = self.name.text()
+        phone = self.phone.text()
+        try:
+            with conn:
+                row = (name, phone)
+                print('DATA =', row)
+                query = '''insert into Клієнти (ПІБ, Телефон)
+                        values (?, ?);'''
+                conn.execute(query, row)
+                self.name.clear()
+                self.phone.clear()
+                msg = QMessageBox()
+
+                msg.setWindowTitle("Результат виконання")
+                msg.setText("Операція виконана успішно!")
+                x = msg.exec_() 
+
+        except sqlite3.Error as e:
+            print(e)
+            print(e.args)
+            self.name.clear()
+            self.phone.clear()
+            msg = QMessageBox()
+
+            msg.setWindowTitle("Результат виконання")
+            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+            x = msg.exec_() 
+
+        conn.commit()
+        conn.close()
+        
+        
+        
+
     def to_clients(self):
         self.cams = clients()
         self.cams.show()
@@ -318,10 +355,10 @@ class add_client(QMainWindow):
         self.phone.setObjectName(u"phone")
         self.phone.setGeometry(QRect(190, 190, 261, 31))
         self.phone.setFont(font)
-        self.submit = QPushButton(self.centralwidget)
-        self.submit.setObjectName(u"submit")
-        self.submit.setGeometry(QRect(350, 250, 101, 31))
-        self.submit.setFont(font1)
+        self.submit_addittion = QPushButton(self.centralwidget)
+        self.submit_addittion.setObjectName(u"submit_addittion")
+        self.submit_addittion.setGeometry(QRect(350, 250, 101, 31))
+        self.submit_addittion.setFont(font1)
         self.back = QPushButton(self.centralwidget)
         self.back.setObjectName(u"back")
         self.back.setGeometry(QRect(0, 0, 41, 31))
@@ -354,7 +391,7 @@ class add_client(QMainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u041f\u0406\u0411 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u043c\u0435\u0440 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
-        self.submit.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
+        self.submit_addittion.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
         self.back.setText("")
         self.exit.setText("")
     # retranslateUi
