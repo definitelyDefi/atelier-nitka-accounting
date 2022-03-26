@@ -8,13 +8,17 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
+
+from PyQt5.QtSql     import QSqlDatabase, QSqlQuery, QSqlTableModel 
+from PyQt5.QtCore import Qt
+from PyQt5 import QtSql
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import sys
-import resource_rc              # импорт ресурсов --- создается с помощью  ----  pyrcc5 -o resources.qrc resource_rc.py
+import resource_rc              # импорт ресурсов --- создается с помощью  ----  pyrcc5 resources.qrc -o resource_rc.py
 import sqlite3                  
-
+from PySide2.QtCore import Qt 
 
 def exitfunc():
     print('exiting...')
@@ -216,6 +220,12 @@ class clients(QMainWindow):
         self.back.clicked.connect(self.to_main_menu_func)
         self.exit.clicked.connect(exitfunc)
         self.add_new_client.clicked.connect(self.to_add_clientfunc)
+        self.view_clients.clicked.connect(self.to_clients_listfunc)
+
+    def to_clients_listfunc(self):
+        self.cams = clients_list()
+        self.cams.show()
+        self.close()
 
     def to_add_clientfunc(self):
         self.cams = add_client()
@@ -395,6 +405,137 @@ class add_client(QMainWindow):
         self.back.setText("")
         self.exit.setText("")
     # retranslateUi
+
+
+class clients_list(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.back.clicked.connect(self.to_clients)
+        self.exit.clicked.connect(exitfunc)
+
+    def to_clients(self):
+        self.cams = clients()
+        self.cams.show()
+        self.close()  
+
+    def load_data(self):
+        
+        connection = sqlite3.connect("atelie.db")
+        cur = connection.cursor()
+        sqlquery = "SELECT * FROM Клієнти"
+        tablerow = 0
+        total_rows_count = 0
+
+        for row in cur.execute(sqlquery):
+            total_rows_count += 1
+        self.tableWidget.setRowCount(total_rows_count)
+
+        for row in cur.execute(sqlquery):
+                    # print(row)        for debugging
+            self.tableWidget.setItem(tablerow,0,QTableWidgetItem(str(row[0])))
+            self.tableWidget.setItem(tablerow,1,QTableWidgetItem(row[1]))
+            self.tableWidget.setItem(tablerow,2,QTableWidgetItem(row[2]))
+            tablerow += 1
+
+
+    def setupUi(self, MainWindow):
+        
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+
+        MainWindow.resize(806, 445)
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        
+        self.tableWidget = QTableWidget(self.centralwidget)
+        self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setGeometry(QRect(80, 50, 671, 291))
+        self.tableWidget.setColumnCount(3)
+        self.tableWidget.setColumnWidth(0,80)
+        self.tableWidget.setColumnWidth(1,319)
+        self.tableWidget.setColumnWidth(2,270)
+        self.tableWidget.setHorizontalHeaderLabels(["Код клієнта","ПІБ","Телефон"])
+        self.tableWidget.verticalHeader().setVisible(False)
+        self.load_data()
+
+        self.back = QPushButton(self.centralwidget)
+        self.back.setObjectName(u"back")
+        self.back.setGeometry(QRect(0, 0, 41, 31))
+        font = QFont()
+        font.setPointSize(2)
+        self.back.setFont(font)
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back.setIcon(icon)
+        self.back.setIconSize(QSize(25, 25))
+        self.exit = QPushButton(self.centralwidget)
+        self.exit.setObjectName(u"exit")
+        self.exit.setGeometry(QRect(760, 0, 41, 31))
+        self.exit.setFont(font)
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.exit.setIcon(icon1)
+        self.exit.setIconSize(QSize(25, 25))
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(360, 10, 101, 31))
+        font1 = QFont()
+        font1.setPointSize(17)
+        self.label.setFont(font1)
+        self.upbutton = QPushButton(self.centralwidget)
+        self.upbutton.setObjectName(u"upbutton")
+        self.upbutton.setGeometry(QRect(10, 150, 41, 41))
+        font2 = QFont()
+        font2.setPointSize(13)
+        self.upbutton.setFont(font2)
+        icon2 = QIcon()
+        icon2.addFile(u":/newPrefix/assets/up_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.upbutton.setIcon(icon2)
+        self.upbutton.setIconSize(QSize(30, 30))
+        self.downbutton = QPushButton(self.centralwidget)
+        self.downbutton.setObjectName(u"downbutton")
+        self.downbutton.setGeometry(QRect(10, 190, 41, 41))
+        icon3 = QIcon()
+        icon3.addFile(u":/newPrefix/assets/down_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.downbutton.setIcon(icon3)
+        self.downbutton.setIconSize(QSize(30, 30))
+        self.find_edit = QLineEdit(self.centralwidget)
+        self.find_edit.setObjectName(u"find_edit")
+        self.find_edit.setGeometry(QRect(160, 350, 71, 21))
+        font3 = QFont()
+        font3.setPointSize(10)
+        self.find_edit.setFont(font3)
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(60, 350, 111, 21))
+        self.label_2.setFont(font2)
+        self.findbutton = QPushButton(self.centralwidget)
+        self.findbutton.setObjectName(u"findbutton")
+        self.findbutton.setGeometry(QRect(160, 380, 71, 31))
+        self.findbutton.setFont(font2)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.back.setText("")
+        self.exit.setText("")
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
+        self.upbutton.setText("")
+        self.downbutton.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
+        self.findbutton.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
+    # retranslateUi
+
 
 if __name__ == "__main__":
 
