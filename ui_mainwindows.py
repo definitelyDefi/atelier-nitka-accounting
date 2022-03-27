@@ -458,6 +458,7 @@ class clients_list(QMainWindow):
         self.exit.clicked.connect(exitfunc)
         self.downbutton.clicked.connect(self.next_item)
         self.upbutton.clicked.connect(self.previous_item)
+        self.findbutton.clicked.connect(self.searchfunc)
 
     def next_item(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow()+1)
@@ -490,6 +491,16 @@ class clients_list(QMainWindow):
             self.tableWidget.setItem(tablerow,1,QTableWidgetItem(row[1]))
             self.tableWidget.setItem(tablerow,2,QTableWidgetItem(row[2]))
             tablerow += 1
+    def searchfunc(self):
+
+        items = self.tableWidget.findItems(self.find_edit.text(), Qt.MatchExactly)
+        if items:
+            self.tableWidget.selectRow(items[0].row())
+        else:
+            QMessageBox.information(self, 'Search Results', 'Нічого не знайдено. Спробуйте ще раз')
+            
+                    # print('err')        for debugging
+        
 
 
     def setupUi(self, MainWindow):
@@ -544,7 +555,7 @@ class clients_list(QMainWindow):
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(360, 10, 101, 31))
-
+        
         font1 = QFont()
         font1.setPointSize(17)
 
