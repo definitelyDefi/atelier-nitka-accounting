@@ -459,20 +459,57 @@ class clients_list(QMainWindow):
         self.downbutton.clicked.connect(self.next_item)
         self.upbutton.clicked.connect(self.previous_item)
         self.findbutton.clicked.connect(self.searchfunc)
+        self.update2.clicked.connect(self.load_data)
+        self.delete_2.clicked.connect(self.deletefunc)
+        self.tableWidget.clicked.connect(self.currentionfunc)
 
+    def currentionfunc(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow())
     def next_item(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow()+1)
         
     def previous_item(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow()-1)
 
+    def deletefunc(self):
+        current_row = self.tableWidget.currentRow()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        conn = sqlite3.connect("atelie.db") 
+
+        try:
+            with conn:
+                
+                # print('DATA =', code)      # for debugging
+
+                query = '''DELETE FROM Клієнти WHERE Код_клієнта=?;'''
+                conn.execute(query, (code,) )
+
+                msg = QMessageBox()
+                msg.setWindowTitle("Результат виконання")
+                msg.setText("Операція виконана успішно!")
+                x = msg.exec_() 
+                self.tableWidget.removeRow(current_row)
+
+        except sqlite3.Error as e:
+            # print(e)              #for debugging
+            # print(e.args)
+
+            msg = QMessageBox()
+            msg.setWindowTitle("Результат виконання")
+            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+            x = msg.exec_() 
+            
+        conn.commit()
+        conn.close()
+
     def to_clients(self):
         self.cams = clients()
         self.cams.show()
         self.close()  
-
-    def load_data(self):
         
+    def load_data(self):
+        self.tableWidget.setRowCount(0)
+        # print('Rows set to 0')   for debugging
         connection = sqlite3.connect("atelie.db")
         cur = connection.cursor()
         sqlquery = "SELECT * FROM Клієнти"
@@ -483,6 +520,7 @@ class clients_list(QMainWindow):
             total_rows_count += 1
 
         self.tableWidget.setRowCount(total_rows_count)
+        # print(f'rows set to {total_rows_count}')      for debugging
 
         for row in cur.execute(sqlquery):
 
@@ -491,6 +529,8 @@ class clients_list(QMainWindow):
             self.tableWidget.setItem(tablerow,1,QTableWidgetItem(row[1]))
             self.tableWidget.setItem(tablerow,2,QTableWidgetItem(row[2]))
             tablerow += 1
+        # print('data loaded ')     for debugging
+
     def searchfunc(self):
 
         items = self.tableWidget.findItems(self.find_edit.text(), Qt.MatchExactly)
@@ -525,6 +565,20 @@ class clients_list(QMainWindow):
         self.tableWidget.verticalHeader().setVisible(False)
 
         self.load_data()
+
+        self.delete_2 = QPushButton(self.centralwidget)
+        self.delete_2.setObjectName(u"delete_2")
+        self.delete_2.setGeometry(QRect(370, 350, 141, 31))
+
+        font4 = QFont()
+        font4.setPointSize(12)
+
+        self.delete_2.setFont(font4)
+
+        self.update2 = QPushButton(self.centralwidget)
+        self.update2.setObjectName(u"update")
+        self.update2.setGeometry(QRect(610, 350, 141, 31))
+        self.update2.setFont(font4)
 
         self.back = QPushButton(self.centralwidget)
         self.back.setObjectName(u"back")
@@ -624,6 +678,8 @@ class clients_list(QMainWindow):
         self.downbutton.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.findbutton.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
+        self.delete_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
+        self.update2.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
     # retranslateUi
 
 
