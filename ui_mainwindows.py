@@ -134,6 +134,12 @@ class main_menu(QMainWindow):
         self.tostart.clicked.connect(self.tostartfunc)
         self.exit.clicked.connect(exitfunc)
         self.clients.clicked.connect(self.toclientsfunc)
+        self.workers.clicked.connect(self.toworkersfunc)
+    
+    def toworkersfunc(self):
+        self.cams = workers()
+        self.cams.show()
+        self.close()
 
     def toclientsfunc(self):
         self.cams = clients()
@@ -228,7 +234,7 @@ class clients(QMainWindow):
 
         self.add_new_client.clicked.connect(self.to_add_clientfunc)
         self.view_clients.clicked.connect(self.to_clients_listfunc)
-
+    
     def to_clients_listfunc(self):
         self.cams = clients_list()
         self.cams.show()
@@ -264,6 +270,15 @@ class clients(QMainWindow):
         self.clients_zvit = QPushButton(self.centralwidget)
         self.clients_zvit.setObjectName(u"clients_zvit")
         self.clients_zvit.setGeometry(QRect(620, 140, 161, 31))
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(350, 0, 111, 31))
+        font = QFont()
+        font.setPointSize(16)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_2.setFont(font)
 
         self.back = QPushButton(self.centralwidget)
         self.back.setObjectName(u"back")
@@ -301,13 +316,14 @@ class clients(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
+
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
         self.add_new_client.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.view_clients.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0456\u0432", None))
         self.clients_zvit.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
         self.back.setText("")
         self.exit.setText("")
     # retranslateUi
-
 
 class add_client(QMainWindow):
     def __init__(self):
@@ -447,7 +463,6 @@ class add_client(QMainWindow):
         self.back.setText("")
         self.exit.setText("")
     # retranslateUi
-
 
 class clients_list(QMainWindow):
     def __init__(self):
@@ -680,6 +695,96 @@ class clients_list(QMainWindow):
         self.findbutton.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
         self.delete_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.update2.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
+    # retranslateUi
+
+class workers(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        self.back.clicked.connect(self.to_mainmenu)
+        self.exit.clicked.connect(exitfunc)
+        
+    def to_mainmenu(self):
+        self.cams = main_menu()
+        self.cams.show()
+        self.close()
+
+    def setupUi(self, MainWindow):
+
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(830, 299)
+        
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.add_new_worker = QPushButton(self.centralwidget)
+        self.add_new_worker.setObjectName(u"add_new_worker")
+        self.add_new_worker.setGeometry(QRect(50, 140, 161, 31))
+
+        self.workers_analisys = QPushButton(self.centralwidget)
+        self.workers_analisys.setObjectName(u"workers_analisys")
+        self.workers_analisys.setGeometry(QRect(610, 140, 161, 31))
+
+        self.view_workers = QPushButton(self.centralwidget)
+        self.view_workers.setObjectName(u"view_workers")
+        self.view_workers.setGeometry(QRect(320, 140, 161, 31))
+
+        self.exit = QPushButton(self.centralwidget)
+        self.exit.setObjectName(u"exit")
+        self.exit.setGeometry(QRect(790, 0, 41, 31))
+
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.exit.setIcon(icon)
+        self.exit.setIconSize(QSize(25, 25))
+        self.exit.setCheckable(False)
+        self.exit.setFlat(False)
+
+        self.back = QPushButton(self.centralwidget)
+        self.back.setObjectName(u"back")
+        self.back.setGeometry(QRect(0, 0, 41, 31))
+
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.back.setIcon(icon1)
+        self.back.setIconSize(QSize(25, 25))
+        self.back.setCheckable(False)
+        self.back.setFlat(False)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(360, 0, 111, 31))
+
+        font = QFont()
+        font.setPointSize(16)
+        font.setBold(False)
+        font.setWeight(50)
+
+        self.label.setFont(font)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+        
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("Працівники", u"Працівники", None))
+        self.add_new_worker.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.workers_analisys.setText(QCoreApplication.translate("MainWindow", u"\u0410\u043d\u0430\u043b\u0456\u0437 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0456\u0432", None))
+        self.view_workers.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0456\u0432", None))
+        self.exit.setText("")
+        self.back.setText("")
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
     # retranslateUi
 
 

@@ -6,80 +6,51 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>832</width>
-    <height>300</height>
+    <width>830</width>
+    <height>299</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="add_new_client">
+   <widget class="QPushButton" name="add_new_worker">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>50</x>
       <y>140</y>
       <width>161</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Додати нового клієнта</string>
+     <string>Додати нового працівника</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="view_clients">
+   <widget class="QPushButton" name="workers_analisys">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>610</x>
       <y>140</y>
       <width>161</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Перегляд клієнтів</string>
+     <string>Аналіз працівників</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="clients_zvit">
+   <widget class="QPushButton" name="view_workers">
     <property name="geometry">
      <rect>
-      <x>620</x>
+      <x>320</x>
       <y>140</y>
       <width>161</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Звітність по клієтам</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="back">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="../resources.qrc">
-      <normaloff>:/newPrefix/assets/arrow.png</normaloff>:/newPrefix/assets/arrow.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>25</width>
-      <height>25</height>
-     </size>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
+     <string>Перегляд працівників</string>
     </property>
    </widget>
    <widget class="QPushButton" name="exit">
@@ -111,10 +82,39 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QPushButton" name="back">
     <property name="geometry">
      <rect>
-      <x>350</x>
+      <x>0</x>
+      <y>0</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources.qrc">
+      <normaloff>:/newPrefix/assets/arrow.png</normaloff>:/newPrefix/assets/arrow.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
       <y>0</y>
       <width>111</width>
       <height>31</height>
@@ -128,7 +128,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Клієнти</string>
+     <string>Працівники</string>
     </property>
    </widget>
   </widget>
