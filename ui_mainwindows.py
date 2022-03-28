@@ -704,7 +704,13 @@ class workers(QMainWindow):
 
         self.back.clicked.connect(self.to_mainmenu)
         self.exit.clicked.connect(exitfunc)
-        
+        self.view_workers.clicked.connect(self.to_workerslist)
+    
+    def to_workerslist(self):
+        self.cams = workers_list()
+        self.cams.show()
+        self.close()
+
     def to_mainmenu(self):
         self.cams = main_menu()
         self.cams.show()
@@ -786,6 +792,214 @@ class workers(QMainWindow):
         self.back.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
     # retranslateUi
+
+class workers_list(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        self.back.clicked.connect(self.to_workersfunc)
+        self.exit_2.clicked.connect(exitfunc)
+        self.upbutton.clicked.connect(self.previous_item)
+        self.downbutton.clicked.connect(self.next_item)
+        self.findbutton.clicked.connect(self.searchfunc)
+        self.delete_2.clicked.connect(self.deletefunc)
+        self.update2.clicked.connect(self.load_data)
+        self.tableWidget.clicked.connect(self.currentionfunc)
+
+    def currentionfunc(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow())
+    def next_item(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow()+1)
+        
+    def previous_item(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow()-1)
+
+    def searchfunc(self):
+        items = self.tableWidget.findItems(self.find_edit.text(), Qt.MatchExactly)
+        if items:
+            self.tableWidget.selectRow(items[0].row())
+        else:
+            QMessageBox.information(self, 'Search Results', 'Нічого не знайдено. Спробуйте ще раз')
+            
+                    # print('err')        for debugging
+
+    def deletefunc(self):
+        current_row = self.tableWidget.currentRow()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        conn = sqlite3.connect("atelie.db") 
+
+        try:
+            with conn:
+                
+                # print('DATA =', code)      # for debugging
+
+                query = '''DELETE FROM Працівники WHERE Код_працівника=?;'''
+                conn.execute(query, (code,) )
+
+                msg = QMessageBox()
+                msg.setWindowTitle("Результат виконання")
+                msg.setText("Операція виконана успішно!")
+                x = msg.exec_() 
+                self.tableWidget.removeRow(current_row)
+
+        except sqlite3.Error as e:
+            # print(e)              #for debugging
+            # print(e.args)
+
+            msg = QMessageBox()
+            msg.setWindowTitle("Результат виконання")
+            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+            x = msg.exec_() 
+            
+        conn.commit()
+        conn.close()
+
+    def load_data(self):
+        self.tableWidget.setRowCount(0)
+        # print('Rows set to 0')   for debugging
+        connection = sqlite3.connect("atelie.db")
+        cur = connection.cursor()
+        sqlquery = "SELECT * FROM Працівники"
+        tablerow = 0
+        total_rows_count = 0
+
+        for row in cur.execute(sqlquery):
+            total_rows_count += 1
+
+        self.tableWidget.setRowCount(total_rows_count)
+        # print(f'rows set to {total_rows_count}')      for debugging
+
+        for row in cur.execute(sqlquery):
+
+                    # print(row)        for debugging
+            self.tableWidget.setItem(tablerow,0,QTableWidgetItem(str(row[0])))
+            self.tableWidget.setItem(tablerow,1,QTableWidgetItem(str(row[1])))
+            self.tableWidget.setItem(tablerow,2,QTableWidgetItem(str(row[2])))
+            self.tableWidget.setItem(tablerow,3,QTableWidgetItem(str(row[3])))
+            self.tableWidget.setItem(tablerow,4,QTableWidgetItem(str(row[4])))
+            self.tableWidget.setItem(tablerow,5,QTableWidgetItem(str(row[5])+' ₴'))
+
+            tablerow += 1
+        # print('data loaded ')     for debugging
+
+
+    def to_workersfunc(self):
+        self.cams = workers()
+        self.cams.show()
+        self.close()
+
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(798, 445)
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(330, 10, 161, 31))
+        font = QFont()
+        font.setPointSize(17)
+        self.label.setFont(font)
+        self.downbutton = QPushButton(self.centralwidget)
+        self.downbutton.setObjectName(u"downbutton")
+        self.downbutton.setGeometry(QRect(10, 190, 41, 41))
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/down_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.downbutton.setIcon(icon)
+        self.downbutton.setIconSize(QSize(30, 30))
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(80, 350, 131, 21))
+        font1 = QFont()
+        font1.setPointSize(13)
+        self.label_2.setFont(font1)
+        self.tableWidget = QTableWidget(self.centralwidget)
+        if (self.tableWidget.columnCount() < 3):
+            self.tableWidget.setColumnCount(3)
+        self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setGeometry(QRect(80, 50, 671, 291))
+        self.tableWidget.setColumnCount(6)
+        # self.tableWidget.setColumnWidth(0,80)
+        self.tableWidget.setColumnWidth(1,250)
+        self.tableWidget.setColumnWidth(2,50)
+        self.tableWidget.setColumnWidth(4,80)
+        self.tableWidget.setColumnWidth(5,80)
+        self.tableWidget.setColumnWidth(6,80)
+        self.tableWidget.setHorizontalHeaderLabels(["Код працівника","ПІБ","Стаж","Телефон","Стать","Зарплата"])
+        self.tableWidget.verticalHeader().setVisible(False)
+
+        self.load_data()
+
+        self.back = QPushButton(self.centralwidget)
+        self.back.setObjectName(u"back")
+        self.back.setGeometry(QRect(0, 0, 41, 31))
+        font2 = QFont()
+        font2.setPointSize(2)
+        self.back.setFont(font2)
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.back.setIcon(icon1)
+        self.back.setIconSize(QSize(25, 25))
+        self.upbutton = QPushButton(self.centralwidget)
+        self.upbutton.setObjectName(u"upbutton")
+        self.upbutton.setGeometry(QRect(10, 150, 41, 41))
+        self.upbutton.setFont(font1)
+        icon2 = QIcon()
+        icon2.addFile(u":/newPrefix/assets/up_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.upbutton.setIcon(icon2)
+        self.upbutton.setIconSize(QSize(30, 30))
+        self.findbutton = QPushButton(self.centralwidget)
+        self.findbutton.setObjectName(u"findbutton")
+        self.findbutton.setGeometry(QRect(210, 380, 71, 31))
+        self.findbutton.setFont(font1)
+        self.delete_2 = QPushButton(self.centralwidget)
+        self.delete_2.setObjectName(u"delete_2")
+        self.delete_2.setGeometry(QRect(370, 350, 141, 31))
+        font3 = QFont()
+        font3.setPointSize(12)
+        self.delete_2.setFont(font3)
+        self.update2 = QPushButton(self.centralwidget)
+        self.update2.setObjectName(u"update2")
+        self.update2.setGeometry(QRect(610, 350, 141, 31))
+        self.update2.setFont(font3)
+        self.find_edit = QLineEdit(self.centralwidget)
+        self.find_edit.setObjectName(u"find_edit")
+        self.find_edit.setGeometry(QRect(210, 350, 71, 21))
+        font4 = QFont()
+        font4.setPointSize(10)
+        self.find_edit.setFont(font4)
+        self.exit_2 = QPushButton(self.centralwidget)
+        self.exit_2.setObjectName(u"exit_2")
+        self.exit_2.setGeometry(QRect(760, 0, 41, 31))
+        self.exit_2.setFont(font2)
+        icon3 = QIcon()
+        icon3.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.exit_2.setIcon(icon3)
+        self.exit_2.setIconSize(QSize(25, 25))
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
+        self.downbutton.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.back.setText("")
+        self.upbutton.setText("")
+        self.findbutton.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
+        self.delete_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
+        self.update2.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
+        self.exit_2.setText("")
+    # retranslateUi
+
 
 
 if __name__ == "__main__":
