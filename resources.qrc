@@ -1,5 +1,11 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>assets/plus_icon.png</file>
+    <file>assets/clients_icon.png</file>
+    <file>assets/list_icon.png</file>
+    <file>assets/success_icon.png</file>
+    <file>assets/error_icon.png</file>
+    <file>assets/start_menu_icon.png</file>
     <file>assets/down_arrow.png</file>
     <file>assets/up_arrow.png</file>
     <file>assets/arrow.png</file>
