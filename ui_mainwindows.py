@@ -342,45 +342,54 @@ class add_client(QMainWindow):
         self.back.clicked.connect(self.to_clients)
         self.exit.clicked.connect(exitfunc)
         self.submit_addittion.clicked.connect(self.addclient)
+        self.phone.setInputMask('999-999')
 
     def addclient(self):
         conn = sqlite3.connect("atelie.db") 
         name = self.name.text()
         phone = self.phone.text()
+        print(phone)
+        if name == '' or phone == '' or phone == '-' or len(phone) < 7: 
+            msg = QMessageBox()
+            msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+            msg.setWindowTitle("Результат виконання")
+            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+            x = msg.exec_()
+        else:
 
-        try:
-            with conn:
-                row = (name, phone)
-                # print('DATA =', row)      # for debugging
+            try:
+                with conn:
+                    row = (name, phone)
+                    # print('DATA =', row)      # for debugging
 
-                query = '''insert into Клієнти (ПІБ, Телефон)
-                        values (?, ?);'''
-                conn.execute(query, row)
+                    query = '''insert into Клієнти (ПІБ, Телефон)
+                            values (?, ?);'''
+                    conn.execute(query, row)
+
+                    self.name.clear()
+                    self.phone.clear()
+
+                    msg = QMessageBox()
+                    msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
+                    msg.setWindowTitle("Результат виконання")
+                    msg.setText("Операція виконана успішно!")
+                    x = msg.exec_() 
+
+            except sqlite3.Error as e:
+                # print(e)              for debugging
+                # print(e.args)
 
                 self.name.clear()
                 self.phone.clear()
 
                 msg = QMessageBox()
-                msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
+                msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
                 msg.setWindowTitle("Результат виконання")
-                msg.setText("Операція виконана успішно!")
+                msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
                 x = msg.exec_() 
 
-        except sqlite3.Error as e:
-            # print(e)              for debugging
-            # print(e.args)
-
-            self.name.clear()
-            self.phone.clear()
-
-            msg = QMessageBox()
-            msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
-            msg.setWindowTitle("Результат виконання")
-            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
-            x = msg.exec_() 
-
-        conn.commit()
-        conn.close()
+            conn.commit()
+            conn.close()
         
     def to_clients(self):
         self.cams = clients()
@@ -509,7 +518,6 @@ class clients_list(QMainWindow):
         self.cams.set_code(code=code)
         self.cams.show()
         
-
     def currentionfunc(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow())
 
@@ -1301,34 +1309,41 @@ class edit_client(QMainWindow):
         phone = self.lineEdit_2.text()
         code = self.code
         print('DATA = ',name,phone,code)
-        conn = sqlite3.connect("atelie.db") 
-
-        try:
-            with conn:
-
-                query = '''UPDATE Клієнти SET ПІБ = ?, Телефон = ? WHERE Код_клієнта = ?;'''
-                conn.execute(query, (name,phone,code) )
-
-                msg = QMessageBox()
-                msg.setWindowTitle("Результат виконання")
-                msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
-                msg.setText("Операція виконана успішно!")
-                x = msg.exec_() 
-                # self.tableWidget.removeRow(current_row)
-
-        except sqlite3.Error as e:
-            # print(e)              #for debugging
-            # print(e.args)
-
+        
+        if name == '' or phone == '-' or len(phone) < 7:
             msg = QMessageBox()
             msg.setWindowTitle("Результат виконання")
             msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
             msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
             x = msg.exec_() 
-            
-        conn.commit()
-        conn.close()
-        self.close()
+        else:
+            try:
+                conn = sqlite3.connect("atelie.db") 
+                with conn:
+
+                    query = '''UPDATE Клієнти SET ПІБ = ?, Телефон = ? WHERE Код_клієнта = ?;'''
+                    conn.execute(query, (name,phone,code) )
+
+                    msg = QMessageBox()
+                    msg.setWindowTitle("Результат виконання")
+                    msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
+                    msg.setText("Операція виконана успішно!")
+                    x = msg.exec_() 
+                    # self.tableWidget.removeRow(current_row)
+
+            except sqlite3.Error as e:
+                # print(e)              #for debugging
+                # print(e.args)
+
+                msg = QMessageBox()
+                msg.setWindowTitle("Результат виконання")
+                msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+                msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+                x = msg.exec_() 
+                
+            conn.commit()
+            conn.close()
+            self.close()
 
         
     def setupUi(self, MainWindow):
