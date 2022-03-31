@@ -68,7 +68,7 @@
      <string>Телефон</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="name_field">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -83,7 +83,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="phone_field">
     <property name="geometry">
      <rect>
       <x>140</x>

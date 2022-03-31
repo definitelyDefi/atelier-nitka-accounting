@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="add_new_worker">
+   <widget class="QPushButton" name="add_new_worker_button">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -27,7 +27,7 @@
      <string>Додати нового працівника</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="workers_analisys">
+   <widget class="QPushButton" name="workers_analisys_button">
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -40,7 +40,7 @@
      <string>Аналіз працівників</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="view_workers">
+   <widget class="QPushButton" name="view_workers_button">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -53,7 +53,7 @@
      <string>Перегляд працівників</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="exit">
+   <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
       <x>790</x>
@@ -82,7 +82,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="back">
+   <widget class="QPushButton" name="back_button">
     <property name="geometry">
      <rect>
       <x>0</x>

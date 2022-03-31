@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="name">
+   <widget class="QLineEdit" name="name_field">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -65,7 +65,7 @@
      <string>Введіть номер клієнта</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="phone">
+   <widget class="QLineEdit" name="phone_field">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -80,7 +80,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QPushButton" name="submit">
+   <widget class="QPushButton" name="submit_button">
     <property name="geometry">
      <rect>
       <x>350</x>
@@ -98,7 +98,7 @@
      <string>Додати</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="back">
+   <widget class="QPushButton" name="back_button">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -126,7 +126,7 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="exit">
+   <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
       <x>530</x>

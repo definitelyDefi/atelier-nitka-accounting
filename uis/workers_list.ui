@@ -32,7 +32,7 @@
      <string>Працівники</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="downbutton">
+   <widget class="QPushButton" name="down_button">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -89,7 +89,7 @@
     <column/>
     <column/>
    </widget>
-   <widget class="QPushButton" name="back">
+   <widget class="QPushButton" name="back_button">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -117,7 +117,7 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="upbutton">
+   <widget class="QPushButton" name="up_button">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -145,7 +145,7 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="findbutton">
+   <widget class="QPushButton" name="find_button">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -163,10 +163,10 @@
      <string>Пошук</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="delete_2">
+   <widget class="QPushButton" name="delete_button">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>450</x>
       <y>350</y>
       <width>141</width>
       <height>31</height>
@@ -181,7 +181,7 @@
      <string>Видалити запис</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="update">
+   <widget class="QPushButton" name="update_button">
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -199,7 +199,7 @@
      <string>Оновити таблицю</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="find_edit">
+   <widget class="QLineEdit" name="find_field">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -214,7 +214,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QPushButton" name="exit_2">
+   <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
       <x>760</x>
@@ -240,6 +240,24 @@
       <width>25</width>
       <height>25</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="edit_button">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>350</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Змінити</string>
     </property>
    </widget>
   </widget>

@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="add_new_client">
+   <widget class="QPushButton" name="add_new_client_button">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -27,7 +27,7 @@
      <string>Додати нового клієнта</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="view_clients">
+   <widget class="QPushButton" name="view_clients_button">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -40,7 +40,7 @@
      <string>Перегляд клієнтів</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="clients_zvit">
+   <widget class="QPushButton" name="clients_zvit_buttons">
     <property name="geometry">
      <rect>
       <x>620</x>
@@ -53,7 +53,7 @@
      <string>Звітність по клієтам</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="back">
+   <widget class="QPushButton" name="back_button">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -82,7 +82,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="exit">
+   <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
       <x>790</x>

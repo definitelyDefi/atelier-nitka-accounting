@@ -24,7 +24,7 @@ import re
 
 # Global exit func
 
-def exitfunc():
+def exit_func():
     print('exiting...')
     sys.exit()
 
@@ -35,7 +35,7 @@ class start(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.pushButton.clicked.connect(self.to_main_menu_func)
+        self.to_menu_button.clicked.connect(self.to_main_menu_func)
         self.setWindowIcon(QIcon(u":/newPrefix/assets/start_menu_icon.png"))
 
     def to_main_menu_func(self):
@@ -91,13 +91,13 @@ class start(QMainWindow):
 
         self.label_3.setFont(font2)
 
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.setGeometry(QRect(320, 390, 211, 51))
+        self.to_menu_button = QPushButton(self.centralwidget)
+        self.to_menu_button.setObjectName(u"to_menu_button")
+        self.to_menu_button.setGeometry(QRect(320, 390, 211, 51))
 
         font3 = QFont()
         font3.setPointSize(15)
-        self.pushButton.setFont(font3)
+        self.to_menu_button.setFont(font3)
 
         self.label_4 = QLabel(self.centralwidget)
         self.label_4.setObjectName(u"label_4")
@@ -125,7 +125,7 @@ class start(QMainWindow):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043b\u0456\u043a \u0437\u0430\u043c\u043e\u0432\u043b\u0435\u043d\u044c \u0430\u0442\u0435\u043b\u044c\u0454 \u0437 \u043f\u043e\u0448\u0438\u0442\u0442\u044f \u0442\u0430 \u0440\u0435\u043c\u043e\u043d\u0442\u0443 \u043e\u0434\u044f\u0433\u0443", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0425\u0435\u0440\u0441\u043e\u043d 2022", None))
 
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u0434\u043e \u043c\u0435\u043d\u044e", None))
+        self.to_menu_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u0434\u043e \u043c\u0435\u043d\u044e", None))
 
         self.label_4.setText("")
         self.label_5.setText("")
@@ -139,22 +139,22 @@ class main_menu(QMainWindow):
 
         self.setWindowIcon(QIcon(u":/newPrefix/assets/start_menu_icon.png"))
 
-        self.tostart.clicked.connect(self.tostartfunc)
-        self.exit.clicked.connect(exitfunc)
-        self.clients.clicked.connect(self.toclientsfunc)
-        self.workers.clicked.connect(self.toworkersfunc)
+        self.to_start_button.clicked.connect(self.to_start_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.to_clients_button.clicked.connect(self.to_clients_func)
+        self.to_workers_button.clicked.connect(self.to_workers_func)
     
-    def toworkersfunc(self):
+    def to_workers_func(self):
         self.cams = workers()
         self.cams.show()
         self.close()
 
-    def toclientsfunc(self):
+    def to_clients_func(self):
         self.cams = clients()
         self.cams.show()
         self.close()
 
-    def tostartfunc(self):
+    def to_start_func(self):
         self.cams = start()
         self.cams.show()
         self.close() 
@@ -169,29 +169,29 @@ class main_menu(QMainWindow):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-        self.clients = QPushButton(self.centralwidget)
-        self.clients.setObjectName(u"clients")
-        self.clients.setGeometry(QRect(50, 70, 131, 31))
+        self.to_clients_button = QPushButton(self.centralwidget)
+        self.to_clients_button.setObjectName(u"to_clients_button")
+        self.to_clients_button.setGeometry(QRect(50, 70, 131, 31))
 
-        self.workers = QPushButton(self.centralwidget)
-        self.workers.setObjectName(u"workers")
-        self.workers.setGeometry(QRect(220, 70, 131, 31))
+        self.to_workers_button = QPushButton(self.centralwidget)
+        self.to_workers_button.setObjectName(u"to_workers_button")
+        self.to_workers_button.setGeometry(QRect(220, 70, 131, 31))
 
-        self.zakazi = QPushButton(self.centralwidget)
-        self.zakazi.setObjectName(u"zakazi")
-        self.zakazi.setGeometry(QRect(390, 70, 131, 31))
+        self.to_offers_button = QPushButton(self.centralwidget)
+        self.to_offers_button.setObjectName(u"to_offers_button")
+        self.to_offers_button.setGeometry(QRect(390, 70, 131, 31))
 
-        self.poslugi = QPushButton(self.centralwidget)
-        self.poslugi.setObjectName(u"poslugi")
-        self.poslugi.setGeometry(QRect(560, 70, 131, 31))
+        self.to_services_button = QPushButton(self.centralwidget)
+        self.to_services_button.setObjectName(u"to_services_button")
+        self.to_services_button.setGeometry(QRect(560, 70, 131, 31))
 
-        self.tostart = QPushButton(self.centralwidget)
-        self.tostart.setObjectName(u"tostart")
-        self.tostart.setGeometry(QRect(280, 450, 191, 31))
+        self.to_start_button = QPushButton(self.centralwidget)
+        self.to_start_button.setObjectName(u"to_start_button")
+        self.to_start_button.setGeometry(QRect(280, 450, 191, 31))
 
-        self.exit = QPushButton(self.centralwidget)
-        self.exit.setObjectName(u"exit")
-        self.exit.setGeometry(QRect(710, 480, 75, 23))
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(710, 480, 75, 23))
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
@@ -217,15 +217,14 @@ class main_menu(QMainWindow):
     
     def retranslateUi(self, MainWindow):
         
-        self.clients.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
-        self.workers.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
-        self.zakazi.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043a\u0430\u0437\u0438", None))
-        self.poslugi.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043b\u0443\u0433\u0438", None))
-        self.tostart.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u0438\u0441\u044f \u043d\u0430 \u043f\u043e\u0447\u0430\u0442\u043a\u043e\u0432\u0438\u0439 \u0435\u043a\u0440\u0430\u043d", None))
-        self.exit.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0445\u0456\u0434", None))
+        self.to_clients_button.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
+        self.to_workers_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
+        self.to_offers_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043a\u0430\u0437\u0438", None))
+        self.to_services_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043b\u0443\u0433\u0438", None))
+        self.to_start_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u0438\u0441\u044f \u043d\u0430 \u043f\u043e\u0447\u0430\u0442\u043a\u043e\u0432\u0438\u0439 \u0435\u043a\u0440\u0430\u043d", None))
+        self.exit_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0445\u0456\u0434", None))
         self.label.setText("")
         self.label_2.setText("")
-
 
 # Меню клиентов
 class clients(QMainWindow):
@@ -236,18 +235,18 @@ class clients(QMainWindow):
 
         self.setWindowIcon(QIcon(u":/newPrefix/assets/clients_icon.png"))
 
-        self.back.clicked.connect(self.to_main_menu_func)
-        self.exit.clicked.connect(exitfunc)
+        self.back_button.clicked.connect(self.to_main_menu_func)
+        self.exit_button.clicked.connect(exit_func)
         
-        self.add_new_client.clicked.connect(self.to_add_clientfunc)
-        self.view_clients.clicked.connect(self.to_clients_listfunc)
+        self.add_new_client_button.clicked.connect(self.to_add_client_func)
+        self.view_clients_button.clicked.connect(self.to_clients_list_func)
     
-    def to_clients_listfunc(self):
+    def to_clients_list_func(self):
         self.cams = clients_list()
         self.cams.show()
         self.close()
 
-    def to_add_clientfunc(self):
+    def to_add_client_func(self):
         self.cams = add_client()
         self.cams.show()
         self.close() 
@@ -267,49 +266,52 @@ class clients(QMainWindow):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-        self.add_new_client = QPushButton(self.centralwidget)
-        self.add_new_client.setObjectName(u"add_new_client")
-        self.add_new_client.setGeometry(QRect(60, 140, 161, 31))
-        self.view_clients = QPushButton(self.centralwidget)
-        self.view_clients.setObjectName(u"view_clients")
-        self.view_clients.setGeometry(QRect(330, 140, 161, 31))
+        self.add_new_client_button = QPushButton(self.centralwidget)
+        self.add_new_client_button.setObjectName(u"add_new_client_button")
+        self.add_new_client_button.setGeometry(QRect(60, 140, 161, 31))
 
-        self.clients_zvit = QPushButton(self.centralwidget)
-        self.clients_zvit.setObjectName(u"clients_zvit")
-        self.clients_zvit.setGeometry(QRect(620, 140, 161, 31))
+        self.view_clients_button = QPushButton(self.centralwidget)
+        self.view_clients_button.setObjectName(u"view_clients_button")
+        self.view_clients_button.setGeometry(QRect(330, 140, 161, 31))
+
+        self.clients_zvit_button = QPushButton(self.centralwidget)
+        self.clients_zvit_button.setObjectName(u"clients_zvit_button")
+        self.clients_zvit_button.setGeometry(QRect(620, 140, 161, 31))
 
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(350, 0, 111, 31))
+
         font = QFont()
         font.setPointSize(16)
         font.setBold(False)
         font.setWeight(50)
+
         self.label_2.setFont(font)
 
-        self.back = QPushButton(self.centralwidget)
-        self.back.setObjectName(u"back")
-        self.back.setGeometry(QRect(0, 0, 41, 31))
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
 
         icon = QIcon()
         icon.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.back.setIcon(icon)
-        self.back.setIconSize(QSize(25, 25))
-        self.back.setCheckable(False)
-        self.back.setFlat(False)
+        self.back_button.setIcon(icon)
+        self.back_button.setIconSize(QSize(25, 25))
+        self.back_button.setCheckable(False)
+        self.back_button.setFlat(False)
 
-        self.exit = QPushButton(self.centralwidget)
-        self.exit.setObjectName(u"exit")
-        self.exit.setGeometry(QRect(790, 0, 41, 31))
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(790, 0, 41, 31))
 
         icon1 = QIcon()
         icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.exit.setIcon(icon1)
-        self.exit.setIconSize(QSize(25, 25))
-        self.exit.setCheckable(False)
-        self.exit.setFlat(False)
+        self.exit_button.setIcon(icon1)
+        self.exit_button.setIconSize(QSize(25, 25))
+        self.exit_button.setCheckable(False)
+        self.exit_button.setFlat(False)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -325,11 +327,11 @@ class clients(QMainWindow):
     def retranslateUi(self, MainWindow):
 
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
-        self.add_new_client.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
-        self.view_clients.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0456\u0432", None))
-        self.clients_zvit.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
-        self.back.setText("")
-        self.exit.setText("")
+        self.add_new_client_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
+        self.view_clients_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0456\u0432", None))
+        self.clients_zvit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
+        self.back_button.setText("")
+        self.exit_button.setText("")
     # retranslateUi
 
 # Добавить клиента
@@ -339,16 +341,17 @@ class add_client(QMainWindow):
         self.setupUi(self)
 
         self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
-        self.back.clicked.connect(self.to_clients)
-        self.exit.clicked.connect(exitfunc)
-        self.submit_addittion.clicked.connect(self.addclient)
-        self.phone.setInputMask('999-999')
+        self.back_button.clicked.connect(self.to_clients_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.submit_button.clicked.connect(self.add_client_func)
+        self.phone_field.setInputMask('999-999')
 
-    def addclient(self):
+    def add_client_func(self):
+
         conn = sqlite3.connect("atelie.db") 
-        name = self.name.text()
-        phone = self.phone.text()
-        print(phone)
+        name = self.name_field.text()
+        phone = self.phone_field.text()
+
         if name == '' or phone == '' or phone == '-' or len(phone) < 7: 
             msg = QMessageBox()
             msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
@@ -366,8 +369,8 @@ class add_client(QMainWindow):
                             values (?, ?);'''
                     conn.execute(query, row)
 
-                    self.name.clear()
-                    self.phone.clear()
+                    self.name_field.clear()
+                    self.phone_field.clear()
 
                     msg = QMessageBox()
                     msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
@@ -379,8 +382,8 @@ class add_client(QMainWindow):
                 # print(e)              for debugging
                 # print(e.args)
 
-                self.name.clear()
-                self.phone.clear()
+                self.name_field.clear()
+                self.phone_field.clear()
 
                 msg = QMessageBox()
                 msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
@@ -391,7 +394,7 @@ class add_client(QMainWindow):
             conn.commit()
             conn.close()
         
-    def to_clients(self):
+    def to_clients_func(self):
         self.cams = clients()
         self.cams.show()
         self.close()  
@@ -407,13 +410,13 @@ class add_client(QMainWindow):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-        self.name = QLineEdit(self.centralwidget)
-        self.name.setObjectName(u"name")
-        self.name.setGeometry(QRect(190, 130, 261, 41))
+        self.name_field = QLineEdit(self.centralwidget)
+        self.name_field.setObjectName(u"name_field")
+        self.name_field.setGeometry(QRect(190, 130, 261, 41))
 
         font = QFont()
         font.setPointSize(12)
-        self.name.setFont(font)
+        self.name_field.setFont(font)
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
@@ -429,19 +432,19 @@ class add_client(QMainWindow):
         self.label_2.setGeometry(QRect(10, 190, 161, 31))
         self.label_2.setFont(font1)
 
-        self.phone = QLineEdit(self.centralwidget)
-        self.phone.setObjectName(u"phone")
-        self.phone.setGeometry(QRect(190, 190, 261, 31))
-        self.phone.setFont(font)
+        self.phone_field = QLineEdit(self.centralwidget)
+        self.phone_field.setObjectName(u"phone_field")
+        self.phone_field.setGeometry(QRect(190, 190, 261, 31))
+        self.phone_field.setFont(font)
 
-        self.submit_addittion = QPushButton(self.centralwidget)
-        self.submit_addittion.setObjectName(u"submit_addittion")
-        self.submit_addittion.setGeometry(QRect(350, 250, 101, 31))
-        self.submit_addittion.setFont(font1)
+        self.submit_button = QPushButton(self.centralwidget)
+        self.submit_button.setObjectName(u"submit_button")
+        self.submit_button.setGeometry(QRect(350, 250, 101, 31))
+        self.submit_button.setFont(font1)
 
-        self.back = QPushButton(self.centralwidget)
-        self.back.setObjectName(u"back")
-        self.back.setGeometry(QRect(0, 0, 41, 31))
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
         
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
@@ -453,24 +456,24 @@ class add_client(QMainWindow):
         font2 = QFont()
         font2.setPointSize(2)
 
-        self.back.setFont(font2)
+        self.back_button.setFont(font2)
 
         icon = QIcon()
         icon.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.back.setIcon(icon)
-        self.back.setIconSize(QSize(25, 25))
+        self.back_button.setIcon(icon)
+        self.back_button.setIconSize(QSize(25, 25))
 
-        self.exit = QPushButton(self.centralwidget)
-        self.exit.setObjectName(u"exit")
-        self.exit.setGeometry(QRect(530, 0, 41, 31))
-        self.exit.setFont(font2)
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(530, 0, 41, 31))
+        self.exit_button.setFont(font2)
 
         icon1 = QIcon()
         icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.exit.setIcon(icon1)
-        self.exit.setIconSize(QSize(25, 25))
+        self.exit_button.setIcon(icon1)
+        self.exit_button.setIconSize(QSize(25, 25))
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -486,12 +489,144 @@ class add_client(QMainWindow):
     def retranslateUi(self, MainWindow):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u041f\u0406\u0411 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u043c\u0435\u0440 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
-        self.submit_addittion.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
-        self.back.setText("")
-        self.exit.setText("")
+        self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
+        self.back_button.setText("")
+        self.exit_button.setText("")
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
     # retranslateUi
 
+# Редактировать клиента
+class edit_client(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
+
+        self.submit_button.clicked.connect(self.edit_func)
+        self.cancel_button.clicked.connect(self.cancel_func)
+        self.code = None
+
+    def set_code(self, code):
+        self.code = code
+
+    def cancel_func(self):
+        self.close()
+
+    def edit_func(self):
+        name = self.name_field.text()
+        phone = self.phone_field.text()
+        code = self.code
+        print('DATA = ',name,phone,code)
+        
+        if name == '' or phone == '-' or len(phone) < 7:
+            msg = QMessageBox()
+            msg.setWindowTitle("Результат виконання")
+            msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+            x = msg.exec_() 
+        else:
+            try:
+                conn = sqlite3.connect("atelie.db") 
+                with conn:
+
+                    query = '''UPDATE Клієнти SET ПІБ = ?, Телефон = ? WHERE Код_клієнта = ?;'''
+                    conn.execute(query, (name,phone,code) )
+
+                    msg = QMessageBox()
+                    msg.setWindowTitle("Результат виконання")
+                    msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
+                    msg.setText("Операція виконана успішно!")
+                    x = msg.exec_() 
+                    # self.tableWidget.removeRow(current_row)
+
+            except sqlite3.Error as e:
+                # print(e)              #for debugging
+                # print(e.args)
+
+                msg = QMessageBox()
+                msg.setWindowTitle("Результат виконання")
+                msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+                msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+                x = msg.exec_() 
+                
+            conn.commit()
+            conn.close()
+            self.close()
+
+        
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(567, 348)
+
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(190, 10, 221, 31))
+
+        font = QFont()
+        font.setPointSize(17)
+    
+        self.label.setFont(font)
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(30, 70, 101, 61))
+
+        font1 = QFont()
+        font1.setPointSize(13)
+
+        self.label_2.setFont(font1)
+        self.label_3 = QLabel(self.centralwidget)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(30, 140, 101, 61))
+        self.label_3.setFont(font1)
+
+        self.name_field = QLineEdit(self.centralwidget)
+        self.name_field.setObjectName(u"name_field")
+        self.name_field.setGeometry(QRect(140, 90, 341, 31))
+
+        font2 = QFont()
+        font2.setPointSize(11)
+
+        self.name_field.setFont(font2)
+
+        self.phone_field = QLineEdit(self.centralwidget)
+        self.phone_field.setObjectName(u"phone_field")
+        self.phone_field.setGeometry(QRect(140, 150, 341, 31))
+        self.phone_field.setFont(font2)
+
+        self.submit_button = QPushButton(self.centralwidget)
+        self.submit_button.setObjectName(u"submit_button")
+        self.submit_button.setGeometry(QRect(180, 260, 131, 31))
+        self.submit_button.setFont(font1)
+
+        self.cancel_button = QPushButton(self.centralwidget)
+        self.cancel_button.setObjectName(u"cancel_button")
+        self.cancel_button.setGeometry(QRect(330, 260, 131, 31))
+        self.cancel_button.setFont(font1)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0406\u0411 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043b\u0435\u0444\u043e\u043d", None))
+        self.phone_field.setInputMask(QCoreApplication.translate("MainWindow", u"999-999", None))
+        self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
+        self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
+    # retranslateUi
 # Просмотр клиентов
 class clients_list(QMainWindow):
     def __init__(self):
@@ -501,33 +636,33 @@ class clients_list(QMainWindow):
 
         self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
 
-        self.back.clicked.connect(self.to_clients)
-        self.exit.clicked.connect(exitfunc)
-        self.downbutton.clicked.connect(self.next_item)
-        self.upbutton.clicked.connect(self.previous_item)
-        self.findbutton.clicked.connect(self.searchfunc)
-        self.update2.clicked.connect(self.load_data)
-        self.delete_2.clicked.connect(self.deletefunc)
-        self.tableWidget.clicked.connect(self.currentionfunc)
-        self.edit_button.clicked.connect(self.editfunc)
+        self.back_button.clicked.connect(self.to_clients_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.down_button.clicked.connect(self.next_item_func)
+        self.up_button.clicked.connect(self.previous_item_func)
+        self.find_button.clicked.connect(self.search_func)
+        self.update_button.clicked.connect(self.load_data_func)
+        self.delete_button.clicked.connect(self.delete_func)
+        self.tableWidget.clicked.connect(self.currention_func)
+        self.edit_button.clicked.connect(self.edit_func)
 
-    def editfunc(self):
+    def edit_func(self):
 
         code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
         self.cams = edit_client()
         self.cams.set_code(code=code)
         self.cams.show()
         
-    def currentionfunc(self):
+    def currention_func(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow())
 
-    def next_item(self):
+    def next_item_func(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow()+1)
         
-    def previous_item(self):
+    def previous_item_func(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow()-1)
 
-    def deletefunc(self):
+    def delete_func(self):
         # current_row = self.tableWidget.currentRow()
         code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
         conn = sqlite3.connect("atelie.db") 
@@ -559,14 +694,14 @@ class clients_list(QMainWindow):
             
         conn.commit()
         conn.close()
-        self.load_data()
+        self.load_data_func()
 
-    def to_clients(self):
+    def to_clients_func(self):
         self.cams = clients()
         self.cams.show()
         self.close()  
         
-    def load_data(self):
+    def load_data_func(self):
         self.tableWidget.setRowCount(0)
         # print('Rows set to 0')   for debugging
         connection = sqlite3.connect("atelie.db")
@@ -588,12 +723,12 @@ class clients_list(QMainWindow):
             self.tableWidget.setItem(tablerow,1,QTableWidgetItem(row[1]))
             self.tableWidget.setItem(tablerow,2,QTableWidgetItem(row[2]))
             tablerow += 1
-        QTimer.singleShot(10000, self.load_data)
+        QTimer.singleShot(10000, self.load_data_func)
         # print('data loaded ')     for debugging
 
-    def searchfunc(self):
+    def search_func(self):
 
-        items = self.tableWidget.findItems(self.find_edit.text(), Qt.MatchExactly)
+        items = self.tableWidget.findItems(self.find_field.text(), Qt.MatchExactly)
         if items:
             self.tableWidget.selectRow(items[0].row())
         else:
@@ -615,7 +750,6 @@ class clients_list(QMainWindow):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-
         self.tableWidget = QTableWidget(self.centralwidget)
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(80, 50, 671, 291))
@@ -626,52 +760,52 @@ class clients_list(QMainWindow):
         self.tableWidget.setHorizontalHeaderLabels(["Код клієнта","ПІБ","Телефон"])
         self.tableWidget.verticalHeader().setVisible(False)
 
-        self.load_data()
+        self.load_data_func()
 
-        self.delete_2 = QPushButton(self.centralwidget)
-        self.delete_2.setObjectName(u"delete_2")
-        self.delete_2.setGeometry(QRect(450, 350, 141, 31))
+        self.delete_button = QPushButton(self.centralwidget)
+        self.delete_button.setObjectName(u"delete_button")
+        self.delete_button.setGeometry(QRect(450, 350, 141, 31))
 
         font4 = QFont()
         font4.setPointSize(12)
 
-        self.delete_2.setFont(font4)
+        self.delete_button.setFont(font4)
 
-        self.update2 = QPushButton(self.centralwidget)
-        self.update2.setObjectName(u"update")
-        self.update2.setGeometry(QRect(610, 350, 141, 31))
-        self.update2.setFont(font4)
+        self.update_button = QPushButton(self.centralwidget)
+        self.update_button.setObjectName(u"update_button")
+        self.update_button.setGeometry(QRect(610, 350, 141, 31))
+        self.update_button.setFont(font4)
 
         self.edit_button = QPushButton(self.centralwidget)
         self.edit_button.setObjectName(u"edit_button")
         self.edit_button.setGeometry(QRect(300, 350, 141, 31))
         self.edit_button.setFont(font4)
 
-        self.back = QPushButton(self.centralwidget)
-        self.back.setObjectName(u"back")
-        self.back.setGeometry(QRect(0, 0, 41, 31))
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
 
         font = QFont()
         font.setPointSize(2)
 
-        self.back.setFont(font)
+        self.back_button.setFont(font)
 
         icon = QIcon()
         icon.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.back.setIcon(icon)
-        self.back.setIconSize(QSize(25, 25))
+        self.back_button.setIcon(icon)
+        self.back_button.setIconSize(QSize(25, 25))
 
-        self.exit = QPushButton(self.centralwidget)
-        self.exit.setObjectName(u"exit")
-        self.exit.setGeometry(QRect(760, 0, 41, 31))
-        self.exit.setFont(font)
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(760, 0, 41, 31))
+        self.exit_button.setFont(font)
 
         icon1 = QIcon()
         icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.exit.setIcon(icon1)
-        self.exit.setIconSize(QSize(25, 25))
+        self.exit_button.setIcon(icon1)
+        self.exit_button.setIconSize(QSize(25, 25))
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
@@ -682,49 +816,49 @@ class clients_list(QMainWindow):
 
         self.label.setFont(font1)
 
-        self.upbutton = QPushButton(self.centralwidget)
-        self.upbutton.setObjectName(u"upbutton")
-        self.upbutton.setGeometry(QRect(10, 150, 41, 41))
+        self.up_button = QPushButton(self.centralwidget)
+        self.up_button.setObjectName(u"up_button")
+        self.up_button.setGeometry(QRect(10, 150, 41, 41))
 
         font2 = QFont()
         font2.setPointSize(13)
 
-        self.upbutton.setFont(font2)
+        self.up_button.setFont(font2)
 
         icon2 = QIcon()
         icon2.addFile(u":/newPrefix/assets/up_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.upbutton.setIcon(icon2)
-        self.upbutton.setIconSize(QSize(30, 30))
+        self.up_button.setIcon(icon2)
+        self.up_button.setIconSize(QSize(30, 30))
 
-        self.downbutton = QPushButton(self.centralwidget)
-        self.downbutton.setObjectName(u"downbutton")
-        self.downbutton.setGeometry(QRect(10, 190, 41, 41))
+        self.down_button = QPushButton(self.centralwidget)
+        self.down_button.setObjectName(u"down_button")
+        self.down_button.setGeometry(QRect(10, 190, 41, 41))
 
         icon3 = QIcon()
         icon3.addFile(u":/newPrefix/assets/down_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.downbutton.setIcon(icon3)
-        self.downbutton.setIconSize(QSize(30, 30))
+        self.down_button.setIcon(icon3)
+        self.down_button.setIconSize(QSize(30, 30))
 
-        self.find_edit = QLineEdit(self.centralwidget)
-        self.find_edit.setObjectName(u"find_edit")
-        self.find_edit.setGeometry(QRect(160, 350, 71, 21))
+        self.find_field = QLineEdit(self.centralwidget)
+        self.find_field.setObjectName(u"find_edit")
+        self.find_field.setGeometry(QRect(160, 350, 71, 21))
 
         font3 = QFont()
         font3.setPointSize(10)
 
-        self.find_edit.setFont(font3)
+        self.find_field.setFont(font3)
 
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(60, 350, 111, 21))
         self.label_2.setFont(font2)
 
-        self.findbutton = QPushButton(self.centralwidget)
-        self.findbutton.setObjectName(u"findbutton")
-        self.findbutton.setGeometry(QRect(160, 380, 71, 31))
-        self.findbutton.setFont(font2)
+        self.find_button = QPushButton(self.centralwidget)
+        self.find_button.setObjectName(u"find_button")
+        self.find_button.setGeometry(QRect(160, 380, 71, 31))
+        self.find_button.setFont(font2)
 
         MainWindow.setCentralWidget(self.centralwidget)
         
@@ -738,15 +872,15 @@ class clients_list(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        self.back.setText("")
-        self.exit.setText("")
+        self.back_button.setText("")
+        self.exit_button.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
-        self.upbutton.setText("")
-        self.downbutton.setText("")
+        self.up_button.setText("")
+        self.down_button.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
-        self.findbutton.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
-        self.delete_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
-        self.update2.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
+        self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
+        self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
+        self.update_button.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
         self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
     # retranslateUi
 
@@ -756,22 +890,22 @@ class workers(QMainWindow):
         super().__init__()
         self.setupUi(self)
 
-        self.back.clicked.connect(self.to_mainmenu)
-        self.exit.clicked.connect(exitfunc)
-        self.view_workers.clicked.connect(self.to_workerslist)
-        self.add_new_worker.clicked.connect(self.to_add_workerfunc)
+        self.back_button.clicked.connect(self.to_main_menu_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.view_workers_button.clicked.connect(self.to_workers_list_func)
+        self.add_new_worker_button.clicked.connect(self.to_add_worker_func)
 
-    def to_add_workerfunc(self):
+    def to_add_worker_func(self):
         self.cams = add_workers()
         self.cams.show()
         self.close()
 
-    def to_workerslist(self):
+    def to_workers_list_func(self):
         self.cams = workers_list()
         self.cams.show()
         self.close()
 
-    def to_mainmenu(self):
+    def to_main_menu_func(self):
         self.cams = main_menu()
         self.cams.show()
         self.close()
@@ -785,41 +919,41 @@ class workers(QMainWindow):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-        self.add_new_worker = QPushButton(self.centralwidget)
-        self.add_new_worker.setObjectName(u"add_new_worker")
-        self.add_new_worker.setGeometry(QRect(50, 140, 161, 31))
+        self.add_new_worker_button = QPushButton(self.centralwidget)
+        self.add_new_worker_button.setObjectName(u"add_new_worker_button")
+        self.add_new_worker_button.setGeometry(QRect(50, 140, 161, 31))
 
-        self.workers_analisys = QPushButton(self.centralwidget)
-        self.workers_analisys.setObjectName(u"workers_analisys")
-        self.workers_analisys.setGeometry(QRect(610, 140, 161, 31))
+        self.workers_analisys_button = QPushButton(self.centralwidget)
+        self.workers_analisys_button.setObjectName(u"workers_analisys_button")
+        self.workers_analisys_button.setGeometry(QRect(610, 140, 161, 31))
 
-        self.view_workers = QPushButton(self.centralwidget)
-        self.view_workers.setObjectName(u"view_workers")
-        self.view_workers.setGeometry(QRect(320, 140, 161, 31))
+        self.view_workers_button = QPushButton(self.centralwidget)
+        self.view_workers_button.setObjectName(u"view_workers_button")
+        self.view_workers_button.setGeometry(QRect(320, 140, 161, 31))
 
-        self.exit = QPushButton(self.centralwidget)
-        self.exit.setObjectName(u"exit")
-        self.exit.setGeometry(QRect(790, 0, 41, 31))
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(790, 0, 41, 31))
 
         icon = QIcon()
         icon.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.exit.setIcon(icon)
-        self.exit.setIconSize(QSize(25, 25))
-        self.exit.setCheckable(False)
-        self.exit.setFlat(False)
+        self.exit_button.setIcon(icon)
+        self.exit_button.setIconSize(QSize(25, 25))
+        self.exit_button.setCheckable(False)
+        self.exit_button.setFlat(False)
 
-        self.back = QPushButton(self.centralwidget)
-        self.back.setObjectName(u"back")
-        self.back.setGeometry(QRect(0, 0, 41, 31))
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
 
         icon1 = QIcon()
         icon1.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.back.setIcon(icon1)
-        self.back.setIconSize(QSize(25, 25))
-        self.back.setCheckable(False)
-        self.back.setFlat(False)
+        self.back_button.setIcon(icon1)
+        self.back_button.setIconSize(QSize(25, 25))
+        self.back_button.setCheckable(False)
+        self.back_button.setFlat(False)
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
@@ -845,11 +979,11 @@ class workers(QMainWindow):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("Працівники", u"Працівники", None))
-        self.add_new_worker.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
-        self.workers_analisys.setText(QCoreApplication.translate("MainWindow", u"\u0410\u043d\u0430\u043b\u0456\u0437 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0456\u0432", None))
-        self.view_workers.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0456\u0432", None))
-        self.exit.setText("")
-        self.back.setText("")
+        self.add_new_worker_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.workers_analisys_button.setText(QCoreApplication.translate("MainWindow", u"\u0410\u043d\u0430\u043b\u0456\u0437 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0456\u0432", None))
+        self.view_workers_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0456\u0432", None))
+        self.exit_button.setText("")
+        self.back_button.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
     # retranslateUi
 
@@ -860,26 +994,33 @@ class workers_list(QMainWindow):
         self.setupUi(self)
         self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
 
-        self.back_button.clicked.connect(self.to_workersfunc)
-        self.exit_button.clicked.connect(exitfunc)
-        self.up_button.clicked.connect(self.previous_item)
-        self.down_button.clicked.connect(self.next_item)
-        self.find_button.clicked.connect(self.searchfunc)
-        self.delete_button.clicked.connect(self.deletefunc)
-        self.update_button.clicked.connect(self.load_data)
-        self.tableWidget.clicked.connect(self.currentionfunc)
+        self.back_button.clicked.connect(self.to_workers_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.up_button.clicked.connect(self.previous_item_func)
+        self.down_button.clicked.connect(self.next_item_func)
+        self.find_button.clicked.connect(self.search_func)
+        self.delete_button.clicked.connect(self.delete_func)
+        self.update_button.clicked.connect(self.load_data_func)
+        self.tableWidget.clicked.connect(self.currention_func)
+        self.edit_button.clicked.connect(self.edit_func)
+    
+    def edit_func(self):
+        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        self.cams = edit_worker()
+        self.cams.set_code(code)
+        self.cams.show()
 
-    def currentionfunc(self):
+    def currention_func(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow())
 
-    def next_item(self):
+    def next_item_func(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow()+1)
         
-    def previous_item(self):
+    def previous_item_func(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow()-1)
 
-    def searchfunc(self):
-        items = self.tableWidget.findItems(self.find_edit.text(), Qt.MatchExactly)
+    def search_func(self):
+        items = self.tableWidget.findItems(self.find_field.text(), Qt.MatchExactly)
         if items:
             self.tableWidget.selectRow(items[0].row())
         else:
@@ -887,7 +1028,7 @@ class workers_list(QMainWindow):
             # print('err')        for debugging
                     
 
-    def deletefunc(self):
+    def delete_func(self):
         current_row = self.tableWidget.currentRow()
         code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
         conn = sqlite3.connect("atelie.db") 
@@ -920,7 +1061,7 @@ class workers_list(QMainWindow):
         conn.commit()
         conn.close()
 
-    def load_data(self):
+    def load_data_func(self):
         self.tableWidget.setRowCount(0)
         # print('Rows set to 0')   for debugging
         connection = sqlite3.connect("atelie.db")
@@ -946,10 +1087,11 @@ class workers_list(QMainWindow):
             self.tableWidget.setItem(tablerow,5,QTableWidgetItem(str(row[5])+' ₴'))
 
             tablerow += 1
+        QTimer.singleShot(10000, self.load_data_func)
         # print('data loaded ')     for debugging
 
 
-    def to_workersfunc(self):
+    def to_workers_func(self):
         self.cams = workers()
         self.cams.show()
         self.close()
@@ -1005,7 +1147,7 @@ class workers_list(QMainWindow):
         self.tableWidget.setHorizontalHeaderLabels(["Код працівника","ПІБ","Стаж","Телефон","Стать","Зарплата"])
         self.tableWidget.verticalHeader().setVisible(False)
 
-        self.load_data()
+        self.load_data_func()
 
         self.back_button = QPushButton(self.centralwidget)
         self.back_button.setObjectName(u"back_button")
@@ -1038,12 +1180,10 @@ class workers_list(QMainWindow):
         self.find_button.setFont(font1)
 
         self.delete_button = QPushButton(self.centralwidget)
-        self.delete_button.setObjectName(u"delete_button")
-        self.delete_button.setGeometry(QRect(370, 350, 141, 31))
-
+        self.delete_button.setObjectName(u"delete_2")
+        self.delete_button.setGeometry(QRect(450, 350, 141, 31))
         font3 = QFont()
         font3.setPointSize(12)
-
         self.delete_button.setFont(font3)
 
         self.update_button = QPushButton(self.centralwidget)
@@ -1051,18 +1191,23 @@ class workers_list(QMainWindow):
         self.update_button.setGeometry(QRect(610, 350, 141, 31))
         self.update_button.setFont(font3)
 
-        self.find_edit = QLineEdit(self.centralwidget)
-        self.find_edit.setObjectName(u"find_edit")
-        self.find_edit.setGeometry(QRect(210, 350, 71, 21))
+        self.find_field = QLineEdit(self.centralwidget)
+        self.find_field.setObjectName(u"find_field")
+        self.find_field.setGeometry(QRect(210, 350, 71, 21))
         
         font4 = QFont()
         font4.setPointSize(10)
-        self.find_edit.setFont(font4)
+        self.find_field.setFont(font4)
 
         self.exit_button = QPushButton(self.centralwidget)
         self.exit_button.setObjectName(u"exit_button")
         self.exit_button.setGeometry(QRect(760, 0, 41, 31))
         self.exit_button.setFont(font2)
+
+        self.edit_button = QPushButton(self.centralwidget)
+        self.edit_button.setObjectName(u"edit_button")
+        self.edit_button.setGeometry(QRect(320, 350, 121, 31))
+        self.edit_button.setFont(font3)
     
         icon3 = QIcon()
         icon3.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -1092,35 +1237,35 @@ class workers_list(QMainWindow):
         self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.update_button.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
         self.exit_button.setText("")
+        self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
     # retranslateUi
 
+# Добавить работника
 class add_workers(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
 
-        self.back_button.clicked.connect(self.to_workersfunc)
-        self.exit_button.clicked.connect(exitfunc)
-        self.submit_button.clicked.connect(self.add_workerfunc)
-        self.phone.setInputMask('999-999')
-        self.phone.setMaxLength(7)
+        self.back_button.clicked.connect(self.to_workers_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.submit_button.clicked.connect(self.add_worker_func)
+        self.phone_field.setInputMask('999-999')
+        self.phone_field.setMaxLength(7)
 
-            
-                
-    def to_workersfunc(self):
+    def to_workers_func(self):
         self.cams = workers()
         self.cams.show()
         self.close()
 
-    def add_workerfunc(self):
+    def add_worker_func(self):
         
         conn = sqlite3.connect("atelie.db") 
-        name = self.name.text()
-        stazh = self.stazh.text()
-        sex = self.sex.text()
-        salary = self.salary.text()
-        phone = self.phone.text()
+        name = self.name_field.text()
+        stazh = self.stazh_field.text()
+        sex = self.sex_field.text()
+        salary = self.salary_field.text()
+        phone = self.phone_field.text()
 
         try:
             with conn:
@@ -1131,11 +1276,11 @@ class add_workers(QMainWindow):
                             values (?, ?, ?, ?, ?);'''
                 conn.execute(query, row)
 
-                self.name.clear()
-                self.phone.clear()
-                self.stazh.clear()
-                self.sex.clear()
-                self.salary.clear()
+                self.name_field.clear()
+                self.phone_field.clear()
+                self.stazh_field.clear()
+                self.sex_field.clear()
+                self.salary_field.clear()
 
                 msg = QMessageBox()
                 msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
@@ -1147,8 +1292,8 @@ class add_workers(QMainWindow):
             # print(e)              for debugging
             # print(e.args)
 
-            self.name.clear()
-            self.phone.clear()
+            self.name_field.clear()
+            self.phone_field.clear()
 
             msg = QMessageBox()
             msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
@@ -1167,19 +1312,19 @@ class add_workers(QMainWindow):
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-        self.stazh = QLineEdit(self.centralwidget)
-        self.stazh.setObjectName(u"stazh")
-        self.stazh.setGeometry(QRect(230, 160, 261, 31))
+        self.stazh_field = QLineEdit(self.centralwidget)
+        self.stazh_field.setObjectName(u"stazh_field")
+        self.stazh_field.setGeometry(QRect(230, 160, 261, 31))
 
         font = QFont()
         font.setPointSize(12)
 
-        self.stazh.setFont(font)
+        self.stazh_field.setFont(font)
 
-        self.name = QLineEdit(self.centralwidget)
-        self.name.setObjectName(u"name")
-        self.name.setGeometry(QRect(230, 100, 261, 41))
-        self.name.setFont(font)
+        self.name_field = QLineEdit(self.centralwidget)
+        self.name_field.setObjectName(u"name_field")
+        self.name_field.setGeometry(QRect(230, 100, 261, 41))
+        self.name_field.setFont(font)
 
         self.submit_button = QPushButton(self.centralwidget)
         self.submit_button.setObjectName(u"submit_button")
@@ -1240,30 +1385,30 @@ class add_workers(QMainWindow):
         self.label_3.setGeometry(QRect(10, 210, 201, 31))
         self.label_3.setFont(font1)
 
-        self.phone = QLineEdit(self.centralwidget)
-        self.phone.setObjectName(u"phone")
-        self.phone.setGeometry(QRect(230, 210, 261, 31))
-        self.phone.setFont(font)
+        self.phone_field = QLineEdit(self.centralwidget)
+        self.phone_field.setObjectName(u"phone_field")
+        self.phone_field.setGeometry(QRect(230, 210, 261, 31))
+        self.phone_field.setFont(font)
 
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(10, 260, 201, 31))
         self.label_5.setFont(font1)
 
-        self.sex = QLineEdit(self.centralwidget)
-        self.sex.setObjectName(u"sex")
-        self.sex.setGeometry(QRect(230, 260, 261, 31))
-        self.sex.setFont(font)
+        self.sex_field = QLineEdit(self.centralwidget)
+        self.sex_field.setObjectName(u"sex_field")
+        self.sex_field.setGeometry(QRect(230, 260, 261, 31))
+        self.sex_field.setFont(font)
 
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(10, 320, 201, 31))
         self.label_6.setFont(font1)
 
-        self.salary = QLineEdit(self.centralwidget)
-        self.salary.setObjectName(u"salary")
-        self.salary.setGeometry(QRect(230, 320, 261, 31))
-        self.salary.setFont(font)
+        self.salary_field = QLineEdit(self.centralwidget)
+        self.salary_field.setObjectName(u"salary_field")
+        self.salary_field.setGeometry(QRect(230, 320, 261, 31))
+        self.salary_field.setFont(font)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
@@ -1288,14 +1433,15 @@ class add_workers(QMainWindow):
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0437\u0430\u0440\u043f\u043b\u0430\u0442\u0443 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
     # retranslateUi
 
-class edit_client(QMainWindow):
+# Редактировать работника
+class edit_worker(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
 
-        self.submit_button.clicked.connect(self.edit_func)
         self.cancel_button.clicked.connect(self.cancel_func)
+        self.submit_button.clicked.connect(self.edit_worker_func)
         self.code = None
 
     def set_code(self, code):
@@ -1303,14 +1449,23 @@ class edit_client(QMainWindow):
 
     def cancel_func(self):
         self.close()
-
-    def edit_func(self):
-        name = self.lineEdit.text()
-        phone = self.lineEdit_2.text()
+    
+    def edit_worker_func(self):
+        name = self.name_field.text()
+        phone = self.phone_field.text()
+        stazh = self.stazh_field.text()
+        salary = self.salary_field.text()
         code = self.code
-        print('DATA = ',name,phone,code)
+        if self.sex_male_rb.isChecked():
+            sex = 'м'
+        elif self.sex_female_rb.isChecked():
+            sex = 'ж'
+        else:
+            sex = ''
+
+        #print('DATA = ',name,stazh,phone,sex,salary,code)   # for debugging
         
-        if name == '' or phone == '-' or len(phone) < 7:
+        if name == '' or phone == '-' or len(phone) < 7 or stazh == '' or salary == '' or sex == '':
             msg = QMessageBox()
             msg.setWindowTitle("Результат виконання")
             msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
@@ -1321,8 +1476,8 @@ class edit_client(QMainWindow):
                 conn = sqlite3.connect("atelie.db") 
                 with conn:
 
-                    query = '''UPDATE Клієнти SET ПІБ = ?, Телефон = ? WHERE Код_клієнта = ?;'''
-                    conn.execute(query, (name,phone,code) )
+                    query = '''UPDATE Працівники SET ПІБ_працівника = ?, Стаж = ?, Телефон = ?, Стать = ?, Зарплата = ? WHERE Код_працівника = ?;'''
+                    conn.execute(query, (name,stazh,phone,sex,salary,code) )
 
                     msg = QMessageBox()
                     msg.setWindowTitle("Результат виконання")
@@ -1345,48 +1500,101 @@ class edit_client(QMainWindow):
             conn.close()
             self.close()
 
-        
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(567, 348)
+        MainWindow.resize(958, 346)
+
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(190, 10, 221, 31))
+
+        self.label_5 = QLabel(self.centralwidget)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(10, 70, 131, 61))
+
         font = QFont()
-        font.setPointSize(17)
-        self.label.setFont(font)
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(30, 70, 101, 61))
+        font.setPointSize(13)
+
+        self.label_5.setFont(font)
+
+        self.label_4 = QLabel(self.centralwidget)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(40, 120, 101, 61))
+        self.label_4.setFont(font)
+
+        self.name_field = QLineEdit(self.centralwidget)
+        self.name_field.setObjectName(u"name_field")
+        self.name_field.setGeometry(QRect(150, 90, 251, 31))
+
         font1 = QFont()
-        font1.setPointSize(13)
-        self.label_2.setFont(font1)
-        self.label_3 = QLabel(self.centralwidget)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(30, 140, 101, 61))
-        self.label_3.setFont(font1)
-        self.lineEdit = QLineEdit(self.centralwidget)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setGeometry(QRect(140, 90, 341, 31))
-        font2 = QFont()
-        font2.setPointSize(11)
-        self.lineEdit.setFont(font2)
-        self.lineEdit_2 = QLineEdit(self.centralwidget)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
-        self.lineEdit_2.setGeometry(QRect(140, 150, 341, 31))
-        self.lineEdit_2.setFont(font2)
-        self.submit_button = QPushButton(self.centralwidget)
-        self.submit_button.setObjectName(u"submit_button")
-        self.submit_button.setGeometry(QRect(180, 260, 131, 31))
-        self.submit_button.setFont(font1)
+        font1.setPointSize(11)
+
+        self.name_field.setFont(font1)
+
+        self.phone_field = QLineEdit(self.centralwidget)
+        self.phone_field.setObjectName(u"phone_field")
+        self.phone_field.setGeometry(QRect(150, 140, 251, 31))
+        self.phone_field.setFont(font1)
+
         self.cancel_button = QPushButton(self.centralwidget)
         self.cancel_button.setObjectName(u"cancel_button")
-        self.cancel_button.setGeometry(QRect(330, 260, 131, 31))
-        self.cancel_button.setFont(font1)
+        self.cancel_button.setGeometry(QRect(480, 250, 131, 31))
+        self.cancel_button.setFont(font)
+
+        self.submit_button = QPushButton(self.centralwidget)
+        self.submit_button.setObjectName(u"submit_button")
+        self.submit_button.setGeometry(QRect(330, 250, 131, 31))
+        self.submit_button.setFont(font)
+
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(350, 20, 221, 31))
+
+        font2 = QFont()
+        font2.setPointSize(17)
+
+        self.label_6.setFont(font2)
+
+        self.stazh_field = QLineEdit(self.centralwidget)
+        self.stazh_field.setObjectName(u"stazh_field")
+        self.stazh_field.setGeometry(QRect(490, 90, 121, 31))
+        self.stazh_field.setFont(font1)
+
+        self.label_7 = QLabel(self.centralwidget)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setGeometry(QRect(430, 70, 101, 61))
+        self.label_7.setFont(font)
+
+        self.label_8 = QLabel(self.centralwidget)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(430, 130, 61, 61))
+        self.label_8.setFont(font)
+
+        self.salary_field = QLineEdit(self.centralwidget)
+        self.salary_field.setObjectName(u"salary_field")
+        self.salary_field.setGeometry(QRect(730, 90, 121, 31))
+        self.salary_field.setFont(font1)
+
+        self.label_9 = QLabel(self.centralwidget)
+        self.label_9.setObjectName(u"label_9")
+        self.label_9.setGeometry(QRect(640, 70, 101, 61))
+        self.label_9.setFont(font)
+
+        self.groupBox = QGroupBox(self.centralwidget)
+        self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setGeometry(QRect(490, 140, 120, 31))
+        self.groupBox.setFlat(False)
+
+        self.sex_female_rb = QRadioButton(self.groupBox)
+        self.sex_female_rb.setObjectName(u"sex_female_rb")
+        self.sex_female_rb.setGeometry(QRect(60, 10, 31, 17))
+
+        self.sex_male_rb = QRadioButton(self.groupBox)
+        self.sex_male_rb.setObjectName(u"sex_male_rb")
+        self.sex_male_rb.setGeometry(QRect(10, 10, 31, 17))
+
         MainWindow.setCentralWidget(self.centralwidget)
+
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -1398,13 +1606,22 @@ class edit_client(QMainWindow):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0406\u0411 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043b\u0435\u0444\u043e\u043d", None))
-        self.lineEdit_2.setInputMask(QCoreApplication.translate("MainWindow", u"999-999", None))
-        self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0406\u0411 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043b\u0435\u0444\u043e\u043d", None))
+        self.phone_field.setInputMask(QCoreApplication.translate("MainWindow", u"999-999", None))
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
+        self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
+        self.stazh_field.setText("")
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0430\u0436", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0430\u0442\u044c", None))
+        self.salary_field.setText("")
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0440\u043f\u043b\u0430\u0442\u0430", None))
+        self.groupBox.setTitle("")
+        self.sex_female_rb.setText(QCoreApplication.translate("MainWindow", u"\u0416", None))
+        self.sex_male_rb.setText(QCoreApplication.translate("MainWindow", u"\u041c", None))
     # retranslateUi
+
 
 
 if __name__ == "__main__":
