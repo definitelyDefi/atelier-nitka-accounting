@@ -142,6 +142,12 @@ class main_menu(QMainWindow):
         self.exit_button.clicked.connect(exit_func)
         self.to_clients_button.clicked.connect(self.to_clients_func)
         self.to_workers_button.clicked.connect(self.to_workers_func)
+        self.to_services_button.clicked.connect(self.to_services_func)
+    
+    def to_services_func(self):
+        self.cams = services()
+        self.cams.show()
+        self.close()
     
     def to_workers_func(self):
         self.cams = workers()
@@ -1007,7 +1013,7 @@ class workers(QMainWindow):
         self.label.setFont(font1)
 
         MainWindow.setCentralWidget(self.centralwidget)
-        
+
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -1661,6 +1667,117 @@ class edit_worker(QMainWindow):
         self.groupBox.setTitle("")
         self.sex_female_rb.setText(QCoreApplication.translate("MainWindow", u"\u0416", None))
         self.sex_male_rb.setText(QCoreApplication.translate("MainWindow", u"\u041c", None))
+    # retranslateUi
+
+# Меню услуг
+class services(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        self.back_button.clicked.connect(self.to_main_menu_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.to_view_products_button.clicked.connect(self.to_repairs_func)
+        self.to_view_repair_services_button.clicked.connect(self.to_products_func)
+
+    def to_repairs_func(self):
+        pass
+    
+    def to_products_func(self):
+        pass
+    
+    def to_main_menu_func(self):
+        self.cams = main_menu()
+        self.cams.show()
+        self.close()
+
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(337, 298)
+
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(300, 0, 41, 31))
+
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.exit_button.setIcon(icon)
+        self.exit_button.setIconSize(QSize(25, 25))
+        self.exit_button.setCheckable(False)
+        self.exit_button.setFlat(False)
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(130, 10, 101, 31))
+
+        font = QFont()
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setWeight(50)
+
+        self.label_2.setFont(font)
+
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
+
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.back_button.setIcon(icon1)
+        self.back_button.setIconSize(QSize(25, 25))
+        self.back_button.setCheckable(False)
+        self.back_button.setFlat(False)
+
+        self.to_view_repair_services_button = QPushButton(self.centralwidget)
+        self.to_view_repair_services_button.setObjectName(u"to_view_repair_services_button")
+        self.to_view_repair_services_button.setGeometry(QRect(80, 70, 181, 31))
+
+        font1 = QFont()
+        font1.setPointSize(10)
+
+        self.to_view_repair_services_button.setFont(font1)
+
+        self.to_view_products_button = QPushButton(self.centralwidget)
+        self.to_view_products_button.setObjectName(u"to_view_products_button")
+        self.to_view_products_button.setGeometry(QRect(80, 110, 181, 31))
+        self.to_view_products_button.setFont(font1)
+
+        self.add_repair_service_button = QPushButton(self.centralwidget)
+        self.add_repair_service_button.setObjectName(u"add_repair_service_button")
+        self.add_repair_service_button.setGeometry(QRect(80, 150, 181, 31))
+        self.add_repair_service_button.setFont(font1)
+
+        self.add_product_button = QPushButton(self.centralwidget)
+        self.add_product_button.setObjectName(u"add_product_button")
+        self.add_product_button.setGeometry(QRect(80, 190, 181, 31))
+        self.add_product_button.setFont(font1)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("Послуги", u"Послуги", None))
+        self.exit_button.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043b\u0443\u0433\u0438", None))
+        self.back_button.setText("")
+        self.to_view_repair_services_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043f\u043e\u0441\u043b\u0443\u0433 \u0440\u0435\u043c\u043e\u043d\u0442\u0443", None))
+        self.to_view_products_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0432\u0438\u0440\u043e\u0431\u0456\u0432", None))
+        self.add_repair_service_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043f\u043e\u0441\u043b\u0443\u0433\u0443 \u0440\u0435\u043c\u043e\u043d\u0442\u0443", None))
+        self.add_product_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u0432\u0438\u0440\u0456\u0431", None))
     # retranslateUi
 
 
