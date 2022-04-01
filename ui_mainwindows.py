@@ -138,8 +138,7 @@ class main_menu(QMainWindow):
         self.setupUi(self)
 
         self.setWindowIcon(QIcon(u":/newPrefix/assets/start_menu_icon.png"))
-
-        self.to_start_button.clicked.connect(self.to_start_func)
+        self.back_button.clicked.connect(self.to_start_func)
         self.exit_button.clicked.connect(exit_func)
         self.to_clients_button.clicked.connect(self.to_clients_func)
         self.to_workers_button.clicked.connect(self.to_workers_func)
@@ -160,50 +159,76 @@ class main_menu(QMainWindow):
         self.close() 
 
     def setupUi(self, MainWindow):
-        self.setWindowTitle('Головне меню')
+        
 
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 522)
+        MainWindow.resize(356, 390)
+        self.setWindowTitle('Головне меню')
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-        self.to_clients_button = QPushButton(self.centralwidget)
-        self.to_clients_button.setObjectName(u"to_clients_button")
-        self.to_clients_button.setGeometry(QRect(50, 70, 131, 31))
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(90, 20, 171, 41))
 
-        self.to_workers_button = QPushButton(self.centralwidget)
-        self.to_workers_button.setObjectName(u"to_workers_button")
-        self.to_workers_button.setGeometry(QRect(220, 70, 131, 31))
+        font = QFont()
+        font.setPointSize(19)
+        self.label.setFont(font)
 
-        self.to_offers_button = QPushButton(self.centralwidget)
-        self.to_offers_button.setObjectName(u"to_offers_button")
-        self.to_offers_button.setGeometry(QRect(390, 70, 131, 31))
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
 
-        self.to_services_button = QPushButton(self.centralwidget)
-        self.to_services_button.setObjectName(u"to_services_button")
-        self.to_services_button.setGeometry(QRect(560, 70, 131, 31))
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.to_start_button = QPushButton(self.centralwidget)
-        self.to_start_button.setObjectName(u"to_start_button")
-        self.to_start_button.setGeometry(QRect(280, 450, 191, 31))
+        self.back_button.setIcon(icon)
+        self.back_button.setIconSize(QSize(25, 25))
+        self.back_button.setCheckable(False)
+        self.back_button.setFlat(False)
 
         self.exit_button = QPushButton(self.centralwidget)
         self.exit_button.setObjectName(u"exit_button")
-        self.exit_button.setGeometry(QRect(710, 480, 75, 23))
+        self.exit_button.setGeometry(QRect(320, 0, 41, 31))
 
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(130, 270, 211, 131))
-        self.label.setPixmap(QPixmap(u":/newPrefix/assets/4.png"))
-        self.label.setScaledContents(True)
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
 
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(470, 280, 241, 111))
-        self.label_2.setPixmap(QPixmap(u":/newPrefix/assets/3.png"))
-        self.label_2.setScaledContents(True)
+        self.exit_button.setIcon(icon1)
+
+        self.exit_button.setIconSize(QSize(25, 25))
+        self.exit_button.setCheckable(False)
+        self.exit_button.setFlat(False)
+
+        self.to_clients_button = QPushButton(self.centralwidget)
+        self.to_clients_button.setObjectName(u"to_clients_button")
+        self.to_clients_button.setGeometry(QRect(110, 130, 121, 31))
+
+        font1 = QFont()
+        font1.setPointSize(14)
+        self.to_clients_button.setFont(font1)
+
+        self.to_offers_button = QPushButton(self.centralwidget)
+        self.to_offers_button.setObjectName(u"to_offers_button")
+        self.to_offers_button.setGeometry(QRect(110, 170, 121, 31))
+        self.to_offers_button.setFont(font1)
+
+        self.to_workers_button = QPushButton(self.centralwidget)
+        self.to_workers_button.setObjectName(u"to_workers_button")
+        self.to_workers_button.setGeometry(QRect(110, 210, 121, 31))
+        self.to_workers_button.setFont(font1)
+
+        self.to_materials_button = QPushButton(self.centralwidget)
+        self.to_materials_button.setObjectName(u"to_materials_button")
+        self.to_materials_button.setGeometry(QRect(110, 250, 121, 31))
+        self.to_materials_button.setFont(font1)
+
+        self.to_services_button = QPushButton(self.centralwidget)
+        self.to_services_button.setObjectName(u"to_services_button")
+        self.to_services_button.setGeometry(QRect(110, 290, 121, 31))
+        self.to_services_button.setFont(font1)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -214,17 +239,18 @@ class main_menu(QMainWindow):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-    
+    # setupUi
+
     def retranslateUi(self, MainWindow):
-        
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0413\u043e\u043b\u043e\u0432\u043d\u0435 \u043c\u0435\u043d\u044e", None))
+        self.back_button.setText("")
+        self.exit_button.setText("")
         self.to_clients_button.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
-        self.to_workers_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
         self.to_offers_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043a\u0430\u0437\u0438", None))
+        self.to_workers_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
+        self.to_materials_button.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0438", None))
         self.to_services_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043b\u0443\u0433\u0438", None))
-        self.to_start_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u0438\u0441\u044f \u043d\u0430 \u043f\u043e\u0447\u0430\u0442\u043a\u043e\u0432\u0438\u0439 \u0435\u043a\u0440\u0430\u043d", None))
-        self.exit_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0445\u0456\u0434", None))
-        self.label.setText("")
-        self.label_2.setText("")
+    # retranslateUi
 
 # Меню клиентов
 class clients(QMainWindow):
@@ -261,33 +287,29 @@ class clients(QMainWindow):
 
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(832, 300)
+        MainWindow.resize(333, 312)
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
         self.add_new_client_button = QPushButton(self.centralwidget)
         self.add_new_client_button.setObjectName(u"add_new_client_button")
-        self.add_new_client_button.setGeometry(QRect(60, 140, 161, 31))
+        self.add_new_client_button.setGeometry(QRect(80, 80, 181, 31))
+
+        font = QFont()
+        font.setPointSize(11)
+
+        self.add_new_client_button.setFont(font)
 
         self.view_clients_button = QPushButton(self.centralwidget)
         self.view_clients_button.setObjectName(u"view_clients_button")
-        self.view_clients_button.setGeometry(QRect(330, 140, 161, 31))
+        self.view_clients_button.setGeometry(QRect(80, 130, 181, 31))
+        self.view_clients_button.setFont(font)
 
-        self.clients_zvit_button = QPushButton(self.centralwidget)
-        self.clients_zvit_button.setObjectName(u"clients_zvit_button")
-        self.clients_zvit_button.setGeometry(QRect(620, 140, 161, 31))
-
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(350, 0, 111, 31))
-
-        font = QFont()
-        font.setPointSize(16)
-        font.setBold(False)
-        font.setWeight(50)
-
-        self.label_2.setFont(font)
+        self.clients_zvit_buttons = QPushButton(self.centralwidget)
+        self.clients_zvit_buttons.setObjectName(u"clients_zvit_buttons")
+        self.clients_zvit_buttons.setGeometry(QRect(80, 180, 181, 31))
+        self.clients_zvit_buttons.setFont(font)
 
         self.back_button = QPushButton(self.centralwidget)
         self.back_button.setObjectName(u"back_button")
@@ -303,7 +325,7 @@ class clients(QMainWindow):
 
         self.exit_button = QPushButton(self.centralwidget)
         self.exit_button.setObjectName(u"exit_button")
-        self.exit_button.setGeometry(QRect(790, 0, 41, 31))
+        self.exit_button.setGeometry(QRect(290, 0, 41, 31))
 
         icon1 = QIcon()
         icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -312,6 +334,17 @@ class clients(QMainWindow):
         self.exit_button.setIconSize(QSize(25, 25))
         self.exit_button.setCheckable(False)
         self.exit_button.setFlat(False)
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(130, 10, 81, 31))
+
+        font1 = QFont()
+        font1.setPointSize(18)
+        font1.setBold(False)
+        font1.setWeight(50)
+
+        self.label_2.setFont(font1)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -325,13 +358,13 @@ class clients(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.add_new_client_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.view_clients_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0456\u0432", None))
-        self.clients_zvit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
+        self.clients_zvit_buttons.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
         self.back_button.setText("")
         self.exit_button.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
     # retranslateUi
 
 # Добавить клиента
@@ -914,26 +947,33 @@ class workers(QMainWindow):
 
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(830, 299)
-        
+        MainWindow.resize(331, 296)
+
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
         self.add_new_worker_button = QPushButton(self.centralwidget)
         self.add_new_worker_button.setObjectName(u"add_new_worker_button")
-        self.add_new_worker_button.setGeometry(QRect(50, 140, 161, 31))
+        self.add_new_worker_button.setGeometry(QRect(70, 150, 181, 31))
+
+        font = QFont()
+        font.setPointSize(10)
+
+        self.add_new_worker_button.setFont(font)
 
         self.workers_analisys_button = QPushButton(self.centralwidget)
         self.workers_analisys_button.setObjectName(u"workers_analisys_button")
-        self.workers_analisys_button.setGeometry(QRect(610, 140, 161, 31))
+        self.workers_analisys_button.setGeometry(QRect(70, 200, 181, 31))
+        self.workers_analisys_button.setFont(font)
 
         self.view_workers_button = QPushButton(self.centralwidget)
         self.view_workers_button.setObjectName(u"view_workers_button")
-        self.view_workers_button.setGeometry(QRect(320, 140, 161, 31))
+        self.view_workers_button.setGeometry(QRect(70, 100, 181, 31))
+        self.view_workers_button.setFont(font)
 
         self.exit_button = QPushButton(self.centralwidget)
         self.exit_button.setObjectName(u"exit_button")
-        self.exit_button.setGeometry(QRect(790, 0, 41, 31))
+        self.exit_button.setGeometry(QRect(290, 0, 41, 31))
 
         icon = QIcon()
         icon.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
@@ -957,14 +997,14 @@ class workers(QMainWindow):
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(360, 0, 111, 31))
+        self.label.setGeometry(QRect(90, 10, 141, 31))
 
-        font = QFont()
-        font.setPointSize(16)
-        font.setBold(False)
-        font.setWeight(50)
+        font1 = QFont()
+        font1.setPointSize(18)
+        font1.setBold(False)
+        font1.setWeight(50)
 
-        self.label.setFont(font)
+        self.label.setFont(font1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         
@@ -986,6 +1026,7 @@ class workers(QMainWindow):
         self.back_button.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
     # retranslateUi
+
 
 # Просмотр работников
 class workers_list(QMainWindow):
