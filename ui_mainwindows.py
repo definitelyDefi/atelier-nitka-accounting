@@ -17,7 +17,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import sys
 
-from pip import main
+
 import resource_rc              # импорт ресурсов --- создается с помощью  ----  pyrcc5 resources.qrc -o resource_rc.py
 import sqlite3                  
 from PySide2.QtCore import Qt 
@@ -1684,14 +1684,20 @@ class services(QMainWindow):
 
         self.back_button.clicked.connect(self.to_main_menu_func)
         self.exit_button.clicked.connect(exit_func)
-        self.to_view_products_button.clicked.connect(self.to_repairs_func)
-        self.to_view_repair_services_button.clicked.connect(self.to_products_func)
+        self.to_view_products_button.clicked.connect(self.to_products_func)
+        self.to_view_repair_services_button.clicked.connect(self.to_repairs_func)
+        self.add_product_button.clicked.connect(self.to_add_products_func)
 
     def to_repairs_func(self):
         pass
     
     def to_products_func(self):
         pass
+
+    def to_add_products_func(self):
+        self.cams = add_product()
+        self.cams.show()
+        self.close()
     
     def to_main_menu_func(self):
         self.cams = main_menu()
@@ -2433,6 +2439,276 @@ class edit_material(QMainWindow):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0443", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0440\u043e\u0431\u043d\u0438\u043a", None))
+    # retranslateUi
+
+class add_product(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        self.file_dialog_button.clicked.connect(self.file_dialog_func)
+        self.submit_button.clicked.connect(self.add_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.data = self.back_button.clicked.connect(self.to_services_func)
+
+    def to_services_func(self):
+        self.cams = services()
+        self.cams.show()
+        self.close()
+    
+    def file_dialog_func(self):
+
+        fname = QFileDialog.getOpenFileName(self, 'Open file', '',"JPEG (*.JPEG *.jpeg *.JPG *.jpg *.JPE *.jpe *JFIF *.jfif);; PNG (*.PNG *.png);; GIF (*.GIF *.gif);; Bitmap Files (*.BMP *.bmp *.DIB *.dib);; TIFF (*.TIF *.tif *.TIFF *.tiff);; ICO (*.ICO *.ico)")[0]
+        f = open(fname, 'rb')
+        
+
+        with f:
+            self.data = f.read()
+            image_profile = QImage(fname) #QImage object
+            image_profile = image_profile.scaled(191,191, aspectRatioMode=Qt.KeepAspectRatio, transformMode=Qt.SmoothTransformation) # To scale image for example and keep its Aspect Ration    
+            self.photo_view.setPixmap(QPixmap.fromImage(image_profile)) 
+            
+
+    def add_func(self):
+        conn = sqlite3.connect("atelie.db")
+
+        try:
+            with conn:
+                
+                list_item = self.material_list.currentText()
+                cur = conn.cursor()
+                row = cur.execute('SELECT Код_матеріалу FROM Матеріали WHERE Назва =?',(str(list_item),))
+                material = row.fetchall()[0][0]
+
+        except sqlite3.Error as e:
+            print(e)
+            print(e.args)
+        
+        name = self.name_field.text()
+        type_of_prod = self.type_field.text()
+        type = 'Пошив одягу'
+        color = self.color_field.text()
+        price = self.price_field.text()
+
+        if name == '' or type_of_prod == '' or color == '' or price == '' or self.data == True:
+            msg = QMessageBox()
+            msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+            msg.setWindowTitle("Результат виконання")
+            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+            x = msg.exec_() 
+        else:
+
+            try:
+                with conn:
+                    row = (type,type_of_prod,name,material,color,self.data,price)
+                    # print('DATA =', row)      # for debugging
+        
+                    query = '''insert into Послуги (Тип_послуги, Тип_продукту, Назва, Код_матеріалу, Колір, Фото_продукту, Вартість)
+                                values (?, ?, ?, ?, ?, ?, ?);'''
+                    conn.execute(query, row)
+
+                    self.name_field.clear()
+                    self.type_field.clear()
+                    self.color_field.clear()
+                    self.price_field.clear()
+                    self.photo_view.clear()
+                    
+                    
+
+                    msg = QMessageBox()
+                    msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
+                    msg.setWindowTitle("Результат виконання")
+                    msg.setText("Операція виконана успішно!")
+                    x = msg.exec_() 
+
+            except sqlite3.Error as e:
+                print(e)              #for debugging
+                print(e.args)
+
+                
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+                msg.setWindowTitle("Результат виконання")
+                msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+                x = msg.exec_() 
+
+            conn.commit()
+            conn.close()
+
+
+    
+    def load_data_func(self):
+        conn = sqlite3.connect("atelie.db") 
+
+        try:
+            with conn:
+                
+                query = '''SELECT Назва FROM Матеріали;'''
+                cur = conn.cursor()
+                tablerow = 0
+                
+                for row in cur.execute(query):
+
+                    self.material_list.insertItem(tablerow,row[0])
+                    tablerow += 1
+            conn.close()
+
+        except sqlite3.Error as e:
+            # print(e)              for debugging
+            # print(e.args)
+
+            conn.close()
+
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(871, 499)
+
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(830, 0, 41, 31))
+
+        font = QFont()
+        font.setPointSize(2)
+
+        self.exit_button.setFont(font)
+
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.exit_button.setIcon(icon)
+        self.exit_button.setIconSize(QSize(25, 25))
+
+        self.type_field = QLineEdit(self.centralwidget)
+        self.type_field.setObjectName(u"type_field")
+        self.type_field.setGeometry(QRect(190, 180, 261, 31))
+
+        font1 = QFont()
+        font1.setPointSize(12)
+
+        self.type_field.setFont(font1)
+
+        self.label_3 = QLabel(self.centralwidget)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(360, 0, 171, 41))
+
+        font2 = QFont()
+        font2.setPointSize(16)
+
+        self.label_3.setFont(font2)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(10, 140, 171, 31))
+
+        font3 = QFont()
+        font3.setPointSize(11)
+
+        self.label.setFont(font3)
+        
+        self.name_field = QLineEdit(self.centralwidget)
+        self.name_field.setObjectName(u"name_field")
+        self.name_field.setGeometry(QRect(190, 140, 261, 31))
+        self.name_field.setFont(font1)
+
+        self.submit_button = QPushButton(self.centralwidget)
+        self.submit_button.setObjectName(u"submit_button")
+        self.submit_button.setGeometry(QRect(710, 420, 101, 31))
+        self.submit_button.setFont(font3)
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(10, 180, 161, 31))
+        self.label_2.setFont(font3)
+
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
+        self.back_button.setFont(font)
+
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.back_button.setIcon(icon1)
+        self.back_button.setIconSize(QSize(25, 25))
+
+        self.label_4 = QLabel(self.centralwidget)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(10, 220, 161, 31))
+        self.label_4.setFont(font3)
+
+        self.material_list = QComboBox(self.centralwidget)
+        self.material_list.setObjectName(u"material_list")
+        self.material_list.setGeometry(QRect(190, 230, 261, 21))
+        self.material_list.setFont(font1)
+
+        self.load_data_func()
+
+        self.label_5 = QLabel(self.centralwidget)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(470, 140, 191, 31))
+        self.label_5.setFont(font3)
+
+        self.color_field = QLineEdit(self.centralwidget)
+        self.color_field.setObjectName(u"color_field")
+        self.color_field.setGeometry(QRect(660, 140, 171, 31))
+        self.color_field.setFont(font1)
+
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(470, 180, 191, 31))
+        self.label_6.setFont(font3)
+
+        self.price_field = QLineEdit(self.centralwidget)
+        self.price_field.setObjectName(u"price_field")
+        self.price_field.setGeometry(QRect(660, 180, 171, 31))
+        self.price_field.setFont(font1)
+
+        self.label_7 = QLabel(self.centralwidget)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setGeometry(QRect(10, 280, 171, 31))
+        self.label_7.setFont(font3)
+
+        self.file_dialog_button = QPushButton(self.centralwidget)
+        self.file_dialog_button.setObjectName(u"file_dialog_button")
+        self.file_dialog_button.setGeometry(QRect(400, 280, 111, 31))
+        self.file_dialog_button.setFont(font3)
+
+        self.photo_view = QLabel(self.centralwidget)
+        self.photo_view.setObjectName(u"photo_view")
+        self.photo_view.setGeometry(QRect(200, 290, 191, 191))
+        self.photo_view.setFrameShadow(QFrame.Plain)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.exit_button.setText("")
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043f\u0440\u043e\u0434\u0443\u043a\u0442", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0437\u0432\u0443 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
+        self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0442\u0438\u043f \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
+        self.back_button.setText("")
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b", None))
+
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043a\u043e\u043b\u0456\u0440 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0432\u0430\u0440\u0442\u0456\u0441\u0442\u044c \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0439\u0442\u0435 \u0444\u043e\u0442\u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
+        self.file_dialog_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0444\u043e\u0442\u043e", None))
+        self.photo_view.setText("")
     # retranslateUi
 
 if __name__ == "__main__":
