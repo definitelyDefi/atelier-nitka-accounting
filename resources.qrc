@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="newPrefix">
+    <file>assets/screpka.png</file>
     <file>assets/plus_icon.png</file>
     <file>assets/clients_icon.png</file>
     <file>assets/list_icon.png</file>
@@ -15,4 +16,5 @@
     <file>assets/1.png</file>
     <file>assets/2.png</file>
   </qresource>
+  <qresource prefix="newPrefix"/>
 </RCC>
