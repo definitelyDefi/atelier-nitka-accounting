@@ -4216,8 +4216,6 @@ class offers_list(QMainWindow):
         self.tableWidget.clicked.connect(self.currention_func)
         self.edit_button.clicked.connect(self.edit_func)
         
-    
-
     def to_offers_func(self):
         self.cams = offers()
         self.cams.show()
@@ -4311,9 +4309,10 @@ class offers_list(QMainWindow):
     def currention_func(self):
         self.tableWidget.selectRow(self.tableWidget.currentRow())
 
-
     def edit_func(self):
-        pass
+        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        self.cams = edit_offer(code)
+        self.cams.show()
 
     def setupUi(self, MainWindow):
 
@@ -4471,7 +4470,6 @@ class offers_list(QMainWindow):
         self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
 
-    
 # Меню заказов
 class offers(QMainWindow):
     def __init__(self):
@@ -4621,6 +4619,335 @@ class offers(QMainWindow):
         self.offers_by_months_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0437\u0430\u043a\u0430\u0437\u0456\u0432 \u043f\u043e \u043c\u0456\u0441\u044f\u0446\u044f\u043c", None))
         self.view_receipt_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u0447\u0430 \u043a\u0432\u0438\u043d\u0442\u0430\u0446\u0456\u0457", None))
     
+class edit_offer(QMainWindow):
+    def __init__(self,code):
+        super().__init__()
+        self.code = code
+        self.setupUi(self)
+        
+        self.back_button.clicked.connect(self.to_offers_list_func)
+        self.submit_button.clicked.connect(self.edit_func)
+
+    def to_offers_list_func(self):
+        self.close()
+    
+    def edit_func(self):
+        conn = sqlite3.connect("atelie.db")
+
+        try:
+            with conn:
+                
+                client_list_item = self.client_list.currentText()
+                cur = conn.cursor()
+                row = cur.execute('SELECT Код_клієнта FROM Клієнти WHERE ПІБ=?',(str(client_list_item),))
+                client_code = row.fetchall()[0][0]
+
+                product_list_item = self.product_list.currentText()
+                row = cur.execute('SELECT Код_продукту FROM Послуги WHERE Назва=?',(str(product_list_item),))
+                product_code = row.fetchall()[0][0]
+
+                worker_list_item = self.worker_list.currentText()
+                row = cur.execute('SELECT Код_працівника FROM Працівники WHERE ПІБ_працівника=?',(str(worker_list_item),))
+                worker_code = row.fetchall()[0][0]
+
+                price_item = self.product_list.currentText()
+                row = cur.execute('SELECT Вартість FROM Послуги WHERE Назва=?',(str(price_item),))
+                first_price = row.fetchall()[0][0]
+
+        except sqlite3.Error as e:
+            print(e)
+            print(e.args)
+        
+        price = str(int(self.price.text()) + int(first_price))
+        if self.payed_radiobutton.isChecked():
+            payed = -1
+        elif self.unpayed_radiobutton.isChecked():
+            payed = 0
+        else:
+            payed = ''
+        
+        date_of_start = self.start_date.selectedDate().toString('dd-MM-yyyy')
+        date_of_end = self.end_date.selectedDate().toString('dd-MM-yyyy')
+        
+        if client_code == '' or product_code == '' or worker_code == '' or price == '' or date_of_start == '' or date_of_end == '' or payed == '':
+            msg = QMessageBox()
+            msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+            msg.setWindowTitle("Результат виконання")
+            msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+            x = msg.exec_() 
+        else:
+
+            try:
+                with conn:
+                    # print(f'client-code - {client_code}\nproduct_code - {product_code}\nworker code - {worker_code}\nprice - {price}\npayed - {payed}\ndate_of_start - {date_of_start}\ndate_of_end - {date_of_end}')
+                    row = (client_code,product_code,date_of_start, date_of_end,price,payed,worker_code,self.code)
+                    print('DATA =', row)      # for debugging
+        
+                    query = '''UPDATE Закази SET Код_клієнта=?, Код_продукту=?, Дата_початку=?, Дата_закінчення=?, Ціна=?, Оплачено=?, Працівник=? WHERE Код_заказу=?;'''
+                    conn.execute(query, row)
+
+                    self.price.clear()
+                    self.payed_radiobutton.clearFocus()
+                    self.unpayed_radiobutton.clearFocus()
+                    self.end_date.clearFocus()
+                    self.start_date.clearFocus()
+            
+
+                    msg = QMessageBox()
+                    msg.setWindowIcon(QIcon(u":/newPrefix/assets/success_icon.png"))
+                    msg.setWindowTitle("Результат виконання")
+                    msg.setText("Операція виконана успішно!")
+                    x = msg.exec_() 
+
+            except sqlite3.Error as e:
+                print(e)              #for debugging
+                print(e.args)
+
+                self.price.clear()
+                self.end_date.clearFocus()
+                self.start_date.clearFocus()
+                
+                msg = QMessageBox()
+                msg.setWindowIcon(QIcon(u":/newPrefix/assets/error_icon.png"))
+                msg.setWindowTitle("Результат виконання")
+                msg.setText("Виникла помилка, перевірте правильність данних та заповненість всіх полей")
+                x = msg.exec_() 
+
+            conn.commit()
+            conn.close()
+            self.close()
+        
+
+    def load_data_func(self):
+        conn = sqlite3.connect("atelie.db") 
+
+        try:
+            with conn:
+                
+                query = '''SELECT ПІБ FROM Клієнти;'''
+                cur = conn.cursor()
+                tablerow = 0
+                
+                for row in cur.execute(query):
+
+                    self.client_list.insertItem(tablerow,row[0])
+                    tablerow += 1
+
+                query = '''SELECT Назва FROM Послуги;'''
+                tablerow = 0
+                
+                for row in cur.execute(query):
+
+                    self.product_list.insertItem(tablerow,row[0])
+                    tablerow += 1
+                
+                query = '''SELECT ПІБ_працівника FROM Працівники;'''
+                tablerow = 0
+                
+                for row in cur.execute(query):
+
+                    self.worker_list.insertItem(tablerow,row[0])
+                    tablerow += 1
+
+            conn.close()
+
+        except sqlite3.Error as e:
+            # print(e)              for debugging
+            # print(e.args)
+
+            conn.close()
+
+    def setupUi(self, MainWindow):
+
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(963, 678)
+
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.client_list = QComboBox(self.centralwidget)
+        self.client_list.setObjectName(u"client_list")
+        self.client_list.setGeometry(QRect(160, 110, 281, 21))
+
+        font = QFont()
+        font.setPointSize(9)
+
+        self.client_list.setFont(font)
+
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(470, 160, 141, 21))
+
+        font1 = QFont()
+        font1.setPointSize(13)
+
+        self.label_6.setFont(font1)
+        self.label_6.setAcceptDrops(False)
+        self.label_6.setScaledContents(False)
+        self.label_6.setWordWrap(True)
+
+        self.groupBox = QGroupBox(self.centralwidget)
+        self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setGeometry(QRect(640, 150, 191, 31))
+
+        font2 = QFont()
+        font2.setPointSize(11)
+
+        self.groupBox.setFont(font2)
+
+        self.payed_radiobutton = QRadioButton(self.groupBox)
+        self.payed_radiobutton.setObjectName(u"payed_radiobutton")
+        self.payed_radiobutton.setGeometry(QRect(20, 10, 82, 17))
+        self.payed_radiobutton.setFont(font2)
+
+        self.unpayed_radiobutton = QRadioButton(self.groupBox)
+        self.unpayed_radiobutton.setObjectName(u"unpayed_radiobutton")
+        self.unpayed_radiobutton.setGeometry(QRect(100, 10, 82, 17))
+        self.unpayed_radiobutton.setFont(font2)
+
+        self.product_list = QComboBox(self.centralwidget)
+        self.product_list.setObjectName(u"product_list")
+        self.product_list.setGeometry(QRect(160, 160, 281, 21))
+        self.product_list.setFont(font)
+
+        self.label_7 = QLabel(self.centralwidget)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setGeometry(QRect(10, 210, 131, 21))
+        self.label_7.setFont(font1)
+        self.label_7.setAcceptDrops(False)
+        self.label_7.setScaledContents(False)
+        self.label_7.setWordWrap(True)
+
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
+
+        font3 = QFont()
+        font3.setPointSize(2)
+
+        self.back_button.setFont(font3)
+
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.back_button.setIcon(icon)
+        self.back_button.setIconSize(QSize(25, 25))
+
+        self.worker_list = QComboBox(self.centralwidget)
+        self.worker_list.setObjectName(u"worker_list")
+        self.worker_list.setGeometry(QRect(640, 110, 281, 21))
+        self.worker_list.setFont(font)
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(10, 160, 141, 21))
+        self.label_2.setFont(font1)
+        self.label_2.setAcceptDrops(False)
+        self.label_2.setScaledContents(False)
+        self.label_2.setWordWrap(True)
+
+        self.price = QLineEdit(self.centralwidget)
+        self.price.setObjectName(u"price")
+        self.price.setGeometry(QRect(160, 210, 241, 21))
+
+        font4 = QFont()
+        font4.setPointSize(10)
+
+        self.price.setFont(font4)
+
+        self.label_5 = QLabel(self.centralwidget)
+        self.label_5.setObjectName(u"label_5")
+        self.label_5.setGeometry(QRect(460, 110, 171, 21))
+        self.label_5.setFont(font1)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(10, 110, 131, 21))
+        self.label.setFont(font1)
+
+        self.label_8 = QLabel(self.centralwidget)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(380, 10, 221, 41))
+
+        font5 = QFont()
+        font5.setPointSize(19)
+
+        self.label_8.setFont(font5)
+
+        self.submit_button = QPushButton(self.centralwidget)
+        self.submit_button.setObjectName(u"submit_button")
+        self.submit_button.setGeometry(QRect(470, 610, 121, 41))
+
+        font6 = QFont()
+        font6.setPointSize(17)
+
+        self.submit_button.setFont(font6)
+
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(920, 0, 41, 31))
+        self.exit_button.setFont(font3)
+
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.exit_button.setIcon(icon1)
+        self.exit_button.setIconSize(QSize(25, 25))
+
+        self.groupBox_2 = QGroupBox(self.centralwidget)
+        self.groupBox_2.setObjectName(u"groupBox_2")
+        self.groupBox_2.setGeometry(QRect(110, 300, 761, 291))
+
+        self.label_3 = QLabel(self.groupBox_2)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(90, 20, 181, 21))
+        self.label_3.setFont(font1)
+
+        self.start_date = QCalendarWidget(self.groupBox_2)
+        self.start_date.setObjectName(u"start_date")
+        self.start_date.setGeometry(QRect(30, 50, 321, 191))
+
+        self.end_date = QCalendarWidget(self.groupBox_2)
+        self.end_date.setObjectName(u"end_date")
+        self.end_date.setGeometry(QRect(410, 50, 321, 191))
+
+        self.label_4 = QLabel(self.groupBox_2)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(450, 20, 201, 21))
+        self.label_4.setFont(font1)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.load_data_func()
+
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування", u"Редагування", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0430\u0442\u0443\u0441 \u043e\u043f\u043b\u0430\u0442\u0438", None))
+        self.groupBox.setTitle("")
+        self.payed_radiobutton.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0430\u043a", None))
+        self.unpayed_radiobutton.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0456", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0446\u0456\u043d\u043a\u0443", None))
+        self.back_button.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u0440\u043e\u0434\u0443\u043a\u0442", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
+        self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
+        self.exit_button.setText("")
+        self.groupBox_2.setTitle("")
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u0434\u0430\u0442\u0443 \u043f\u043e\u0447\u0430\u0442\u043a\u0443", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u0434\u0430\u0442\u0443 \u0437\u0430\u043a\u0456\u043d\u0447\u0435\u043d\u043d\u044f", None))
+
+
 
 if __name__ == "__main__":
 
