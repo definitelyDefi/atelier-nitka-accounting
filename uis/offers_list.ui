@@ -29,51 +29,11 @@
      </font>
     </property>
     <property name="columnCount">
-     <number>8</number>
+     <number>0</number>
     </property>
     <attribute name="verticalHeaderVisible">
      <bool>false</bool>
     </attribute>
-    <column>
-     <property name="text">
-      <string>Код заказу</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Клієнт</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Продукт</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Працівник</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Початок</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Закінчення</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Ціна</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Оплачено</string>
-     </property>
-    </column>
    </widget>
    <widget class="QPushButton" name="update_button">
     <property name="geometry">
@@ -303,6 +263,24 @@
     </property>
     <property name="text">
      <string>Пошук</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>410</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Зміна статусу оплати</string>
     </property>
    </widget>
   </widget>

@@ -17,6 +17,8 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import sys
 
+from matplotlib.font_manager import findfont
+
 
 import resource_rc              # импорт ресурсов --- создается с помощью  ----  pyrcc5 resources.qrc -o resource_rc.py
 import sqlite3                  
@@ -29,6 +31,7 @@ import re
 def exit_func():
     print('exiting...')
     sys.exit()
+
 
 
 # Стартовое меню
@@ -270,8 +273,7 @@ class main_menu(QMainWindow):
         self.to_workers_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
         self.to_materials_button.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0438", None))
         self.to_services_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0441\u043b\u0443\u0433\u0438", None))
-    # retranslateUi
-
+    
 # Меню клиентов
 class clients(QMainWindow):
 
@@ -385,8 +387,7 @@ class clients(QMainWindow):
         self.back_button.setText("")
         self.exit_button.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
-    # retranslateUi
-
+    
 # Добавить клиента
 class add_client(QMainWindow):
     def __init__(self):
@@ -546,8 +547,7 @@ class add_client(QMainWindow):
         self.back_button.setText("")
         self.exit_button.setText("")
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
-    # retranslateUi
-
+    
 # Редактировать клиента
 class edit_client(QMainWindow):
     def __init__(self):
@@ -679,8 +679,8 @@ class edit_client(QMainWindow):
         self.phone_field.setInputMask(QCoreApplication.translate("MainWindow", u"999-999", None))
         self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
-    # retranslateUi
-# Просмотр клиентов
+    
+# Просмотр клиенто
 class clients_list(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -935,8 +935,7 @@ class clients_list(QMainWindow):
         self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.update_button.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
         self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
-    # retranslateUi
-
+    
 # Меню работников
 class workers(QMainWindow):
     def __init__(self):
@@ -1045,8 +1044,7 @@ class workers(QMainWindow):
         self.exit_button.setText("")
         self.back_button.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0438", None))
-    # retranslateUi
-
+    
 # Просмотр работников
 class workers_list(QMainWindow):
     def __init__(self):
@@ -1298,8 +1296,7 @@ class workers_list(QMainWindow):
         self.update_button.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
         self.exit_button.setText("")
         self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
-    # retranslateUi
-
+    
 # Добавить работника
 class add_workers(QMainWindow):
     def __init__(self):
@@ -1491,8 +1488,7 @@ class add_workers(QMainWindow):
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0442\u0435\u043b\u0435\u0444\u043e\u043d \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0441\u0442\u0430\u0442\u044c \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0437\u0430\u0440\u043f\u043b\u0430\u0442\u0443 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
-    # retranslateUi
-
+    
 # Редактировать работника
 class edit_worker(QMainWindow):
     def __init__(self):
@@ -1680,8 +1676,7 @@ class edit_worker(QMainWindow):
         self.groupBox.setTitle("")
         self.sex_female_rb.setText(QCoreApplication.translate("MainWindow", u"\u0416", None))
         self.sex_male_rb.setText(QCoreApplication.translate("MainWindow", u"\u041c", None))
-    # retranslateUi
-
+    
 # Меню услуг
 class services(QMainWindow):
     def __init__(self):
@@ -1807,8 +1802,7 @@ class services(QMainWindow):
         self.to_view_products_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0432\u0438\u0440\u043e\u0431\u0456\u0432", None))
         self.add_repair_service_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043f\u043e\u0441\u043b\u0443\u0433\u0443 \u0440\u0435\u043c\u043e\u043d\u0442\u0443", None))
         self.add_product_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u0432\u0438\u0440\u0456\u0431", None))
-    # retranslateUi
-
+    
 # Меню материалов
 class materials(QMainWindow):
     def __init__(self):
@@ -1911,8 +1905,7 @@ class materials(QMainWindow):
         self.exit_button.setText("")
         self.add_new_material_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b", None))
         self.view_materials_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0456\u0432", None))
-    # retranslateUi
-
+    
 # Добавить материал
 class add_material(QMainWindow):
 
@@ -2065,8 +2058,7 @@ class add_material(QMainWindow):
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0437\u0432\u0443 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0443", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0432\u0438\u0440\u043e\u0431\u043d\u0438\u043a\u0430 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0443", None))
         self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
-    # retranslateUi
-
+    
 # Список материалов
 class materials_list(QMainWindow):
 
@@ -2324,8 +2316,7 @@ class materials_list(QMainWindow):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0438", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
         self.down_button.setText("")
-    # retranslateUi
-
+    
 # Редактировать материал
 class edit_material(QMainWindow):
     def __init__(self):
@@ -2459,8 +2450,7 @@ class edit_material(QMainWindow):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0437\u0432\u0430 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b\u0443", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0440\u043e\u0431\u043d\u0438\u043a", None))
-    # retranslateUi
-
+    
 # Добавить продукт
 class add_product(QMainWindow):
     def __init__(self):
@@ -2697,6 +2687,7 @@ class add_product(QMainWindow):
         self.file_dialog_button.setObjectName(u"file_dialog_button")
         self.file_dialog_button.setGeometry(QRect(400, 280, 111, 31))
         self.file_dialog_button.setFont(font3)
+        self.file_dialog_button.setToolTip("Натисніть щоб вибрати фото продукту зі свого диску")
 
         self.photo_view = QLabel(self.centralwidget)
         self.photo_view.setObjectName(u"photo_view")
@@ -2730,8 +2721,7 @@ class add_product(QMainWindow):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0439\u0442\u0435 \u0444\u043e\u0442\u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
         self.file_dialog_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0444\u043e\u0442\u043e", None))
         self.photo_view.setText("")
-    # retranslateUi
-
+    
 # Список продуктов
 class products_list(QMainWindow):
 
@@ -2838,6 +2828,7 @@ class products_list(QMainWindow):
 
             self.pic_label = QLabel()
             self.pic_label.setPixmap(QPixmap.fromImage(image_profile))
+            self.pic_label.setToolTip("Натисніть два рази <b>ЛКМ</b> для перегляду фото продукту")
             self.tableWidget.setCellWidget(tablerow, 5, self.pic_label)
 
             self.tableWidget.setItem(tablerow,6,QTableWidgetItem(str(row[6])+' ₴'))
@@ -3001,9 +2992,8 @@ class products_list(QMainWindow):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0440\u043e\u0431\u0438", None))
         self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
-    # retranslateUi
-
-# Просмотр фото   TODO: Сделать возможность обращаться к нему из списка заказов
+    
+# Просмотр фото   
 class photo_viewing(QMainWindow):
 
     def __init__(self,code):
@@ -3078,7 +3068,6 @@ class photo_viewing(QMainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("Перегляд фото", u"Перегляд фото", None))
         self.picture.setText("")
         self.back_button.setText("")
-    # retranslateUi
 
 # Редактирование продукта
 class edit_product(QMainWindow):
@@ -3331,8 +3320,8 @@ class edit_product(QMainWindow):
         self.file_dialog_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0440\u0430\u0442\u0438 \u0444\u043e\u0442\u043e", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0437\u0432\u0443 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043a\u043e\u043b\u0456\u0440 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
-    # retranslateUi
 
+# Добавление услуги ремонта
 class add_repair(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -3490,8 +3479,8 @@ class add_repair(QMainWindow):
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0437\u0432\u0443 \u043f\u043e\u0441\u043b\u0443\u0433\u0438", None))
         self.exit_button.setText("")
         self.back_button.setText("")
-    # retranslateUi
 
+# Просмотр услуг ремонта
 class repairs_list(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -3738,8 +3727,8 @@ class repairs_list(QMainWindow):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
         self.down_button.setText("")
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
-    # retranslateUi
-
+    
+# Редактирование услуги ремонта
 class edit_repair(QMainWindow):
     def __init__(self,code):
         super().__init__()
@@ -3875,9 +3864,10 @@ class edit_repair(QMainWindow):
         self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
         self.price_field.setInputMask("")
-    # retranslateUi
-
+    
+# Создание заказа
 class add_offer(QMainWindow):
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -4024,48 +4014,68 @@ class add_offer(QMainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(962, 682)
+
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+
         self.label_8 = QLabel(self.centralwidget)
         self.label_8.setObjectName(u"label_8")
         self.label_8.setGeometry(QRect(390, 10, 191, 41))
+
         font = QFont()
         font.setPointSize(19)
+
         self.label_8.setFont(font)
+
         self.back_button = QPushButton(self.centralwidget)
         self.back_button.setObjectName(u"back_button")
         self.back_button.setGeometry(QRect(0, 0, 41, 31))
+
         font1 = QFont()
         font1.setPointSize(2)
+
         self.back_button.setFont(font1)
+
         icon = QIcon()
         icon.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
         self.back_button.setIcon(icon)
         self.back_button.setIconSize(QSize(25, 25))
+
         self.exit_button = QPushButton(self.centralwidget)
         self.exit_button.setObjectName(u"exit_button")
         self.exit_button.setGeometry(QRect(920, 0, 41, 31))
         self.exit_button.setFont(font1)
+
         icon1 = QIcon()
         icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+
         self.exit_button.setIcon(icon1)
         self.exit_button.setIconSize(QSize(25, 25))
+
         self.client_list = QComboBox(self.centralwidget)
         self.client_list.setObjectName(u"client_list")
         self.client_list.setGeometry(QRect(160, 110, 281, 21))
+
         font2 = QFont()
         font2.setPointSize(9)
+
         self.client_list.setFont(font2)
+
         self.product_list = QComboBox(self.centralwidget)
         self.product_list.setObjectName(u"product_list")
         self.product_list.setGeometry(QRect(160, 160, 281, 21))
         self.product_list.setFont(font2)
+
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(10, 110, 131, 21))
+
         font3 = QFont()
         font3.setPointSize(13)
+
         self.label.setFont(font3)
+
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(10, 160, 141, 21))
@@ -4073,14 +4083,17 @@ class add_offer(QMainWindow):
         self.label_2.setAcceptDrops(False)
         self.label_2.setScaledContents(False)
         self.label_2.setWordWrap(True)
+
         self.worker_list = QComboBox(self.centralwidget)
         self.worker_list.setObjectName(u"worker_list")
         self.worker_list.setGeometry(QRect(640, 110, 281, 21))
         self.worker_list.setFont(font2)
+
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setGeometry(QRect(460, 110, 171, 21))
         self.label_5.setFont(font3)
+
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setGeometry(QRect(470, 160, 141, 21))
@@ -4088,37 +4101,48 @@ class add_offer(QMainWindow):
         self.label_6.setAcceptDrops(False)
         self.label_6.setScaledContents(False)
         self.label_6.setWordWrap(True)
+
         self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setObjectName(u"groupBox")
         self.groupBox.setGeometry(QRect(640, 150, 191, 31))
+
         font4 = QFont()
         font4.setPointSize(11)
+
         self.groupBox.setFont(font4)
+
         self.payed_radiobutton = QRadioButton(self.groupBox)
         self.payed_radiobutton.setObjectName(u"payed_radiobutton")
         self.payed_radiobutton.setGeometry(QRect(20, 10, 82, 17))
         self.payed_radiobutton.setFont(font4)
+
         self.unpayed_radiobutton = QRadioButton(self.groupBox)
         self.unpayed_radiobutton.setObjectName(u"unpayed_radiobutton")
         self.unpayed_radiobutton.setGeometry(QRect(100, 10, 82, 17))
         self.unpayed_radiobutton.setFont(font4)
+
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.groupBox_2.setGeometry(QRect(110, 300, 761, 291))
+
         self.label_3 = QLabel(self.groupBox_2)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setGeometry(QRect(90, 20, 181, 21))
         self.label_3.setFont(font3)
+
         self.start_date = QCalendarWidget(self.groupBox_2)
         self.start_date.setObjectName(u"start_date")
         self.start_date.setGeometry(QRect(30, 50, 321, 191))
+
         self.end_date = QCalendarWidget(self.groupBox_2)
         self.end_date.setObjectName(u"end_date")
         self.end_date.setGeometry(QRect(410, 50, 321, 191))
+
         self.label_4 = QLabel(self.groupBox_2)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QRect(450, 20, 201, 21))
         self.label_4.setFont(font3)
+
         self.label_7 = QLabel(self.centralwidget)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setGeometry(QRect(10, 210, 131, 21))
@@ -4126,19 +4150,28 @@ class add_offer(QMainWindow):
         self.label_7.setAcceptDrops(False)
         self.label_7.setScaledContents(False)
         self.label_7.setWordWrap(True)
+
         self.price = QLineEdit(self.centralwidget)
         self.price.setObjectName(u"price")
         self.price.setGeometry(QRect(160, 210, 241, 21))
+        self.price.setToolTip("Це ціна за роботу майстра")
+
         font5 = QFont()
         font5.setPointSize(10)
+
         self.price.setFont(font5)
+
         self.submit_button = QPushButton(self.centralwidget)
         self.submit_button.setObjectName(u"submit_button")
         self.submit_button.setGeometry(QRect(470, 610, 121, 41))
+
         font6 = QFont()
         font6.setPointSize(17)
+
         self.submit_button.setFont(font6)
+
         MainWindow.setCentralWidget(self.centralwidget)
+
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -4148,10 +4181,10 @@ class add_offer(QMainWindow):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
+
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Створити заказ", u"Створити заказ", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0432\u043e\u0440\u0438\u0442\u0438 \u0437\u0430\u043a\u0430\u0437", None))
         self.back_button.setText("")
         self.exit_button.setText("")
@@ -4167,8 +4200,8 @@ class add_offer(QMainWindow):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u0434\u0430\u0442\u0443 \u0437\u0430\u043a\u0456\u043d\u0447\u0435\u043d\u043d\u044f", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0446\u0456\u043d\u043a\u0443", None))
         self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438", None))
-    # retranslateUi
 
+# Просмотр заказов
 class offers_list(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -4182,6 +4215,8 @@ class offers_list(QMainWindow):
         self.update_button.clicked.connect(self.load_data_func)
         self.tableWidget.clicked.connect(self.currention_func)
         self.edit_button.clicked.connect(self.edit_func)
+        
+    
 
     def to_offers_func(self):
         self.cams = offers()
@@ -4410,6 +4445,8 @@ class offers_list(QMainWindow):
         self.find_button.setGeometry(QRect(160, 400, 71, 31))
         self.find_button.setFont(font2)
 
+    
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.statusbar = QStatusBar(MainWindow)
@@ -4433,8 +4470,9 @@ class offers_list(QMainWindow):
         self.back_button.setText("")
         self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
-    # retranslateUi
 
+    
+# Меню заказов
 class offers(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -4582,7 +4620,8 @@ class offers(QMainWindow):
         self.offers_by_month_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0437\u0430\u043a\u0430\u0437\u0456\u0432 \u0437\u0430 \u043c\u0456\u0441\u044f\u0446\u044c", None))
         self.offers_by_months_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0437\u0430\u043a\u0430\u0437\u0456\u0432 \u043f\u043e \u043c\u0456\u0441\u044f\u0446\u044f\u043c", None))
         self.view_receipt_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u0447\u0430 \u043a\u0432\u0438\u043d\u0442\u0430\u0446\u0456\u0457", None))
-    # retranslateUi
+    
+
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
