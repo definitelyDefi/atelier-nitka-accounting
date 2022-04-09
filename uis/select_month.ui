@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>370</width>
+    <height>255</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="submit_button">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>180</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Підтвердити</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>10</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Виберіть місяць</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancel_button">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>180</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Відмінити</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="month_list">
+    <property name="geometry">
+     <rect>
+      <x>88</x>
+      <y>80</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Cічень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Лютий</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Березень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Квітень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Травень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Червень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Липень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Серпень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Вересень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Жовтень</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Листопад</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Грудень</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

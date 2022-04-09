@@ -1297,7 +1297,7 @@ class workers_list(QMainWindow):
         self.exit_button.setText("")
         self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
     
-# Добавить работника
+# Добавить работника TODO: добавить маску ввода на телефон, и тултип туда же
 class add_workers(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -3955,8 +3955,8 @@ class add_offer(QMainWindow):
         else:
             payed = ''
         
-        date_of_start = self.start_date.selectedDate().toString('dd-MM-yyyy')
-        date_of_end = self.end_date.selectedDate().toString('dd-MM-yyyy')
+        date_of_start = self.start_date.selectedDate().toString('yyyy-MM-dd')
+        date_of_end = self.end_date.selectedDate().toString('yyyy-MM-dd')
         
         if client_code == '' or product_code == '' or worker_code == '' or price == '' or date_of_start == '' or date_of_end == '' or payed == '':
             msg = QMessageBox()
@@ -4272,7 +4272,7 @@ class offers_list(QMainWindow):
         # print('Rows set to 0')   for debugging
         connection = sqlite3.connect("atelie.db")
         cur = connection.cursor()
-        sqlquery = "SELECT * FROM Закази_подр"
+        sqlquery = "SELECT Код_заказу, ПІБ, Назва, ПІБ_працівника, strftime('%d/%m/%Y', Дата_початку), strftime('%d/%m/%Y', Дата_закінчення), Ціна, Оплачено FROM Закази_подр"
         tablerow = 0
         total_rows_count = 0
 
@@ -4501,12 +4501,14 @@ class offers(QMainWindow):
         self.close()
 
     def offers_by_day_func(self):
-        self.cams = select_date()
+        self.cams = select_day()
         self.cams.show()
         self.close()
 
     def offers_by_month_func(self):
-        pass
+        self.cams = select_month()
+        self.cams.show()
+        self.close()
 
     def offers_by_months_func(self):
         pass
@@ -5158,7 +5160,7 @@ class offers_by_day(QMainWindow):
         self.exit_button.setText("")
     # retranslateUi
 
-class select_date(QMainWindow):
+class select_day(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -5230,7 +5232,324 @@ class select_date(QMainWindow):
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
     # retranslateUi
 
+class select_month(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        
+        self.submit_button.clicked.connect(self.to_offers_by_month_func)
+        self.cancel_button.clicked.connect(self.to_offers_func)
+    
+    def to_offers_by_month_func(self):
+        month = self.month_list.currentText()
+        month_dict = {'Січень': '01',
+                    'Лютий': '02',
+                    'Березень': '03',
+                    'Квітень': '04',
+                    'Травень': '05',
+                    'Червень': '06',
+                    'Липень': '07',
+                    'Серпень': '08',
+                    'Вересень': '09',
+                    'Жовтень': '10',
+                    'Листопад': '11',
+                    'Грудень': '12'   }
+        month = month_dict.get(month,'01')
+        self.cams = offers_by_month(month)
+        self.cams.show()
+        self.close()
 
+    def to_offers_func(self):
+        self.cams = offers()
+        self.cams.show()
+        self.close()
+
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(370, 255)
+
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.submit_button = QPushButton(self.centralwidget)
+        self.submit_button.setObjectName(u"submit_button")
+        self.submit_button.setGeometry(QRect(220, 180, 111, 31))
+
+        font = QFont()
+        font.setPointSize(12)
+
+        self.submit_button.setFont(font)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(110, 10, 161, 31))
+
+        font1 = QFont()
+        font1.setPointSize(16)
+
+        self.label.setFont(font1)
+
+        self.cancel_button = QPushButton(self.centralwidget)
+        self.cancel_button.setObjectName(u"cancel_button")
+        self.cancel_button.setGeometry(QRect(30, 180, 111, 31))
+        self.cancel_button.setFont(font)
+
+        self.month_list = QComboBox(self.centralwidget)
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.addItem("")
+        self.month_list.setObjectName(u"month_list")
+        self.month_list.setGeometry(QRect(88, 80, 191, 31))
+        self.month_list.setFont(font)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u0456\u0441\u044f\u0446\u044c", None))
+        self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
+        self.month_list.setItemText(0, QCoreApplication.translate("MainWindow", u"C\u0456\u0447\u0435\u043d\u044c", None))
+        self.month_list.setItemText(1, QCoreApplication.translate("MainWindow", u"\u041b\u044e\u0442\u0438\u0439", None))
+        self.month_list.setItemText(2, QCoreApplication.translate("MainWindow", u"\u0411\u0435\u0440\u0435\u0437\u0435\u043d\u044c", None))
+        self.month_list.setItemText(3, QCoreApplication.translate("MainWindow", u"\u041a\u0432\u0456\u0442\u0435\u043d\u044c", None))
+        self.month_list.setItemText(4, QCoreApplication.translate("MainWindow", u"\u0422\u0440\u0430\u0432\u0435\u043d\u044c", None))
+        self.month_list.setItemText(5, QCoreApplication.translate("MainWindow", u"\u0427\u0435\u0440\u0432\u0435\u043d\u044c", None))
+        self.month_list.setItemText(6, QCoreApplication.translate("MainWindow", u"\u041b\u0438\u043f\u0435\u043d\u044c", None))
+        self.month_list.setItemText(7, QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0440\u043f\u0435\u043d\u044c", None))
+        self.month_list.setItemText(8, QCoreApplication.translate("MainWindow", u"\u0412\u0435\u0440\u0435\u0441\u0435\u043d\u044c", None))
+        self.month_list.setItemText(9, QCoreApplication.translate("MainWindow", u"\u0416\u043e\u0432\u0442\u0435\u043d\u044c", None))
+        self.month_list.setItemText(10, QCoreApplication.translate("MainWindow", u"\u041b\u0438\u0441\u0442\u043e\u043f\u0430\u0434", None))
+        self.month_list.setItemText(11, QCoreApplication.translate("MainWindow", u"\u0413\u0440\u0443\u0434\u0435\u043d\u044c", None))
+
+    # retranslateUi
+class offers_by_month(QMainWindow):
+    def __init__(self, month):
+        super().__init__()
+
+        self.month = month
+        self.setupUi(self)
+        
+        self.back_button.clicked.connect(self.to_offers_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.up_button.clicked.connect(self.previous_item_func)
+        self.down_button.clicked.connect(self.next_item_func)
+        self.find_button.clicked.connect(self.search_func)
+        self.tableWidget.clicked.connect(self.currention_func)
+
+    def to_offers_func(self):
+        self.cams = offers()
+        self.cams.show()
+        self.close()
+    
+    def previous_item_func(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow()-1)
+
+    def next_item_func(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow()+1)
+
+    def search_func(self):
+        items = self.tableWidget.findItems(self.find_field.text(), Qt.MatchExactly)
+        if items:
+            self.tableWidget.selectRow(items[0].row())
+        else:
+            QMessageBox.information(self, 'Search Results', 'Нічого не знайдено. Спробуйте ще раз')
+
+    def currention_func(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow())
+
+    def load_data_func(self):
+    
+        self.tableWidget.setRowCount(0)
+        # print('Rows set to 0')   for debugging
+        connection = sqlite3.connect("atelie.db")
+        cur = connection.cursor()
+        tablerow = 0
+        total_rows_count = 0
+
+        for row in cur.execute("SELECT * FROM Закази_подр WHERE strftime('%m', Дата_початку) = ?",(self.month,)):
+            total_rows_count += 1
+        
+        if total_rows_count == 0:
+            QMessageBox.information(self, 'Search Results', 'Нічого не знайдено. Спробуйте ще раз')
+
+        elif total_rows_count > 1:
+            self.tableWidget.setRowCount(total_rows_count)
+            # print(f'rows set to {total_rows_count}')      for debugging
+
+            for row in cur.execute("SELECT * FROM Закази_подр WHERE strftime('%m', Дата_початку) = ?",(self.month,)):
+
+                        # print(row)        for debugging
+                self.tableWidget.setItem(tablerow,0,QTableWidgetItem(str(row[0])))
+                self.tableWidget.setItem(tablerow,1,QTableWidgetItem(str(row[1])))
+                self.tableWidget.setItem(tablerow,2,QTableWidgetItem(str(row[2])))
+                self.tableWidget.setItem(tablerow,3,QTableWidgetItem(str(row[3])))
+                self.tableWidget.setItem(tablerow,4,QTableWidgetItem(str(row[4])))
+                self.tableWidget.setItem(tablerow,5,QTableWidgetItem(str(row[5])))
+                self.tableWidget.setItem(tablerow,6,QTableWidgetItem(str(row[6])+' ₴'))
+
+                self.check_box = QCheckBox()
+                
+                if str(row[7]) == '-1':
+                    self.check_box.setChecked(True)
+                elif str(row[7]) == '0':
+                    self.check_box.setChecked(False)
+                self.check_box.setDisabled(True)
+                self.tableWidget.setCellWidget(tablerow, 7, self.check_box)
+                
+
+                tablerow += 1
+            QTimer.singleShot(10000, self.load_data_func)
+
+    def setupUi(self, MainWindow):
+
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(791, 497)
+
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.down_button = QPushButton(self.centralwidget)
+        self.down_button.setObjectName(u"down_button")
+        self.down_button.setGeometry(QRect(10, 190, 41, 41))
+
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/down_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.down_button.setIcon(icon)
+        self.down_button.setIconSize(QSize(30, 30))
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(320, 400, 111, 21))
+
+        font = QFont()
+        font.setPointSize(13)
+
+        self.label_2.setFont(font)
+
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(750, 0, 41, 31))
+
+        font1 = QFont()
+        font1.setPointSize(2)
+
+        self.exit_button.setFont(font1)
+
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.exit_button.setIcon(icon1)
+        self.exit_button.setIconSize(QSize(25, 25))
+    
+        self.tableWidget = QTableWidget(self.centralwidget)
+        self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setGeometry(QRect(60, 50, 711, 331))
+
+        font2 = QFont()
+        font2.setPointSize(9)
+
+        self.tableWidget.setFont(font2)
+        self.tableWidget.setColumnCount(8)
+        self.tableWidget.verticalHeader().setVisible(False)
+        self.tableWidget.setColumnWidth(0,80)
+        self.tableWidget.setColumnWidth(4,80)
+        self.tableWidget.setColumnWidth(5,80)
+        self.tableWidget.setColumnWidth(6,80)
+        self.tableWidget.setColumnWidth(7,80)
+        self.tableWidget.setColumnWidth(1,220)
+        self.tableWidget.setColumnWidth(2,130)
+        self.tableWidget.setColumnWidth(3,200)
+        self.tableWidget.setHorizontalHeaderLabels(["№ заказу","Клієнт","Послуга","Працівник","Початок","Закінчення","Ціна","Оплачено"])
+        self.load_data_func()
+
+        self.find_field = QLineEdit(self.centralwidget)
+        self.find_field.setObjectName(u"find_field")
+        self.find_field.setGeometry(QRect(420, 400, 71, 21))
+
+        font3 = QFont()
+        font3.setPointSize(10)
+
+        self.find_field.setFont(font3)
+
+        self.up_button = QPushButton(self.centralwidget)
+        self.up_button.setObjectName(u"up_button")
+        self.up_button.setGeometry(QRect(10, 150, 41, 41))
+        self.up_button.setFont(font)
+
+        icon2 = QIcon()
+        icon2.addFile(u":/newPrefix/assets/up_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.up_button.setIcon(icon2)
+        self.up_button.setIconSize(QSize(30, 30))
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(330, 10, 211, 31))
+
+        font4 = QFont()
+        font4.setPointSize(20)
+
+        self.label.setFont(font4)
+
+        self.find_button = QPushButton(self.centralwidget)
+        self.find_button.setObjectName(u"find_button")
+        self.find_button.setGeometry(QRect(380, 430, 71, 31))
+        self.find_button.setFont(font)
+
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
+        self.back_button.setFont(font1)
+
+        icon3 = QIcon()
+        icon3.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.back_button.setIcon(icon3)
+        self.back_button.setIconSize(QSize(25, 25))
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.down_button.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u0437\u0430\u043a\u0430\u0437\u0443", None))
+        self.exit_button.setText("")
+        self.up_button.setText("")
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043a\u0430\u0437\u0438 \u0437\u0430 \u043c\u0456\u0441\u044f\u0446\u044c", None))
+        self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
+        self.back_button.setText("")
+    # retranslateUi
 
 if __name__ == "__main__":
 
