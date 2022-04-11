@@ -6,71 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>804</width>
-    <height>363</height>
+    <width>800</width>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QCalendarWidget" name="first_date">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>321</width>
-      <height>183</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>10</y>
-      <width>191</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Виберіть початок періоду</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="submit_button">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>290</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Підтвердити</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="cancel_button">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>290</y>
+      <x>280</x>
+      <y>300</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -84,21 +32,11 @@
      <string>Відмінити</string>
     </property>
    </widget>
-   <widget class="QCalendarWidget" name="second_date">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>80</y>
-      <width>321</width>
-      <height>183</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>10</y>
+      <x>500</x>
+      <y>20</y>
       <width>211</width>
       <height>61</height>
      </rect>
@@ -110,6 +48,68 @@
     </property>
     <property name="text">
      <string>Виберіть кінець періоду</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QCalendarWidget" name="second_date">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>90</y>
+      <width>321</width>
+      <height>183</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCalendarWidget" name="first_date">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>321</width>
+      <height>183</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="submit_button">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>300</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Підтвердити</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>20</y>
+      <width>191</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Виберіть початок періоду</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
