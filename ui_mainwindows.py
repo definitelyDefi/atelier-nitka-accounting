@@ -8,6 +8,15 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.platypus import Paragraph, Frame
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
 
 from PyQt5.QtSql     import QSqlDatabase, QSqlQuery, QSqlTableModel 
 from PyQt5.QtCore import Qt
@@ -16,8 +25,8 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import sys
-
-from matplotlib.font_manager import findfont
+from PyQt5.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog
+import os
 
 
 import resource_rc              # импорт ресурсов --- создается с помощью  ----  pyrcc5 resources.qrc -o resource_rc.py
@@ -4215,7 +4224,62 @@ class offers_list(QMainWindow):
         self.update_button.clicked.connect(self.load_data_func)
         self.tableWidget.clicked.connect(self.currention_func)
         self.edit_button.clicked.connect(self.edit_func)
+        self.get_check_button.clicked.connect(self.get_check_func)
+    
+    def get_check_func(self):
+        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        connection = sqlite3.connect("atelie.db")
         
+        with connection:
+            cur = connection.cursor()
+            payed = cur.execute('SELECT Оплачено FROM Закази_подр WHERE Код_заказу=?',(code,))
+            
+            payed = payed.fetchall()[0][0]
+        
+        
+
+            if payed == 0:
+                QMessageBox.information(self, 'Search Results', 'Неможливо видати чек по неоплаченому заказу')
+                connection.close()
+                
+
+            elif payed == -1:
+                
+                sqlquery = "SELECT Код_заказу, ПІБ, Назва, ПІБ_працівника, strftime('%d/%m/%Y', Дата_початку), strftime('%d/%m/%Y', Дата_закінчення), Ціна, Оплачено FROM Закази_подр WHERE Код_заказу =25"
+                
+                styles = getSampleStyleSheet() 
+                styles['Normal'].fontName='DejaVuSerif'
+                styles['Heading1'].fontName='DejaVuSerif'
+
+                pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
+
+                doc = SimpleDocTemplate('check.pdf',
+                                pagesize = A4,
+                                title='Check',
+                                author='hpfk352')
+
+                story = []  # словарь документа
+                story.append(Paragraph('Квитанція про надання послуг',styles['Normal']))
+                story.append(Paragraph('Ательє "Студія Моди"',styles['Normal']))
+                story.append(Paragraph('',styles["Normal"]))
+                row = cur.execute(sqlquery)
+                row = row.fetchall()[0]
+
+                tblstyle = TableStyle([('FONT', (0, 0), (-1, 1), 'DejaVuSerif', 7),('BOX', (0,0), (-1,-1), 0.25,colors.black)])
+                t = Table(
+                    
+                [   ['Код заказу','Клієнт','Продукт','Працівник','Початок','Закінчення','Ціна'],
+                    [str(row[0]), str(row[1]), str(row[2]),str(row[3]),str(row[4]),str(row[5]),str(row[6])],
+                    
+                ]
+                )
+                t.setStyle(tblstyle)
+                
+                story.append(t)
+                doc.build(story)
+                os.startfile("check.pdf", "print")
+        connection.close()
+
     def to_offers_func(self):
         self.cams = offers()
         self.cams.show()
@@ -4444,7 +4508,11 @@ class offers_list(QMainWindow):
         self.find_button.setGeometry(QRect(160, 400, 71, 31))
         self.find_button.setFont(font2)
 
-    
+
+        self.get_check_button = QPushButton(self.centralwidget)
+        self.get_check_button.setObjectName(u"get_check_button")
+        self.get_check_button.setGeometry(QRect(450, 410, 141, 31))
+        self.get_check_button.setFont(font1)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -4469,6 +4537,7 @@ class offers_list(QMainWindow):
         self.back_button.setText("")
         self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
+        self.get_check_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u0442\u0438 \u0447\u0435\u043a", None))
 
 # Меню заказов
 class offers(QMainWindow):
@@ -6079,6 +6148,79 @@ class offers_by_period(QMainWindow):
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u0437\u0430\u043a\u0430\u0437\u0443", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
     
+
+
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+
+        self.print_button.clicked.connect(self.print_func)
+        
+
+    def print_func(self):
+        connection = sqlite3.connect("atelie.db")
+        cur = connection.cursor()
+        sqlquery = "SELECT Код_заказу, ПІБ, Назва, ПІБ_працівника, strftime('%d/%m/%Y', Дата_початку), strftime('%d/%m/%Y', Дата_закінчення), Ціна, Оплачено FROM Закази_подр WHERE Код_заказу =25"
+        
+        styles = getSampleStyleSheet() 
+        styles['Normal'].fontName='DejaVuSerif'
+        styles['Heading1'].fontName='DejaVuSerif'
+
+        pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
+
+        doc = SimpleDocTemplate('check.pdf',
+                        pagesize = A4,
+                        title='Check',
+                        author='hpfk352')
+
+        story = []  # словарь документа
+        story.append(Paragraph('Квитанція про надання послуг',styles['Normal']))
+        story.append(Paragraph('Ательє "Студія Моди"',styles['Normal']))
+        story.append(Paragraph('',styles["Normal"]))
+        row = cur.execute(sqlquery)
+        row = row.fetchall()[0]
+
+        tblstyle = TableStyle([('FONT', (0, 0), (-1, 1), 'DejaVuSerif', 7),('BOX', (0,0), (-1,-1), 0.25,colors.black)])
+        t = Table(
+            
+        [   ['Код заказу','Клієнт','Продукт','Працівник','Початок','Закінчення','Ціна'],
+            [str(row[0]), str(row[1]), str(row[2]),str(row[3]),str(row[4]),str(row[5]),str(row[6])],
+            
+        ]
+        )
+        t.setStyle(tblstyle)
+        
+        story.append(t)
+        doc.build(story)
+        os.startfile("check.pdf", "print")
+
+    def setupUi(self, MainWindow):
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(711, 474)
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+        self.print_button = QPushButton(self.centralwidget)
+        self.print_button.setObjectName(u"print_button")
+        self.print_button.setGeometry(QRect(260, 320, 171, 21))
+        self.textEdit = QTextEdit(self.centralwidget)
+        self.textEdit.setObjectName(u"textEdit")
+        self.textEdit.setGeometry(QRect(260, 200, 171, 71))
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.print_button.setText(QCoreApplication.translate("MainWindow", u"Print", None))
+    
+
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
