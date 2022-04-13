@@ -1,31 +1,23 @@
 # -*- coding: utf-8 -*-
 
-################################################################################
-## Form generated from reading UI file 'mainwindowsjugytE.ui'
-##
-## Created by: Qt User Interface Compiler version 5.15.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
 
+
+from reportlab.lib.enums import TA_CENTER
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import Paragraph, Frame
+from reportlab.platypus import Paragraph
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 
-from PyQt5.QtSql     import QSqlDatabase, QSqlQuery, QSqlTableModel 
+
 from PyQt5.QtCore import Qt
-from PyQt5 import QtSql
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 import sys
-from PyQt5.QtPrintSupport import QPrintDialog, QPrinter, QPrintPreviewDialog
 import os
 
 
@@ -297,7 +289,13 @@ class clients(QMainWindow):
         
         self.add_new_client_button.clicked.connect(self.to_add_client_func)
         self.view_clients_button.clicked.connect(self.to_clients_list_func)
+        self.clients_report_button.clicked.connect(self.to_clients_report_func)
     
+    def to_clients_report_func(self):
+        self.cams = clients_report()
+        self.cams.show()
+        self.close()
+
     def to_clients_list_func(self):
         self.cams = clients_list()
         self.cams.show()
@@ -337,10 +335,10 @@ class clients(QMainWindow):
         self.view_clients_button.setGeometry(QRect(80, 130, 181, 31))
         self.view_clients_button.setFont(font)
 
-        self.clients_zvit_buttons = QPushButton(self.centralwidget)
-        self.clients_zvit_buttons.setObjectName(u"clients_zvit_buttons")
-        self.clients_zvit_buttons.setGeometry(QRect(80, 180, 181, 31))
-        self.clients_zvit_buttons.setFont(font)
+        self.clients_report_button = QPushButton(self.centralwidget)
+        self.clients_report_button.setObjectName(u"clients_report_button")
+        self.clients_report_button.setGeometry(QRect(80, 180, 181, 31))
+        self.clients_report_button.setFont(font)
 
         self.back_button = QPushButton(self.centralwidget)
         self.back_button.setObjectName(u"back_button")
@@ -392,7 +390,7 @@ class clients(QMainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.add_new_client_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.view_clients_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0456\u0432", None))
-        self.clients_zvit_buttons.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
+        self.clients_report_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
         self.back_button.setText("")
         self.exit_button.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438", None))
@@ -4593,7 +4591,7 @@ class offers(QMainWindow):
 
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(334, 445)
+        MainWindow.resize(334, 400)
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -4667,11 +4665,6 @@ class offers(QMainWindow):
         self.offers_by_months_button.setGeometry(QRect(70, 320, 211, 31))
         self.offers_by_months_button.setFont(font)
 
-        self.view_receipt_button = QPushButton(self.centralwidget)
-        self.view_receipt_button.setObjectName(u"view_receipt_button")
-        self.view_receipt_button.setGeometry(QRect(70, 360, 211, 31))
-        self.view_receipt_button.setFont(font)
-
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.statusbar = QStatusBar(MainWindow)
@@ -4694,7 +4687,7 @@ class offers(QMainWindow):
         self.offers_by_day_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0437\u0430\u043a\u0430\u0437\u0456\u0432 \u0437\u0430 \u0434\u0435\u043d\u044c", None))
         self.offers_by_month_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0437\u0430\u043a\u0430\u0437\u0456\u0432 \u0437\u0430 \u043c\u0456\u0441\u044f\u0446\u044c", None))
         self.offers_by_months_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u0437\u0430\u043a\u0430\u0437\u0456\u0432 \u043f\u043e \u043c\u0456\u0441\u044f\u0446\u044f\u043c", None))
-        self.view_receipt_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u0447\u0430 \u043a\u0432\u0438\u043d\u0442\u0430\u0446\u0456\u0457", None))
+        
     
 # Редактирование заказа
 class edit_offer(QMainWindow):
@@ -5491,9 +5484,8 @@ class offers_by_month(QMainWindow):
                 self.check_box.setDisabled(True)
                 self.tableWidget.setCellWidget(tablerow, 7, self.check_box)
                 
-
+                
                 tablerow += 1
-            QTimer.singleShot(10000, self.load_data_func)
 
     def setupUi(self, MainWindow):
 
@@ -6220,6 +6212,283 @@ class offers_by_period(QMainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.print_button.setText(QCoreApplication.translate("MainWindow", u"Print", None))
     
+class clients_report(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        
+        self.setupUi(self)
+        
+        self.back_button.clicked.connect(self.to_clients_func)
+        self.exit_button.clicked.connect(exit_func)
+        self.up_button.clicked.connect(self.previous_item_func)
+        self.down_button.clicked.connect(self.next_item_func)
+        self.find_button.clicked.connect(self.search_func)
+        self.tableWidget.clicked.connect(self.currention_func)
+        self.print_button.clicked.connect(self.print_func)
+    
+    def print_func(self):
+        
+        connection = sqlite3.connect("atelie.db")
+        
+        with connection:
+            cur = connection.cursor()
+            sqlquery = """select
+                    "Клієнти"."Код_клієнта",
+                    "Клієнти"."ПІБ",
+                    "Клієнти"."Телефон",
+                    SUM(Закази.Ціна) as Всього_прибутку
+                    from "Послуги"
+                    join (
+                        "Клієнти"
+                        join "Закази"
+                            on "Клієнти"."Код_клієнта" = "Закази"."Код_клієнта"
+                    )
+                        on "Послуги"."Код_продукту" = "Закази"."Код_продукту"
+                    group by "Клієнти"."ПІБ"
+                    order by "Всього_прибутку" DESC"""
+            
+            styles = getSampleStyleSheet() 
+            styles.add(ParagraphStyle(name='Normal_CENTER',
+                        parent=styles['Normal'],
+                        fontName='DejaVuSerif',
+                        wordWrap='LTR',
+                        alignment=TA_CENTER,
+                        fontSize=12,
+                        leading=13,
+                        textColor=colors.black,
+                        borderPadding=0,
+                        leftIndent=0,
+                        rightIndent=0,
+                        spaceAfter=0,
+                        spaceBefore=0,
+                        splitLongWords=True,
+                        spaceShrinkage=0.05,
+                        ))
+
+            styles['Normal'].fontName='DejaVuSerif'
+            styles['Heading1'].fontName='DejaVuSerif'
+            
+
+            pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
+            doc = SimpleDocTemplate('clients_report.pdf',
+                                pagesize = A4,
+                                title='Check',
+                                author='hpfk352')
+
+            story = []  
+            story.append(Paragraph('Звітність по клієнтам',styles['Normal_CENTER']))
+            story.append(Paragraph('Ательє "Студія Моди"',styles['Normal_CENTER']))
+            story.append(Paragraph('--------------------',styles["Normal_CENTER"]))
+            
+            data = [['Код клієнта','ПІБ клієнта','Телефон','Всього прибутку']]
+
+            for row in cur.execute(sqlquery):
+                data.append([row[0],row[1],row[2],row[3]])
+                
+
+            tblstyle = TableStyle([('FONT', (0, 0), (-1, -1), 'DejaVuSerif', 7),('BOX', (0,0), (-1,-1), 0.25,colors.black)])
+            t = Table(data)
+
+            t.setStyle(tblstyle)
+                
+            story.append(t)
+            doc.build(story)
+            os.startfile("clients_report.pdf", "print")
+        connection.close()
+
+    def to_clients_func(self):
+        self.cams = clients()
+        self.cams.show()
+        self.close()
+    
+    def previous_item_func(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow()-1)
+
+    def next_item_func(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow()+1)
+
+    def search_func(self):
+        items = self.tableWidget.findItems(self.find_field.text(), Qt.MatchExactly)
+        if items:
+            self.tableWidget.selectRow(items[0].row())
+        else:
+            QMessageBox.information(self, 'Search Results', 'Нічого не знайдено. Спробуйте ще раз')
+
+    def currention_func(self):
+        self.tableWidget.selectRow(self.tableWidget.currentRow())
+
+    def load_data_func(self):
+        self.tableWidget.setRowCount(0)
+        # print('Rows set to 0')   for debugging
+        connection = sqlite3.connect("atelie.db")
+        cur = connection.cursor()
+        tablerow = 0
+        total_rows_count = 0
+        query = """select
+            "Клієнти"."Код_клієнта",
+            "Клієнти"."ПІБ",
+            "Клієнти"."Телефон",
+            SUM(Закази.Ціна) as Всього_прибутку
+            from "Послуги"
+            join (
+                "Клієнти"
+                    join "Закази"
+                        on "Клієнти"."Код_клієнта" = "Закази"."Код_клієнта"
+                            )
+                                on "Послуги"."Код_продукту" = "Закази"."Код_продукту"
+            group by "Клієнти"."ПІБ"
+            order by "Всього_прибутку" DESC"""
+
+        for row in cur.execute(query):
+            total_rows_count += 1
+        
+        self.tableWidget.setRowCount(total_rows_count)
+            # print(f'rows set to {total_rows_count}')      for debugging
+
+        for row in cur.execute(query):
+
+                        # print(row)        for debugging
+            self.tableWidget.setItem(tablerow,0,QTableWidgetItem(str(row[0])))
+            self.tableWidget.setItem(tablerow,1,QTableWidgetItem(str(row[1])))
+            self.tableWidget.setItem(tablerow,2,QTableWidgetItem(str(row[2])))
+            self.tableWidget.setItem(tablerow,3,QTableWidgetItem(str(row[3])+' ₴'))
+
+    
+            tablerow += 1
+        
+    def setupUi(self, MainWindow):
+
+        if not MainWindow.objectName():
+            MainWindow.setObjectName(u"MainWindow")
+        MainWindow.resize(790, 494)
+
+        self.centralwidget = QWidget(MainWindow)
+        self.centralwidget.setObjectName(u"centralwidget")
+
+        self.exit_button = QPushButton(self.centralwidget)
+        self.exit_button.setObjectName(u"exit_button")
+        self.exit_button.setGeometry(QRect(750, 0, 41, 31))
+
+        font = QFont()
+        font.setPointSize(2)
+
+        self.exit_button.setFont(font)
+
+        icon = QIcon()
+        icon.addFile(u":/newPrefix/assets/exit.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.exit_button.setIcon(icon)
+        self.exit_button.setIconSize(QSize(25, 25))
+
+        self.find_field = QLineEdit(self.centralwidget)
+        self.find_field.setObjectName(u"find_field")
+        self.find_field.setGeometry(QRect(170, 400, 71, 21))
+
+        font1 = QFont()
+        font1.setPointSize(10)
+
+        self.find_field.setFont(font1)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(280, 10, 271, 31))
+
+        font2 = QFont()
+        font2.setPointSize(20)
+
+        self.label.setFont(font2)
+
+        self.tableWidget = QTableWidget(self.centralwidget)
+        self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setGeometry(QRect(60, 50, 711, 331))
+        self.tableWidget.setColumnCount(4)
+        self.tableWidget.verticalHeader().setVisible(False)
+        self.tableWidget.setColumnWidth(0,120)
+        self.tableWidget.setColumnWidth(1,250)
+        self.tableWidget.setColumnWidth(3,150)
+        self.tableWidget.setColumnWidth(4,150)
+        
+        self.tableWidget.setHorizontalHeaderLabels(["Код клієнта","ПІБ клієнта","Телефон","Всього прибутку"])
+        self.load_data_func()
+
+        font3 = QFont()
+        font3.setPointSize(9)
+
+        self.tableWidget.setFont(font3)
+        
+        self.find_button = QPushButton(self.centralwidget)
+        self.find_button.setObjectName(u"find_button")
+        self.find_button.setGeometry(QRect(130, 430, 71, 31))
+
+        font4 = QFont()
+        font4.setPointSize(13)
+
+        self.find_button.setFont(font4)
+        self.back_button = QPushButton(self.centralwidget)
+        self.back_button.setObjectName(u"back_button")
+        self.back_button.setGeometry(QRect(0, 0, 41, 31))
+        self.back_button.setFont(font)
+
+        icon1 = QIcon()
+        icon1.addFile(u":/newPrefix/assets/arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.back_button.setIcon(icon1)
+        self.back_button.setIconSize(QSize(25, 25))
+
+        self.label_2 = QLabel(self.centralwidget)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(70, 400, 111, 21))
+        self.label_2.setFont(font4)
+
+        self.up_button = QPushButton(self.centralwidget)
+        self.up_button.setObjectName(u"up_button")
+        self.up_button.setGeometry(QRect(10, 150, 41, 41))
+        self.up_button.setFont(font4)
+
+        icon2 = QIcon()
+        icon2.addFile(u":/newPrefix/assets/up_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.up_button.setIcon(icon2)
+        self.up_button.setIconSize(QSize(30, 30))
+
+        self.down_button = QPushButton(self.centralwidget)
+        self.down_button.setObjectName(u"down_button")
+        self.down_button.setGeometry(QRect(10, 190, 41, 41))
+
+        icon3 = QIcon()
+        icon3.addFile(u":/newPrefix/assets/down_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        self.down_button.setIcon(icon3)
+        self.down_button.setIconSize(QSize(30, 30))
+
+        self.print_button = QPushButton(self.centralwidget)
+        self.print_button.setObjectName(u"print_button")
+        self.print_button.setGeometry(QRect(680, 400, 91, 31))
+        self.print_button.setFont(font4)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+    # setupUi
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(QCoreApplication.translate("Звітність по клієнтам", u"Звітність по клієнтам", None))
+        self.exit_button.setText("")
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u043d\u0442\u0430\u043c", None))
+        self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
+        self.back_button.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
+        self.up_button.setText("")
+        self.down_button.setText("")
+        self.print_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u0440\u0443\u043a", None))
+    # retranslateUi
 
 if __name__ == "__main__":
 
