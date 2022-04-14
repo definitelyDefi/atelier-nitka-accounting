@@ -387,7 +387,6 @@ class clients(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.add_new_client_button.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.view_clients_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0433\u043b\u044f\u0434 \u043a\u043b\u0456\u0454\u043d\u0442\u0456\u0432", None))
         self.clients_report_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0432\u0456\u0442\u043d\u0456\u0441\u0442\u044c \u043f\u043e \u043a\u043b\u0456\u0454\u0442\u0430\u043c", None))
@@ -560,7 +559,7 @@ class edit_client(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/edit_icon.png"))
 
         self.submit_button.clicked.connect(self.edit_func)
         self.cancel_button.clicked.connect(self.cancel_func)
@@ -679,7 +678,7 @@ class edit_client(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Редагувати клієнта", u"Редагувати клієнта", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0406\u0411 \u043a\u043b\u0456\u0454\u043d\u0442\u0430", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043b\u0435\u0444\u043e\u043d", None))
@@ -796,9 +795,7 @@ class clients_list(QMainWindow):
             
             
                     # print('err')        for debugging
-        
-
-
+    
     def setupUi(self, MainWindow):
         
         self.setWindowTitle('Список клієнтів')
@@ -948,7 +945,7 @@ class workers(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/worker_icon.png"))
         self.back_button.clicked.connect(self.to_main_menu_func)
         self.exit_button.clicked.connect(exit_func)
         self.view_workers_button.clicked.connect(self.to_workers_list_func)
@@ -1310,7 +1307,7 @@ class workers_list(QMainWindow):
         self.exit_button.setText("")
         self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
     
-# Добавить работника TODO: добавить маску ввода на телефон, и тултип туда же
+# Добавить работника 
 class add_workers(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -1507,7 +1504,7 @@ class edit_worker(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/edit_icon.png"))
 
         self.cancel_button.clicked.connect(self.cancel_func)
         self.submit_button.clicked.connect(self.edit_worker_func)
@@ -1674,7 +1671,7 @@ class edit_worker(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Редагувати працівника", u"Редагувати працівника", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0406\u0411 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0435\u043b\u0435\u0444\u043e\u043d", None))
         self.phone_field.setInputMask(QCoreApplication.translate("MainWindow", u"999-999", None))
@@ -1695,7 +1692,7 @@ class services(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/service_icon.png"))
         self.back_button.clicked.connect(self.to_main_menu_func)
         self.exit_button.clicked.connect(exit_func)
         self.to_view_products_button.clicked.connect(self.to_products_func)
@@ -1821,7 +1818,7 @@ class materials(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/material_icon.png"))
         self.back_button.clicked.connect(self.to_main_menu_func)
         self.exit_button.clicked.connect(exit_func)
         self.view_materials_button.clicked.connect(self.to_view_materials_func)
@@ -1925,7 +1922,7 @@ class add_material(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
         self.back_button.clicked.connect(self.to_materials_func)
         self.exit_button.clicked.connect(exit_func)
         self.submit_button.clicked.connect(self.add_material_func)
@@ -2064,7 +2061,7 @@ class add_material(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Додати матеріал", u"Додати матеріал", None))
         self.exit_button.setText("")
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b", None))
         self.back_button.setText("")
@@ -2078,7 +2075,7 @@ class materials_list(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_materials_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -2335,7 +2332,7 @@ class edit_material(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/edit_icon.png"))
         self.cancel_button.clicked.connect(self.to_materials_list_func)
         self.submit_button.clicked.connect(self.edit_func)
         self.code = None
@@ -2456,7 +2453,7 @@ class edit_material(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування запису", u"Редагування запису", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування матеріалу", u"Редагування матеріалу", None))
         self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
         self.producer_field.setInputMask("")
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
@@ -2469,7 +2466,7 @@ class add_product(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
         self.file_dialog_button.clicked.connect(self.file_dialog_func)
         self.submit_button.clicked.connect(self.add_func)
         self.exit_button.clicked.connect(exit_func)
@@ -2492,7 +2489,6 @@ class add_product(QMainWindow):
             image_profile = image_profile.scaled(191,191, aspectRatioMode=Qt.KeepAspectRatio, transformMode=Qt.SmoothTransformation) # To scale image for example and keep its Aspect Ration    
             self.photo_view.setPixmap(QPixmap.fromImage(image_profile)) 
             
-
     def add_func(self):
         conn = sqlite3.connect("atelie.db")
 
@@ -2559,8 +2555,6 @@ class add_product(QMainWindow):
             conn.commit()
             conn.close()
 
-
-    
     def load_data_func(self):
         conn = sqlite3.connect("atelie.db") 
 
@@ -2720,7 +2714,7 @@ class add_product(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Додати виріб", u"Додати виріб", None))
         self.exit_button.setText("")
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043f\u0440\u043e\u0434\u0443\u043a\u0442", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0437\u0432\u0443 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
@@ -2741,6 +2735,7 @@ class products_list(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_services_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -2994,7 +2989,7 @@ class products_list(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("Перегляд продуктів", u"Перегляд продуктів", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Перегляд виробів", u"Перегляд виробів", None))
         self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.exit_button.setText("")
         self.update_button.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
@@ -3011,6 +3006,7 @@ class photo_viewing(QMainWindow):
 
     def __init__(self,code):
         super().__init__()
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/photo_icon.png"))
         self.code = code
         self.setupUi(self,self.code)
         
@@ -3088,7 +3084,7 @@ class edit_product(QMainWindow):
         super().__init__()
         self.code = code
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/edit_icon.png"))
         self.file_dialog_button.clicked.connect(self.file_dialog_func)
         self.back_button.clicked.connect(self.to_products_list_func)
         self.submit_button.clicked.connect(self.edit_func)
@@ -3321,7 +3317,7 @@ class edit_product(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування", u"Редагування", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування виробу", u"Редагування виробу", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u043c\u0430\u0442\u0435\u0440\u0456\u0430\u043b", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0439\u0442\u0435 \u0444\u043e\u0442\u043e \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0442\u0438\u043f \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
@@ -3339,7 +3335,7 @@ class add_repair(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
         self.back_button.clicked.connect(self.to_services_func)
         self.exit_button.clicked.connect(exit_func)
         self.submit_button.clicked.connect(self.add_func)
@@ -3498,6 +3494,7 @@ class repairs_list(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_services_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -3747,7 +3744,7 @@ class edit_repair(QMainWindow):
         super().__init__()
         self.code = code
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/edit_icon.png"))
         
         self.cancel_button.clicked.connect(self.to_repairs_list_func)
         self.submit_button.clicked.connect(self.edit_func)
@@ -3870,7 +3867,7 @@ class edit_repair(QMainWindow):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування", u"Редагування", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування послуги ремонту", u"Редагування послуги ремонту", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u043e\u0432\u0456 \u0434\u0430\u043d\u0456", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0446\u0456\u043d\u0443 \u043f\u043e\u0441\u043b\u0443\u0433\u0438", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u043d\u0430\u0437\u0432\u0443 \u043f\u043e\u0441\u043b\u0443\u0433\u0438", None))
@@ -3884,7 +3881,7 @@ class add_offer(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/plus_icon.png"))
         self.back_button.clicked.connect(self.to_offers_func)
         self.exit_button.clicked.connect(exit_func)
         self.submit_button.clicked.connect(self.add_func)
@@ -4219,6 +4216,7 @@ class offers_list(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_offers_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -4548,7 +4546,7 @@ class offers(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/offer_icon.png"))
         self.back_button.clicked.connect(self.to_main_menu_func)
         self.exit_button.clicked.connect(exit_func)
         self.view_offers_button.clicked.connect(self.offers_list_func)
@@ -4700,7 +4698,7 @@ class edit_offer(QMainWindow):
         super().__init__()
         self.code = code
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/edit_icon.png"))
         self.back_button.clicked.connect(self.to_offers_list_func)
         self.submit_button.clicked.connect(self.edit_func)
 
@@ -5006,7 +5004,7 @@ class edit_offer(QMainWindow):
         QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування", u"Редагування", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("Редагування заказу", u"Редагування заказу", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0442\u0430\u0442\u0443\u0441 \u043e\u043f\u043b\u0430\u0442\u0438", None))
         self.groupBox.setTitle("")
         self.payed_radiobutton.setText(QCoreApplication.translate("MainWindow", u"\u0422\u0430\u043a", None))
@@ -5030,7 +5028,7 @@ class offers_by_day(QMainWindow):
 
         self.date = date
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_offers_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -5236,7 +5234,7 @@ class select_day(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/calendar_icon.png"))
         self.submit_button.clicked.connect(self.to_offers_by_day_func)
         self.cancel_button.clicked.connect(self.to_offers_func)
     
@@ -5308,7 +5306,7 @@ class select_month(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/calendar_icon.png"))
         self.submit_button.clicked.connect(self.to_offers_by_month_func)
         self.cancel_button.clicked.connect(self.to_offers_func)
     
@@ -5420,7 +5418,7 @@ class offers_by_month(QMainWindow):
 
         self.month = month
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_offers_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -5628,7 +5626,7 @@ class offers_per_month(QMainWindow):
         super().__init__()
 
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_offers_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -5696,6 +5694,7 @@ class offers_per_month(QMainWindow):
 
                         # print(row)        for debugging
             self.tableWidget.setItem(tablerow,0,QTableWidgetItem(str(row[0])))
+            # self.tableWidget.item(0,0).setTextColor(QColor(255,0,0))                      # установить цвет TODO: надо как то прикрутить к цветам
             self.tableWidget.setItem(tablerow,1,QTableWidgetItem(str(row[1])))
             self.tableWidget.setItem(tablerow,2,QTableWidgetItem(str(row[2])))
             self.tableWidget.setItem(tablerow,3,QTableWidgetItem(str(row[3])))
@@ -5851,7 +5850,7 @@ class select_period(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/calendar_icon.png"))
         self.submit_button.clicked.connect(self.to_offers_by_period_func)
         self.cancel_button.clicked.connect(self.to_offers_func)
 
@@ -5943,7 +5942,7 @@ class offers_by_period(QMainWindow):
         self.second_date = second_date
 
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/list_icon.png"))
         self.back_button.clicked.connect(self.to_offers_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -6224,7 +6223,7 @@ class clients_report(QMainWindow):
 
         
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/report_icon.png"))
         self.back_button.clicked.connect(self.to_clients_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
@@ -6502,7 +6501,7 @@ class workers_report(QMainWindow):
 
         
         self.setupUi(self)
-        
+        self.setWindowIcon(QIcon(u":/newPrefix/assets/report_icon.png"))
         self.back_button.clicked.connect(self.to_workers_func)
         self.exit_button.clicked.connect(exit_func)
         self.up_button.clicked.connect(self.previous_item_func)
