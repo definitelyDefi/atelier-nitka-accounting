@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>791</width>
+    <width>738</width>
     <height>494</height>
    </rect>
   </property>
@@ -14,18 +14,18 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="exit_button">
+   <widget class="QPushButton" name="up_button">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>0</y>
+      <x>10</x>
+      <y>150</y>
       <width>41</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>2</pointsize>
+      <pointsize>13</pointsize>
      </font>
     </property>
     <property name="text">
@@ -33,73 +33,37 @@
     </property>
     <property name="icon">
      <iconset resource="../resources.qrc">
-      <normaloff>:/newPrefix/assets/exit.png</normaloff>:/newPrefix/assets/exit.png</iconset>
+      <normaloff>:/newPrefix/assets/up_arrow.png</normaloff>:/newPrefix/assets/up_arrow.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>25</width>
-      <height>25</height>
+      <width>30</width>
+      <height>30</height>
      </size>
     </property>
    </widget>
-   <widget class="QLineEdit" name="find_field">
+   <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>630</x>
       <y>400</y>
-      <width>71</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>10</y>
-      <width>271</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <pointsize>13</pointsize>
      </font>
     </property>
     <property name="text">
-     <string>Звітність по клієнтам</string>
+     <string>Друк</string>
     </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>50</y>
-      <width>711</width>
-      <height>331</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="columnCount">
-     <number>0</number>
-    </property>
-    <attribute name="verticalHeaderVisible">
-     <bool>false</bool>
-    </attribute>
    </widget>
    <widget class="QPushButton" name="find_button">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>200</x>
       <y>430</y>
       <width>71</width>
       <height>31</height>
@@ -142,50 +106,19 @@
      </size>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLineEdit" name="find_field">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>200</x>
       <y>400</y>
-      <width>111</width>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>13</pointsize>
+      <pointsize>10</pointsize>
      </font>
-    </property>
-    <property name="text">
-     <string>Код клієнта</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="up_button">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>150</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>13</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset resource="../resources.qrc">
-      <normaloff>:/newPrefix/assets/up_arrow.png</normaloff>:/newPrefix/assets/up_arrow.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>30</width>
-      <height>30</height>
-     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="down_button">
@@ -211,13 +144,13 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>680</x>
+      <x>60</x>
       <y>400</y>
-      <width>91</width>
-      <height>31</height>
+      <width>121</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="font">
@@ -226,7 +159,74 @@
      </font>
     </property>
     <property name="text">
-     <string>Друк</string>
+     <string>Код працівника</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Аналіз працівників</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>661</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="columnCount">
+     <number>0</number>
+    </property>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+   </widget>
+   <widget class="QPushButton" name="exit_button">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>0</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>2</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources.qrc">
+      <normaloff>:/newPrefix/assets/exit.png</normaloff>:/newPrefix/assets/exit.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>25</width>
+      <height>25</height>
+     </size>
     </property>
    </widget>
   </widget>
