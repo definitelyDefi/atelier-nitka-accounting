@@ -3,4 +3,7 @@
 ui_mainwindows.spec
 __pycache__
 check.pdf
+/reports
 clients_report.pdf
+workers_report.pdf
+

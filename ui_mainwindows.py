@@ -707,7 +707,7 @@ class clients_list(QMainWindow):
 
     def edit_func(self):
 
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         self.cams = edit_client()
         self.cams.set_code(code=code)
         self.cams.show()
@@ -723,7 +723,7 @@ class clients_list(QMainWindow):
 
     def delete_func(self):
         # current_row = self.tableWidget.currentRow()
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         conn = sqlite3.connect("atelie.db") 
 
         try:
@@ -1073,7 +1073,7 @@ class workers_list(QMainWindow):
         self.edit_button.clicked.connect(self.edit_func)
     
     def edit_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         self.cams = edit_worker()
         self.cams.set_code(code)
         self.cams.show()
@@ -1098,7 +1098,7 @@ class workers_list(QMainWindow):
 
     def delete_func(self):
         current_row = self.tableWidget.currentRow()
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         conn = sqlite3.connect("atelie.db") 
 
         try:
@@ -2087,7 +2087,7 @@ class materials_list(QMainWindow):
         self.tableWidget.clicked.connect(self.currention_func)
     
     def edit_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         self.cams = edit_material()
         self.cams.set_code(code)
         self.cams.show()
@@ -2111,7 +2111,7 @@ class materials_list(QMainWindow):
 
     def delete_func(self):
         # current_row = self.tableWidget.currentRow()
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         conn = sqlite3.connect("atelie.db") 
 
         try:
@@ -2775,7 +2775,7 @@ class products_list(QMainWindow):
             QMessageBox.information(self, 'Search Results', 'Нічого не знайдено. Спробуйте ще раз')
 
     def delete_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         conn = sqlite3.connect("atelie.db") 
 
         try:
@@ -2847,7 +2847,7 @@ class products_list(QMainWindow):
         # print('data loaded ')     for debugging
 
     def edit_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         self.cams = edit_product(code)
         self.cams.show()
 
@@ -3506,7 +3506,7 @@ class repairs_list(QMainWindow):
         self.edit_button.clicked.connect(self.edit_func)
     
     def edit_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         self.cams = edit_repair(code)
         self.cams.show()
         
@@ -3521,7 +3521,7 @@ class repairs_list(QMainWindow):
 
     def delete_func(self):
         # current_row = self.tableWidget.currentRow()
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         conn = sqlite3.connect("atelie.db") 
 
         try:
@@ -3874,6 +3874,7 @@ class edit_repair(QMainWindow):
         self.submit_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0456\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0438", None))
         self.cancel_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0456\u0434\u043c\u0456\u043d\u0438\u0442\u0438", None))
         self.price_field.setInputMask("")
+    # retranslateUi
     
 # Создание заказа
 class add_offer(QMainWindow):
@@ -4229,58 +4230,64 @@ class offers_list(QMainWindow):
         self.get_check_button.clicked.connect(self.get_check_func)
     
     def get_check_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
-        connection = sqlite3.connect("atelie.db")
-        
-        with connection:
-            cur = connection.cursor()
-            payed = cur.execute('SELECT Оплачено FROM Закази_подр WHERE Код_заказу=?',(code,))
+        try:
+
+            code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
+
+        except AttributeError:
+
+            QMessageBox.information(self, 'Помилка', 'Не вибрано заказ для генерації чеку')
+
+        else:
+            connection = sqlite3.connect("atelie.db")
             
-            payed = payed.fetchall()[0][0]
-        
-        
-
-            if payed == 0:
-                QMessageBox.information(self, 'Search Results', 'Неможливо видати чек по неоплаченому заказу')
-                connection.close()
+            with connection:
+                cur = connection.cursor()
+                payed = cur.execute('SELECT Оплачено FROM Закази_подр WHERE Код_заказу=?',(code,))
                 
+                payed = payed.fetchall()[0][0]
 
-            elif payed == -1:
-                
-                sqlquery = "SELECT Код_заказу, ПІБ, Назва, ПІБ_працівника, strftime('%d/%m/%Y', Дата_початку), strftime('%d/%m/%Y', Дата_закінчення), Ціна, Оплачено FROM Закази_подр WHERE Код_заказу =25"
-                
-                styles = getSampleStyleSheet() 
-                styles['Normal'].fontName='DejaVuSerif'
-                styles['Heading1'].fontName='DejaVuSerif'
-
-                pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
-
-                doc = SimpleDocTemplate('check.pdf',
-                                pagesize = A4,
-                                title='Check',
-                                author='hpfk352')
-
-                story = []  # словарь документа
-                story.append(Paragraph('Квитанція про надання послуг',styles['Normal']))
-                story.append(Paragraph('Ательє "Студія Моди"',styles['Normal']))
-                story.append(Paragraph('',styles["Normal"]))
-                row = cur.execute(sqlquery)
-                row = row.fetchall()[0]
-
-                tblstyle = TableStyle([('FONT', (0, 0), (-1, 1), 'DejaVuSerif', 7),('BOX', (0,0), (-1,-1), 0.25,colors.black)])
-                t = Table(
+                if payed == 0:
+                    QMessageBox.information(self, 'Помилка', 'Неможливо видати чек по неоплаченому заказу')
                     
-                [   ['Код заказу','Клієнт','Продукт','Працівник','Початок','Закінчення','Ціна'],
-                    [str(row[0]), str(row[1]), str(row[2]),str(row[3]),str(row[4]),str(row[5]),str(row[6])],
                     
-                ]
-                )
-                t.setStyle(tblstyle)
-                
-                story.append(t)
-                doc.build(story)
-                os.startfile("check.pdf", "print")
-        connection.close()
+
+                elif payed == -1:
+                    
+                    sqlquery = "SELECT Код_заказу, ПІБ, Назва, ПІБ_працівника, strftime('%d/%m/%Y', Дата_початку), strftime('%d/%m/%Y', Дата_закінчення), Ціна, Оплачено FROM Закази_подр WHERE Код_заказу=?"
+                    
+                    styles = getSampleStyleSheet() 
+                    styles['Normal'].fontName='DejaVuSerif'
+                    styles['Heading1'].fontName='DejaVuSerif'
+
+                    pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
+
+                    doc = SimpleDocTemplate('reports/check.pdf',
+                                    pagesize = A4,
+                                    title='Check',
+                                    author='hpfk352')
+
+                    story = []  # словарь документа
+                    story.append(Paragraph('Квитанція про надання послуг',styles['Normal']))
+                    story.append(Paragraph('Ательє "Студія Моди"',styles['Normal']))
+                    story.append(Paragraph('',styles["Normal"]))
+                    row = cur.execute(sqlquery,(code,))
+                    row = row.fetchall()[0]
+
+                    tblstyle = TableStyle([('FONT', (0, 0), (-1, 1), 'DejaVuSerif', 7),('BOX', (0,0), (-1,-1), 0.25,colors.black)])
+                    t = Table(
+                        
+                    [   ['Код заказу','Клієнт','Продукт','Працівник','Початок','Закінчення','Ціна'],
+                        [str(row[0]), str(row[1]), str(row[2]),str(row[3]),str(row[4]),str(row[5]),str(row[6])+' ₴'],
+                        
+                    ]
+                    )
+                    t.setStyle(tblstyle)
+                    
+                    story.append(t)
+                    doc.build(story)
+                    os.startfile("check.pdf", "print")
+            connection.close()
 
     def to_offers_func(self):
         self.cams = offers()
@@ -4301,7 +4308,7 @@ class offers_list(QMainWindow):
             QMessageBox.information(self, 'Search Results', 'Нічого не знайдено. Спробуйте ще раз')
 
     def delete_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         conn = sqlite3.connect("atelie.db") 
 
         try:
@@ -4376,7 +4383,7 @@ class offers_list(QMainWindow):
         self.tableWidget.selectRow(self.tableWidget.currentRow())
 
     def edit_func(self):
-        code = self.tableWidget.item(self.tableWidget.currentRow(),self.tableWidget.currentColumn()).text()
+        code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
         self.cams = edit_offer(code)
         self.cams.show()
 
@@ -4740,8 +4747,8 @@ class edit_offer(QMainWindow):
         else:
             payed = ''
         
-        date_of_start = self.start_date.selectedDate().toString('dd-MM-yyyy')
-        date_of_end = self.end_date.selectedDate().toString('dd-MM-yyyy')
+        date_of_start = self.start_date.selectedDate().toString('yyyy-MM-dd')
+        date_of_end = self.end_date.selectedDate().toString('yyyy-MM-dd')
         
         if client_code == '' or product_code == '' or worker_code == '' or price == '' or date_of_start == '' or date_of_end == '' or payed == '':
             msg = QMessageBox()
@@ -6276,7 +6283,7 @@ class clients_report(QMainWindow):
             
 
             pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
-            doc = SimpleDocTemplate('clients_report.pdf',
+            doc = SimpleDocTemplate('reports/clients_report.pdf',
                                 pagesize = A4,
                                 title='Check',
                                 author='hpfk352')
@@ -6299,7 +6306,7 @@ class clients_report(QMainWindow):
                 
             story.append(t)
             doc.build(story)
-            os.startfile("clients_report.pdf", "print")
+            os.startfile("reports/clients_report.pdf", "print")
         connection.close()
 
     def to_clients_func(self):
@@ -6541,7 +6548,7 @@ class workers_report(QMainWindow):
             
 
             pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
-            doc = SimpleDocTemplate('workers_report.pdf',
+            doc = SimpleDocTemplate('reports/workers_report.pdf',
                                 pagesize = A4,
                                 title='Check',
                                 author='hpfk352')
