@@ -40,7 +40,7 @@
      <rect>
       <x>610</x>
       <y>370</y>
-      <width>141</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
@@ -281,6 +281,24 @@
     </property>
     <property name="text">
      <string>Видати чек</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="change_paid_status_button">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>410</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Зміна статусу оплати</string>
     </property>
    </widget>
   </widget>

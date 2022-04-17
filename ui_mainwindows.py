@@ -4228,7 +4228,34 @@ class offers_list(QMainWindow):
         self.tableWidget.clicked.connect(self.currention_func)
         self.edit_button.clicked.connect(self.edit_func)
         self.get_check_button.clicked.connect(self.get_check_func)
+        self.change_paid_status_button.clicked.connect(self.change_paid_func)
     
+    def change_paid_func(self):
+        try:
+
+            code = self.tableWidget.item(self.tableWidget.currentRow(),0).text()
+            
+        except AttributeError:
+
+            QMessageBox.information(self, 'Помилка', 'Не вибрано заказ для зміни статусу оплати')
+        else:
+            connection = sqlite3.connect("atelie.db")
+            
+            with connection:
+                cur = connection.cursor()
+                payed = cur.execute('SELECT Оплачено FROM Закази_подр WHERE Код_заказу=?',(code,))
+                payed = payed.fetchall()[0][0]
+
+                if payed == 0:
+                    sqlquery = "UPDATE Закази SET Оплачено=-1 WHERE Код_заказу=?"
+                elif payed == -1:
+                    sqlquery = "UPDATE Закази SET Оплачено=0 WHERE Код_заказу=?"
+                cur.execute(sqlquery,(code,))
+
+            connection.commit()
+            connection.close()
+        self.load_data_func()
+
     def get_check_func(self):
         try:
 
@@ -4262,7 +4289,7 @@ class offers_list(QMainWindow):
 
                     pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
 
-                    doc = SimpleDocTemplate('reports/check.pdf',
+                    doc = SimpleDocTemplate(r'reports\check.pdf',
                                     pagesize = A4,
                                     title='Check',
                                     author='hpfk352')
@@ -4286,7 +4313,7 @@ class offers_list(QMainWindow):
                     
                     story.append(t)
                     doc.build(story)
-                    os.startfile("check.pdf", "print")
+                    os.startfile(r"reports\check.pdf", "print")
             connection.close()
 
     def to_offers_func(self):
@@ -4421,7 +4448,7 @@ class offers_list(QMainWindow):
 
         self.update_button = QPushButton(self.centralwidget)
         self.update_button.setObjectName(u"update_button")
-        self.update_button.setGeometry(QRect(610, 370, 141, 31))
+        self.update_button.setGeometry(QRect(610, 370, 171, 31))
 
         font1 = QFont()
         font1.setPointSize(12)
@@ -4522,6 +4549,11 @@ class offers_list(QMainWindow):
         self.get_check_button.setObjectName(u"get_check_button")
         self.get_check_button.setGeometry(QRect(450, 410, 141, 31))
         self.get_check_button.setFont(font1)
+        
+        self.change_paid_status_button = QPushButton(self.centralwidget)
+        self.change_paid_status_button.setObjectName(u"change_paid_status_button")
+        self.change_paid_status_button.setGeometry(QRect(610, 410, 171, 31))
+        self.change_paid_status_button.setFont(font1)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -4547,6 +4579,7 @@ class offers_list(QMainWindow):
         self.delete_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u0430\u043f\u0438\u0441", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
         self.get_check_button.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0434\u0430\u0442\u0438 \u0447\u0435\u043a", None))
+        self.change_paid_status_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0430 \u0441\u0442\u0430\u0442\u0443\u0441\u0443 \u043e\u043f\u043b\u0430\u0442\u0438", None))
 
 # Меню заказов
 class offers(QMainWindow):
@@ -6171,7 +6204,7 @@ class offers_by_period(QMainWindow):
 
         pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
 
-        doc = SimpleDocTemplate('check.pdf',
+        doc = SimpleDocTemplate(r'reports\check.pdf',
                         pagesize = A4,
                         title='Check',
                         author='hpfk352')
@@ -6195,7 +6228,7 @@ class offers_by_period(QMainWindow):
         
         story.append(t)
         doc.build(story)
-        os.startfile("check.pdf", "print")
+        os.startfile(r"reports\check.pdf", "print")
 
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -6283,7 +6316,7 @@ class clients_report(QMainWindow):
             
 
             pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
-            doc = SimpleDocTemplate('reports/clients_report.pdf',
+            doc = SimpleDocTemplate(r'reports\clients_report.pdf',
                                 pagesize = A4,
                                 title='Check',
                                 author='hpfk352')
@@ -6306,7 +6339,7 @@ class clients_report(QMainWindow):
                 
             story.append(t)
             doc.build(story)
-            os.startfile("reports/clients_report.pdf", "print")
+            os.startfile(r"reports\clients_report.pdf", "print")
         connection.close()
 
     def to_clients_func(self):
@@ -6548,7 +6581,7 @@ class workers_report(QMainWindow):
             
 
             pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
-            doc = SimpleDocTemplate('reports/workers_report.pdf',
+            doc = SimpleDocTemplate(r'reports\workers_report.pdf',
                                 pagesize = A4,
                                 title='Check',
                                 author='hpfk352')
@@ -6576,7 +6609,7 @@ class workers_report(QMainWindow):
                 
             story.append(t)
             doc.build(story)
-            os.startfile("workers_report.pdf", "print")
+            os.startfile(r"reports\workers_report.pdf", "print")
         connection.close()
 
     def to_workers_func(self):
