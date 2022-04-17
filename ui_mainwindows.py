@@ -3026,7 +3026,7 @@ class photo_viewing(QMainWindow):
                 query = '''SELECT Фото_продукту FROM Послуги WHERE Код_продукту=?;'''
                 cur = conn.cursor()
                 
-                row = cur.execute(query, code)
+                row = cur.execute(query, (code,))
                 row = row.fetchall()[0][0]
                 image_profile = QPixmap() #QImage object
                 image_profile.loadFromData(row)
@@ -4288,7 +4288,10 @@ class offers_list(QMainWindow):
                     styles['Heading1'].fontName='DejaVuSerif'
 
                     pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
-
+                    dir = os.getcwd()
+                    dir = os.path.join(dir,'reports')
+                    if not os.path.exists(dir):
+                        os.mkdir(dir)
                     doc = SimpleDocTemplate(r'reports\check.pdf',
                                     pagesize = A4,
                                     title='Check',
@@ -6316,6 +6319,11 @@ class clients_report(QMainWindow):
             
 
             pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
+            dir = os.getcwd()
+            dir = os.path.join(dir,'reports')
+            if not os.path.exists(dir):
+                os.mkdir(dir)
+            
             doc = SimpleDocTemplate(r'reports\clients_report.pdf',
                                 pagesize = A4,
                                 title='Check',
@@ -6581,6 +6589,10 @@ class workers_report(QMainWindow):
             
 
             pdfmetrics.registerFont(TTFont('DejaVuSerif','assets\DejaVuSerif.ttf', 'UTF-8'))
+            dir = os.getcwd()
+            dir = os.path.join(dir,'reports')
+            if not os.path.exists(dir):
+                os.mkdir(dir)
             doc = SimpleDocTemplate(r'reports\workers_report.pdf',
                                 pagesize = A4,
                                 title='Check',
