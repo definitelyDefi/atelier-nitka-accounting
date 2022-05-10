@@ -51,72 +51,127 @@ class start(QMainWindow):
     
     def setupUi(self, MainWindow):
 
-        from PyQt5.QtWinExtras import QtWin                                         #  !!!
-        myappid = 'hptkop.kursova352.bilyi.denys'                          #  !!!
+        from PyQt5.QtWinExtras import QtWin                                         
+        myappid = 'hptkop.kursova352.bilyi.denys'                          
         QtWin.setCurrentProcessExplicitAppUserModelID(myappid)
 
         self.setWindowTitle('Стартове меню')
 
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-
-        MainWindow.resize(857, 625)
+        MainWindow.resize(946, 600)
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
 
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(350, 10, 141, 61))
+        self.to_menu_button = QPushButton(self.centralwidget)
+        self.to_menu_button.setObjectName(u"to_menu_button")
+        self.to_menu_button.setGeometry(QRect(380, 390, 191, 51))
 
         font = QFont()
-        font.setPointSize(24)
+        font.setPointSize(14)
 
-        self.label.setFont(font)
+        self.to_menu_button.setFont(font)
+
+        self.label = QLabel(self.centralwidget)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(400, 530, 151, 31))
+
+        font1 = QFont()
+        font1.setPointSize(18)
+
+        self.label.setFont(font1)
 
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(200, 120, 431, 131))
-
-        font1 = QFont()
-        font1.setPointSize(20)
-        font1.setKerning(True)
-
+        self.label_2.setGeometry(QRect(660, 10, 291, 401))
         self.label_2.setFont(font1)
-        self.label_2.setTextFormat(Qt.AutoText)
-        self.label_2.setScaledContents(False)
-        self.label_2.setAlignment(Qt.AlignCenter)
-        self.label_2.setWordWrap(True)
+        self.label_2.setPixmap(QPixmap(u":/newPrefix/assets/1.png"))
 
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(360, 530, 161, 31))
+        self.label_3.setGeometry(QRect(-60, 20, 291, 401))
+        self.label_3.setFont(font1)
 
-        font2 = QFont()
-        font2.setPointSize(19)
-
-        self.label_3.setFont(font2)
-
-        self.to_menu_button = QPushButton(self.centralwidget)
-        self.to_menu_button.setObjectName(u"to_menu_button")
-        self.to_menu_button.setGeometry(QRect(320, 390, 211, 51))
-
-        font3 = QFont()
-        font3.setPointSize(15)
-        self.to_menu_button.setFont(font3)
+        self.label_3.setPixmap(QPixmap(u":/newPrefix/assets/2.png"))
 
         self.label_4 = QLabel(self.centralwidget)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(-70, 220, 261, 381))
-        self.label_4.setPixmap(QPixmap(u":/newPrefix/assets/1.png"))
+        self.label_4.setGeometry(QRect(250, 30, 451, 31))
+
+        font2 = QFont()
+        font2.setFamily(u"Montserrat SemiBold")
+        font2.setPointSize(15)
+
+        self.label_4.setFont(font2)
 
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(540, 220, 301, 371))
-        self.label_5.setPixmap(QPixmap(u":/newPrefix/assets/2.png"))
+        self.label_5.setGeometry(QRect(210, 60, 531, 51))
+
+        font3 = QFont()
+        font3.setFamily(u"Montserrat SemiBold")
+        font3.setPointSize(12)
+
+        self.label_5.setFont(font3)
+        self.label_5.setAlignment(Qt.AlignCenter)
+        self.label_5.setWordWrap(True)
+
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setGeometry(QRect(170, 80, 571, 51))
+        self.label_6.setFont(font3)
+        self.label_6.setAlignment(Qt.AlignCenter)
+        self.label_6.setWordWrap(True)
+
+        self.label_7 = QLabel(self.centralwidget)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setGeometry(QRect(190, 180, 571, 61))
+
+        font4 = QFont()
+        font4.setPointSize(19)
+
+        self.label_7.setFont(font4)
+        self.label_7.setAlignment(Qt.AlignCenter)
+        self.label_7.setWordWrap(True)
+
+        self.label_8 = QLabel(self.centralwidget)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setGeometry(QRect(780, 410, 111, 31))
+
+        font5 = QFont()
+        font5.setPointSize(15)
+
+        self.label_8.setFont(font5)
+        self.label_8.setAlignment(Qt.AlignCenter)
+        self.label_8.setWordWrap(True)
+
+        self.label_9 = QLabel(self.centralwidget)
+        self.label_9.setObjectName(u"label_9")
+        self.label_9.setGeometry(QRect(730, 450, 201, 31))
+
+        font6 = QFont()
+        font6.setPointSize(11)
+
+        self.label_9.setFont(font6)
+        self.label_9.setAlignment(Qt.AlignCenter)
+        self.label_9.setWordWrap(True)
+
+        self.label_10 = QLabel(self.centralwidget)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setGeometry(QRect(780, 490, 111, 31))
+        self.label_10.setFont(font5)
+        self.label_10.setAlignment(Qt.AlignCenter)
+        self.label_10.setWordWrap(True)
+
+        self.label_11 = QLabel(self.centralwidget)
+        self.label_11.setObjectName(u"label_11")
+        self.label_11.setGeometry(QRect(740, 520, 201, 31))
+        self.label_11.setFont(font6)
+        self.label_11.setAlignment(Qt.AlignCenter)
+        self.label_11.setWordWrap(True)
 
         MainWindow.setCentralWidget(self.centralwidget)
-
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -124,17 +179,23 @@ class start(QMainWindow):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
-    
+    # setupUi
+
     def retranslateUi(self, MainWindow):
         
-        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0425\u041f\u0424\u041a \u041e\u041f", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043b\u0456\u043a \u0437\u0430\u043c\u043e\u0432\u043b\u0435\u043d\u044c \u0430\u0442\u0435\u043b\u044c\u0454 \u0437 \u043f\u043e\u0448\u0438\u0442\u0442\u044f \u0442\u0430 \u0440\u0435\u043c\u043e\u043d\u0442\u0443 \u043e\u0434\u044f\u0433\u0443", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0425\u0435\u0440\u0441\u043e\u043d 2022", None))
-
         self.to_menu_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u0434\u043e \u043c\u0435\u043d\u044e", None))
-
-        self.label_4.setText("")
-        self.label_5.setText("")
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u0425\u0435\u0440\u0441\u043e\u043d 2022", None))
+        self.label_2.setText("")
+        self.label_3.setText("")
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0406\u041d\u0406\u0421\u0422\u0415\u0420\u0421\u0422\u0412\u041e \u041e\u0421\u0412\u0406\u0422\u0418 \u0406 \u041d\u0410\u0423\u041a\u0418 \u0423\u041a\u0420\u0410\u0407\u041d\u0418", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0414\u0415\u0421\u042c\u041a\u0418\u0419 \u041d\u0410\u0426\u0406\u041e\u041d\u0410\u041b\u042c\u041d\u0418\u0419 \u041f\u041e\u041b\u0406\u0422\u0415\u0425\u041d\u0406\u0427\u041d\u0418\u0419  \u0423\u041d\u0406\u0412\u0415\u0420\u0421\u0418\u0422\u0415\u0422", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0425\u0415\u0420\u0421\u041e\u041d\u0421\u042c\u041a\u0418\u0419 \u041f\u041e\u041b\u0406\u0422\u0415\u0425\u041d\u0406\u0427\u041d\u0418\u0419 \u0424\u0410\u0425\u041e\u0412\u0418\u0419 \u041a\u041e\u041b\u0415\u0414\u0416", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043d\u0438\u0439 \u0434\u043e\u0434\u0430\u0442\u043e\u043a \"\u041e\u0431\u043b\u0456\u043a \u043f\u043e\u0441\u043b\u0443\u0433 \u043d\u0430 \u043f\u0456\u0434\u043f\u0440\u0438\u0454\u043c\u0441\u0442\u0432\u0456 \u0437 \u0440\u0435\u043c\u043e\u043d\u0442\u0443 \u0442\u0430 \u043f\u043e\u0448\u0438\u0442\u0442\u044f \u043e\u0434\u044f\u0433\u0443\"", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u0420\u043e\u0437\u0440\u043e\u0431\u0438\u0432", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u0441\u0442\u0443\u0434\u0435\u043d\u0442 352 \u0433\u0440\u0443\u043f\u0438 \u0411\u0456\u043b\u0438\u0439 \u0414.\u041e", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u041a\u0435\u0440\u0456\u0432\u043d\u0438\u043a", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"\u0411\u0430\u0433\u043c\u0435\u0442 \u0422.\u0404", None))
+    # retranslateUi
 
 # Главное меню
 class main_menu(QMainWindow):
