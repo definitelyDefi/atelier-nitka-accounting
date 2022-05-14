@@ -1391,7 +1391,13 @@ class add_workers(QMainWindow):
         conn = sqlite3.connect("atelie.db") 
         name = self.name_field.text()
         stazh = self.stazh_field.text()
-        sex = self.sex_field.text()
+
+        if self.male_rb.isChecked():
+            sex = 'м'
+
+        elif self.female_rb.isChecked():
+            sex = 'ж'
+
         salary = self.salary_field.text()
         phone = self.phone_field.text()
 
@@ -1407,7 +1413,6 @@ class add_workers(QMainWindow):
                 self.name_field.clear()
                 self.phone_field.clear()
                 self.stazh_field.clear()
-                self.sex_field.clear()
                 self.salary_field.clear()
 
                 msg = QMessageBox()
@@ -1433,6 +1438,7 @@ class add_workers(QMainWindow):
         conn.close()
 
     def setupUi(self, MainWindow):
+
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(572, 456)
@@ -1451,12 +1457,12 @@ class add_workers(QMainWindow):
 
         self.name_field = QLineEdit(self.centralwidget)
         self.name_field.setObjectName(u"name_field")
-        self.name_field.setGeometry(QRect(230, 100, 261, 41))
+        self.name_field.setGeometry(QRect(230, 110, 261, 31))
         self.name_field.setFont(font)
 
         self.submit_button = QPushButton(self.centralwidget)
         self.submit_button.setObjectName(u"submit_button")
-        self.submit_button.setGeometry(QRect(390, 380, 101, 31))
+        self.submit_button.setGeometry(QRect(390, 400, 101, 31))
 
         font1 = QFont()
         font1.setPointSize(11)
@@ -1464,7 +1470,7 @@ class add_workers(QMainWindow):
         self.submit_button.setFont(font1)
 
         self.back_button = QPushButton(self.centralwidget)
-        self.back_button.setObjectName(u"back")
+        self.back_button.setObjectName(u"back_button")
         self.back_button.setGeometry(QRect(0, 0, 41, 31))
 
         font2 = QFont()
@@ -1480,11 +1486,11 @@ class add_workers(QMainWindow):
 
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(10, 110, 191, 31))
+        self.label.setGeometry(QRect(20, 110, 191, 31))
         self.label.setFont(font1)
 
         self.exit_button = QPushButton(self.centralwidget)
-        self.exit_button.setObjectName(u"exit")
+        self.exit_button.setObjectName(u"exit_button")
         self.exit_button.setGeometry(QRect(530, 0, 41, 31))
         self.exit_button.setFont(font2)
 
@@ -1496,12 +1502,14 @@ class add_workers(QMainWindow):
 
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(10, 160, 191, 31))
+        self.label_2.setGeometry(QRect(30, 160, 171, 41))
         self.label_2.setFont(font1)
+        self.label_2.setAlignment(Qt.AlignCenter)
+        self.label_2.setWordWrap(True)
 
         self.label_4 = QLabel(self.centralwidget)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setGeometry(QRect(210, 10, 201, 41))
+        self.label_4.setGeometry(QRect(190, 30, 201, 41))
 
         font3 = QFont()
         font3.setPointSize(16)
@@ -1510,35 +1518,49 @@ class add_workers(QMainWindow):
 
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(10, 210, 201, 31))
+        self.label_3.setGeometry(QRect(10, 210, 201, 41))
         self.label_3.setFont(font1)
+        self.label_3.setAlignment(Qt.AlignCenter)
+        self.label_3.setWordWrap(True)
 
         self.phone_field = QLineEdit(self.centralwidget)
         self.phone_field.setObjectName(u"phone_field")
-        self.phone_field.setGeometry(QRect(230, 210, 261, 31))
+        self.phone_field.setGeometry(QRect(230, 220, 261, 31))
         self.phone_field.setFont(font)
 
         self.label_5 = QLabel(self.centralwidget)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(10, 260, 201, 31))
+        self.label_5.setGeometry(QRect(10, 280, 201, 31))
         self.label_5.setFont(font1)
-
-        self.sex_field = QLineEdit(self.centralwidget)
-        self.sex_field.setObjectName(u"sex_field")
-        self.sex_field.setGeometry(QRect(230, 260, 261, 31))
-        self.sex_field.setFont(font)
 
         self.label_6 = QLabel(self.centralwidget)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(10, 320, 201, 31))
+        self.label_6.setGeometry(QRect(10, 340, 201, 41))
         self.label_6.setFont(font1)
+        self.label_6.setAlignment(Qt.AlignCenter)
+        self.label_6.setWordWrap(True)
 
         self.salary_field = QLineEdit(self.centralwidget)
         self.salary_field.setObjectName(u"salary_field")
-        self.salary_field.setGeometry(QRect(230, 320, 261, 31))
+        self.salary_field.setGeometry(QRect(230, 340, 261, 31))
         self.salary_field.setFont(font)
 
+        self.groupBox = QGroupBox(self.centralwidget)
+        self.groupBox.setObjectName(u"groupBox")
+        self.groupBox.setGeometry(QRect(230, 270, 261, 51))
+
+        self.female_rb = QRadioButton(self.groupBox)
+        self.female_rb.setObjectName(u"female_rb")
+        self.female_rb.setGeometry(QRect(10, 20, 81, 21))
+        self.female_rb.setFont(font1)
+
+        self.male_rb = QRadioButton(self.groupBox)
+        self.male_rb.setObjectName(u"male_rb")
+        self.male_rb.setGeometry(QRect(130, 20, 91, 21))
+        self.male_rb.setFont(font1)
+
         MainWindow.setCentralWidget(self.centralwidget)
+        
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -1554,11 +1576,15 @@ class add_workers(QMainWindow):
         self.back_button.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u041f\u0406\u0411 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
         self.exit_button.setText("")
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0441\u0442\u0430\u0436 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0441\u0442\u0430\u0436 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430 (\u0443 \u0440\u043e\u043a\u0430\u0445)", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0414\u043e\u0434\u0430\u0442\u0438 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0442\u0435\u043b\u0435\u0444\u043e\u043d \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0441\u0442\u0430\u0442\u044c \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0437\u0430\u0440\u043f\u043b\u0430\u0442\u0443 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0442\u0435\u043b\u0435\u0444\u043e\u043d \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430 (\u0443 \u0444\u043e\u0440\u043c\u0430\u0442\u0456 123-456)", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0438\u0431\u0435\u0440\u0456\u0442\u044c \u0441\u0442\u0430\u0442\u044c \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0412\u0432\u0435\u0434\u0456\u0442\u044c \u0437\u0430\u0440\u043f\u043b\u0430\u0442\u0443 \u043f\u0440\u0430\u0446\u0456\u0432\u043d\u0438\u043a\u0430 (\u0433\u0440\u043d)", None))
+        self.groupBox.setTitle("")
+        self.female_rb.setText(QCoreApplication.translate("MainWindow", u"\u0416\u0456\u043d\u043e\u0447\u0430", None))
+        self.male_rb.setText(QCoreApplication.translate("MainWindow", u"\u0427\u043e\u043b\u043e\u0432\u0456\u0447\u0430", None))
+    # retranslateUi
     
 # Редактировать работника
 class edit_worker(QMainWindow):
@@ -3746,7 +3772,7 @@ class repairs_list(QMainWindow):
         self.tableWidget.setColumnWidth(0,80)
         self.tableWidget.setColumnWidth(1,319)
         self.tableWidget.setColumnWidth(2,270)
-        self.tableWidget.setHorizontalHeaderLabels(["Код_продукту","Назва","Вартість"])
+        self.tableWidget.setHorizontalHeaderLabels(["Код_послуги","Назва","Вартість"])
         self.tableWidget.verticalHeader().setVisible(False)
         self.load_data_func()
 
@@ -3795,7 +3821,7 @@ class repairs_list(QMainWindow):
         self.up_button.setText("")
         self.edit_button.setText(QCoreApplication.translate("MainWindow", u"\u0417\u043c\u0456\u043d\u0438\u0442\u0438", None))
         self.update_button.setText(QCoreApplication.translate("MainWindow", u"\u041e\u043d\u043e\u0432\u0438\u0442\u0438 \u0442\u0430\u0431\u043b\u0438\u0446\u044e", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0443", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Код послуги", None))
         self.down_button.setText("")
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
     
