@@ -5986,8 +5986,10 @@ class select_period(QMainWindow):
 
     def to_offers_by_period_func(self):
         first_date = self.first_date.selectedDate().toString('yyyy-MM-dd')
-        second_date = self.second_date.selectedDate().toString('yyy-MM-dd')
-        self.cams = offers_by_period(first_date, second_date)
+        second_date = self.second_date.selectedDate().toString('yyyy-MM-dd')
+        
+        
+        self.cams = offers_by_period(first_date,second_date)
         self.cams.show()
         self.close()
 
@@ -6079,6 +6081,7 @@ class offers_by_period(QMainWindow):
         self.down_button.clicked.connect(self.next_item_func)
         self.find_button.clicked.connect(self.search_func)
         self.tableWidget.clicked.connect(self.currention_func)
+        self.print_button.clicked.connect(self.print_func)
 
     def to_offers_func(self):
         self.cams = offers()
@@ -6163,6 +6166,14 @@ class offers_by_period(QMainWindow):
 
         icon = QIcon()
         icon.addFile(u":/newPrefix/assets/up_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        
+
+        self.print_button = QPushButton(self.centralwidget)
+        self.print_button.setObjectName(u"print_button")
+        self.print_button.setGeometry(QRect(260, 320, 171, 21))
+        self.textEdit = QTextEdit(self.centralwidget)
+        self.textEdit.setObjectName(u"textEdit")
+        self.textEdit.setGeometry(QRect(260, 200, 171, 71))
 
         self.up_button.setIcon(icon)
         self.up_button.setIconSize(QSize(30, 30))
@@ -6273,14 +6284,8 @@ class offers_by_period(QMainWindow):
         self.find_field.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u041a\u043e\u0434 \u0437\u0430\u043a\u0430\u0437\u0443", None))
         self.find_button.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0448\u0443\u043a", None))
-    
-
-
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-
-        self.print_button.clicked.connect(self.print_func)
+        
+        self.print_button.setText(QCoreApplication.translate("MainWindow", u"Print", None))
         
 
     def print_func(self):
@@ -6320,31 +6325,7 @@ class offers_by_period(QMainWindow):
         doc.build(story)
         os.startfile(r"reports\check.pdf", "print")
 
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(711, 474)
-        self.centralwidget = QWidget(MainWindow)
-        self.centralwidget.setObjectName(u"centralwidget")
-        self.print_button = QPushButton(self.centralwidget)
-        self.print_button.setObjectName(u"print_button")
-        self.print_button.setGeometry(QRect(260, 320, 171, 21))
-        self.textEdit = QTextEdit(self.centralwidget)
-        self.textEdit.setObjectName(u"textEdit")
-        self.textEdit.setGeometry(QRect(260, 200, 171, 71))
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
-
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.print_button.setText(QCoreApplication.translate("MainWindow", u"Print", None))
+        
     
 # Отчет по клиентам
 class clients_report(QMainWindow):
